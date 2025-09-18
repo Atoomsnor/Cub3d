@@ -6,10 +6,18 @@
 #    By: roversch <roversch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/18 12:38:51 by roversch          #+#    #+#              #
-#    Updated: 2025/09/18 12:40:37 by roversch         ###   ########.fr        #
+#    Updated: 2025/09/18 13:28:44 by roversch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+read a map?
+get a texture?
+
+1 Find raycasting math? no MLX   
+2 Start a loop, with MLX
+3 Have a bunch of checks for valid map (like so_long)
+
+https://lodev.org/cgtutor/raycasting.html
 - Plan to do bonus
 
 Rowan

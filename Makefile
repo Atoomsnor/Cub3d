@@ -10,17 +10,26 @@ OBJ_DIR		= obj
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+INCLUDE     = -I ./include -I libft/ -I MLX42/include
 
 LIBFT_DIR = libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
-all: $(NAME)
+MLX_LIB	= MLX42/build/libmlx42.a -ldl -lglfw -lm
 
-$(NAME): $(LIBFT_LIB) $(OBJ)
-	$(CC) $(OBJ) -L. $(LIBFT_LIB) $(CFLAGS) -o $(NAME)
+all: MLX42_BUILD $(NAME)
+
+$(NAME): $(LIBFT_LIB) $(OBJ) MLX42
+	$(CC) $(OBJ) -L. $(LIBFT_LIB) $(MLX_LIB) $(CFLAGS) -o $(NAME)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
+
+MLX42_BUILD:
+	@cd MLX42 && cmake -B build && cmake --build build -j4
+
+MLX42_CLEAN:
+	@cd MLX42 && cmake --build build --target clean
 
 $(LIBFT_LIB):
 	$(MAKE) -C $(LIBFT_DIR)
@@ -28,7 +37,7 @@ $(LIBFT_LIB):
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) -c $(CFLAGS) $< -o $@
 
-clean:
+clean: MLX42_CLEAN
 	rm -rf $(OBJ_DIR)
 	$(MAKE) -C $(LIBFT_DIR) clean
 
