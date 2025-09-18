@@ -1,0 +1,35 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Todolist.txt                                       :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: roversch <roversch@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/09/18 12:38:51 by roversch          #+#    #+#              #
+#    Updated: 2025/09/18 12:40:37 by roversch         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+- Plan to do bonus
+
+Rowan
+Makeifle bs /dependencies
+add MLX42 as submodule and find the recursive gitpull cmnd
+
+Nils
+Yer
+
+git checkout nils
+git add .
+git commit -m "your changes"
+git push originnils
+
+merging into main 
+
+git checkout main
+git pull origin main 
+git merge nils
+git push origin main
+
+warning: If both of you need to merge, pull main first before merging,
+to avoid overwriting each other’s work.
