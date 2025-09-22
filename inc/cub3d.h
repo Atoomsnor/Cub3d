@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/09/22 14:37:41 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/09/22 15:23:46 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ typedef struct s_game
 {
 	mlx_t		*mlx;
 	t_player	player[1];
-	mlx_image_t	*img;
+	mlx_image_t	*img_bounce;
+	mlx_image_t *img_wall;
 } t_game;
+
+void testfunc(void *ptr);
+void test_keyhook(mlx_key_data_t keydata, void *param);
 
 #endif
