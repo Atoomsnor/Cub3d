@@ -6,12 +6,15 @@
 /*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/09/18 12:38:09 by roversch         ###   ########.fr       */
+/*   Updated: 2025/09/22 11:14:39 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
+# include "libft.h"
+# include "MLX42.h"
 
 
 

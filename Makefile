@@ -6,7 +6,7 @@
 #    By: roversch <roversch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/18 15:46:40 by roversch          #+#    #+#              #
-#    Updated: 2025/09/18 15:57:20 by roversch         ###   ########.fr        #
+#    Updated: 2025/09/22 11:44:47 by roversch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME		= cub3D
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
 DEPFLAGS	= -MMD
-INCLUDES	= -I ./include -I libft/ -I MLX42/include
+INCLUDES	= -I ./inc -I libft/ -I MLX42/include/MLX42
 
 #cub3D
 SRC_DIR		= src
@@ -29,13 +29,14 @@ LIBFT_DIR	= libft
 LIBFT_LIB	= $(LIBFT_DIR)/libft.a
 
 #MLX42
-MLX42_LIB	= MLX42/build/libmlx42.a
+MLX42_DIR   = MLX42
+MLX42_LIB   = $(MLX42_DIR)/build/libmlx42.a
 MLX_LIBS	= $(MLX42_LIB) -ldl -lglfw -lm
 
 #Targets
 all: $(NAME)
 
-$(NAME): $(LIBFT_LIB) $(OBJ) $(MLX42_LIB) Makefile
+$(NAME): $(OBJ) libft libmlx Makefile
 	$(CC) $(OBJ) -L. $(LIBFT_LIB) $(MLX_LIBS) $(CFLAGS) -o $(NAME)
 
 #Object directory
@@ -47,12 +48,13 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c Makefile | $(OBJ_DIR)
 	$(CC) -c $(CFLAGS) $(DEPFLAGS) $(INCLUDES) $< -o $@
 
 #Libft objects
-$(LIBFT_LIB):
+
+libft:
 	$(MAKE) -C $(LIBFT_DIR)
 
 #MLX42 objects
-$(MLX42_LIB):
-	@cd MLX42 && cmake -B build && cmake --build build -j4
+libmlx:
+	@cd $(MLX42_DIR) && cmake -B build && cmake --build build -j4
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
@@ -64,6 +66,6 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re libft libmlx
 
 -include $(OBJ:.o=.d)
