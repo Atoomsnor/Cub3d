@@ -3,4 +3,4 @@
 	url = https://github.com/codam-coding-college/MLX42.git
 [submodule "libft"]
 	path = libft
-	url = git@github.com:Atoomsnor/libft.git
+	url = https://github.com/Atoomsnor/libft.git
