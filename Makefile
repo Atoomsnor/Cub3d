@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: roversch <roversch@student.42.fr>          +#+  +:+       +#+         #
+#    By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/18 15:46:40 by roversch          #+#    #+#              #
-#    Updated: 2025/09/22 15:14:00 by roversch         ###   ########.fr        #
+#    Updated: 2025/09/23 14:03:04 by nhendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ INCLUDES	= -I ./inc -I libft/ -I MLX42/include/MLX42
 
 #cub3D
 SRC_DIR		= src
-SRC			= main.c move.c
+SRC			= main.c move.c raycasting.c
 
 OBJ_DIR		= obj
 OBJ			= $(SRC:%.c=$(OBJ_DIR)/%.o)
