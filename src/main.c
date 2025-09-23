@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:36:29 by roversch          #+#    #+#             */
-/*   Updated: 2025/09/23 18:26:25 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/09/23 18:51:50 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,14 @@ int	main(void)
 	game->player = init_player(2, 5, 1, 0);
 	printf("%f\n", game->player->pos.x);
 	game->mlx = mlx_init(900, 600, "CUB3D", false);
-	game->img_wall = mlx_new_image(game->mlx, 10, 10);
-	ft_memset(game->img_wall->pixels, 200, game->img_wall->width * game->img_wall->height * sizeof(int32_t));
+
+	mlx_texture_t *wall = mlx_load_png("./img/Wallgrey1.png");
+	// game->img_wall = mlx_load_png("./img/Wallgrey1.png");
+	game->img_wall = mlx_texture_to_image(game->mlx, wall);
+	mlx_delete_texture(wall);
+	// game->img_wall = mlx_new_image(game->mlx, 10, 10);
+	// ft_memset(game->img_wall->pixels, 200, game->img_wall->width * game->img_wall->height * sizeof(int32_t));
+	
 	mlx_image_to_window(game->mlx, game->img_wall, 440, 290);
 	mlx_key_hook(game->mlx, &test_keyhook, game);
 	mlx_loop(game->mlx);
