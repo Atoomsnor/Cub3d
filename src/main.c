@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:36:29 by roversch          #+#    #+#             */
-/*   Updated: 2025/09/23 18:51:50 by roversch         ###   ########.fr       */
+/*   Updated: 2025/10/06 13:36:31 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,20 @@ t_player *init_player(double pos_x, double pos_y, double dir_x, double dir_y)
 	return (player);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_game		game[1];
-	game->player = init_player(2, 5, 1, 0);
-	printf("%f\n", game->player->pos.x);
-	game->mlx = mlx_init(900, 600, "CUB3D", false);
 
-	mlx_texture_t *wall = mlx_load_png("./img/Wallgrey1.png");
-	// game->img_wall = mlx_load_png("./img/Wallgrey1.png");
-	game->img_wall = mlx_texture_to_image(game->mlx, wall);
-	mlx_delete_texture(wall);
-	// game->img_wall = mlx_new_image(game->mlx, 10, 10);
-	// ft_memset(game->img_wall->pixels, 200, game->img_wall->width * game->img_wall->height * sizeof(int32_t));
-	
+	if (argc != 2)
+		return (1);
+	game->player = init_player(2, 5, 1, 0);
+	game->width = 900;
+	game->height = 600;
+	printf("%f\n", game->player->pos.x);
+	game->world_map = read_map(argv[1]);
+	game->mlx = mlx_init(900, 600, "CUB3D", false);
+	game->wall_texture = mlx_load_png("./img/Wallgrey1.png");
+	game->img_wall = mlx_texture_to_image(game->mlx, game->wall_texture);
 	mlx_image_to_window(game->mlx, game->img_wall, 440, 290);
 	mlx_key_hook(game->mlx, &test_keyhook, game);
 	mlx_loop(game->mlx);

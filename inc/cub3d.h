@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/09/23 15:05:02 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/06 13:19:28 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,19 @@ typedef struct s_ray
 
 typedef struct s_game
 {
-	mlx_t		*mlx;
-	t_player	*player;
-	mlx_image_t	*img_bounce;
-	mlx_image_t *img_wall;
-	int			width;
-	int			height;
-	int			**world_map;
+	mlx_t			*mlx;
+	t_player		*player;
+	mlx_image_t		*img_bounce;
+	mlx_image_t		*img_wall;
+	mlx_texture_t	*wall_texture;
+	int				width;
+	int				height;
+	int				**world_map;
 } t_game;
 
 void	testfunc(void *ptr);
 void	test_keyhook(mlx_key_data_t keydata, void *param);
 void	raycast(t_game *game);
+int		**read_map(char *file_name);
 
 #endif

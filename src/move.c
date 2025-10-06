@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/09/23 18:36:41 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/06 13:40:47 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,22 @@ void calculate_pos_s(t_game *game, double wall_y, double speed)
 
 void move_up(t_game *game, double speed)
 {
-	game->player->pos.y += speed;
-	raycast(game);
+	if (game->world_map[(int)game->player->pos.x][(int)(game->player->pos.y + speed)] == 0)
+	{
+		game->player->pos.y += speed;
+		raycast(game);
+	}
+	printf("here %f\n", game->player->pos.y);
 }
 
 void move_down(t_game *game, double speed)
 {
-	game->player->pos.y -= speed;
-	raycast(game);
+	if (game->world_map[(int)game->player->pos.x][(int)(game->player->pos.y - speed)] == 0)
+	{
+		game->player->pos.y -= speed;
+		raycast(game);
+	}
+	printf("here %f\n", game->player->pos.y);
 }
 
 void test_keyhook(mlx_key_data_t keydata, void *param)
