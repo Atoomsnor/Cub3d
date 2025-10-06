@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 12:53:25 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/06 13:32:32 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/06 16:15:30 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int	count_lines(char *file_name)
 	return (i);
 }
 
-int		**read_map(char *file_name)
+t_map	**read_map(char *file_name)
 {
-	int		**map;
+	t_map	**map;
 	int		fd;
 	int		line_count;
 	int		i;
@@ -54,16 +54,18 @@ int		**read_map(char *file_name)
 	line_count = count_lines(file_name);
 	fd = open(file_name, O_RDONLY);
 	i = 0;
-	map = ft_calloc(line_count, sizeof(int *));
+	map = ft_calloc(line_count, sizeof(struct s_map *));
 	while (i < line_count)
 	{
 		char *tmp = get_next_line(fd);
-		map[i] = ft_calloc(ft_strlen(tmp), sizeof(int));
+		map[i] = ft_calloc(ft_strlen(tmp), sizeof(struct s_map));
 		int	j = 0;
 		while (tmp[j] && tmp[j] >= '0' && tmp[j] <= '9')
 		{
-			map[i][j] = tmp[j] - '0';
-			printf("%i", map[i][j]);
+			map[i][j].content = tmp[j] - '0';
+			map[i][j].hit = false;
+			map[i][j].hit_dist = 0;
+			printf("%i", map[i][j].content);
 			j++;
 		}
 		printf("\n");

@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/06 13:40:47 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/06 16:18:35 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ void calculate_pos_s(t_game *game, double wall_y, double speed)
 	if (diff > 0)
 	{
 		game->player->pos.y -= speed;
-		int width = 900 / diff;
-		int height = 600 / diff;
+		double width = 900 / diff;
+		double height = 600 / diff;
 		game->img_wall->instances->x = 900 / 2 - width / 2;
 		game->img_wall->instances->y = 600 / 2 - height / 2;
 		mlx_resize_image(game->img_wall, width, height);
@@ -72,22 +72,23 @@ void calculate_pos_s(t_game *game, double wall_y, double speed)
 
 void move_up(t_game *game, double speed)
 {
-	if (game->world_map[(int)game->player->pos.x][(int)(game->player->pos.y + speed)] == 0)
+	printf("posx: %f posx+speed: %f\n", game->player->pos.x, game->player->pos.x + speed);
+	if (game->world_map[(int)(game->player->pos.y)][(int)(game->player->pos.x + speed)].content == 0)
 	{
-		game->player->pos.y += speed;
+		game->player->pos.x += speed;
 		raycast(game);
 	}
-	printf("here %f\n", game->player->pos.y);
+	printf("here %f\n", game->player->pos.x);
 }
 
 void move_down(t_game *game, double speed)
 {
-	if (game->world_map[(int)game->player->pos.x][(int)(game->player->pos.y - speed)] == 0)
+	if (game->world_map[(int)(game->player->pos.y)][(int)(game->player->pos.x - speed)].content == 0)
 	{
-		game->player->pos.y -= speed;
+		game->player->pos.x -= speed;
 		raycast(game);
 	}
-	printf("here %f\n", game->player->pos.y);
+	printf("here %f\n", game->player->pos.x);
 }
 
 void test_keyhook(mlx_key_data_t keydata, void *param)
@@ -99,7 +100,7 @@ void test_keyhook(mlx_key_data_t keydata, void *param)
 	game = param;
 	if (keydata.action == MLX_PRESS)
 	{
-		double speed = 1.0f;
+		double speed = 0.25f;
 		if (keydata.key == MLX_KEY_ESCAPE)
 			mlx_close_window(game->mlx);
 		else if (keydata.key == MLX_KEY_W)

@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:29:00 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/06 14:17:44 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/06 16:23:23 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void move_map(t_ray ray, t_game *game)
 	printf("diff: %f\n", diff);
 	if (diff > 0)
 	{
-		int width = 600 / diff;
-		int height = 600 / diff;
+		double width = 600 / diff;
+		double height = 600 / diff;
 		double x = 900 / 2 - width / 2;
 		double y = 600 / 2 - height / 2;
 		mlx_delete_image(game->mlx, game->img_wall);
@@ -37,8 +37,8 @@ void cast_ray(t_ray ray, t_player *player, t_game *game)
 	t_vector	dir;
 	int			side;
 
-	ray.map.x = player->pos.x;
-	ray.map.y = player->pos.y;
+	ray.map.x = (int)player->pos.x;
+	ray.map.y = (int)player->pos.y;
 	// distance per step
 	ray.delta_dist.x = fabs(1 / ray.dir.x);
 	ray.delta_dist.y = fabs(1 / ray.dir.y);
@@ -76,18 +76,23 @@ void cast_ray(t_ray ray, t_player *player, t_game *game)
 			ray.map.y += dir.y;
 			side = 1;
 		}
-		if (game->world_map[(int)ray.map.y][(int)ray.map.x] > 0)
+		if (game->world_map[(int)ray.map.y][(int)ray.map.x].content > 0)
 			ray.hit = true;
 	}
 	if (!side)
 		ray.hit_dist = (ray.map.x - player->pos.x + (1 - dir.x) / 2) / ray.dir.x;
 	else
 		ray.hit_dist = (ray.map.y - player->pos.y + (1 - dir.y) / 2) / ray.dir.y;
-	printf("raydirx: %f\n", ray.dir.x);
-	move_map(ray, game);
+	printf("ray hit distance: %f = (%f - %f + (1 - %f) / 2) / %f\n", ray.hit_dist, ray.map.x, player->pos.x, dir.x, ray.dir.x);
+	if (!game->world_map[(int)ray.map.y][(int)ray.map.x].hit)
+	{
+		move_map(ray, game);
+		game->world_map[(int)ray.map.y][(int)ray.map.x].hit = true;
+	}
 }
 
 // struct map;
+// map -> int var;
 // map -> int x  int y
 // map -> bool hit
 // map -> double hit_dist
@@ -105,8 +110,8 @@ void raycast(t_game *game)
 	while (x < game->width)
 	{
 		camera.x = 2 * x / (double)game->width - 1;
-		ray.dir.x = player->dir.x * camera.x;
-		ray.dir.y = player->dir.y + 0.66 * camera.x;
+		ray.dir.x = player->dir.x + player->plane.x * camera.x;
+		ray.dir.y = player->dir.y + player->plane.y * camera.x;
 		ray.hit = false;
 		cast_ray(ray, player, game);
 		x++;

@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/06 13:19:28 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/06 16:13:38 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_player
 {
 	t_vector	pos;
 	t_vector	dir;
+	t_vector	plane;
 } t_player;
 
 typedef struct s_ray
@@ -39,6 +40,20 @@ typedef struct s_ray
 	bool		hit;
 } t_ray;
 
+// struct map;
+// map -> int var;
+// map -> int x  int y
+// map -> bool hit
+// map -> double hit_dist
+// map->hist_dist > ray.hist_dist: map->hist_dist = ray.hit_dist;
+
+typedef struct s_map
+{
+	bool		hit;
+	int			content;
+	double		hit_dist;
+} t_map;
+
 typedef struct s_game
 {
 	mlx_t			*mlx;
@@ -46,14 +61,14 @@ typedef struct s_game
 	mlx_image_t		*img_bounce;
 	mlx_image_t		*img_wall;
 	mlx_texture_t	*wall_texture;
+	t_map			**world_map;
 	int				width;
 	int				height;
-	int				**world_map;
 } t_game;
 
 void	testfunc(void *ptr);
 void	test_keyhook(mlx_key_data_t keydata, void *param);
 void	raycast(t_game *game);
-int		**read_map(char *file_name);
+t_map	**read_map(char *file_name);
 
 #endif
