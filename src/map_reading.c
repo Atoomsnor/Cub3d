@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 12:53:25 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/06 16:15:30 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/06 17:31:43 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_map	**read_map(char *file_name)
 			j++;
 		}
 		printf("\n");
+		free_and_null(tmp);
 		i++;
 	}
 	close(fd);

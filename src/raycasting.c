@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:29:00 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/06 16:23:23 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/06 18:16:43 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void move_map(t_ray ray, t_game *game)
 	{
 		double width = 600 / diff;
 		double height = 600 / diff;
-		double x = 900 / 2 - width / 2;
+		double x = 900 / 2 - width / 2 - (ray.dir.x - 1) * 300;
 		double y = 600 / 2 - height / 2;
 		mlx_delete_image(game->mlx, game->img_wall);
 		game->img_wall = mlx_texture_to_image(game->mlx, game->wall_texture);
@@ -83,12 +83,15 @@ void cast_ray(t_ray ray, t_player *player, t_game *game)
 		ray.hit_dist = (ray.map.x - player->pos.x + (1 - dir.x) / 2) / ray.dir.x;
 	else
 		ray.hit_dist = (ray.map.y - player->pos.y + (1 - dir.y) / 2) / ray.dir.y;
-	printf("ray hit distance: %f = (%f - %f + (1 - %f) / 2) / %f\n", ray.hit_dist, ray.map.x, player->pos.x, dir.x, ray.dir.x);
+	// printf("ray hit distance: %f = (%f - %f + (1 - %f) / 2) / %f\n", ray.hit_dist, ray.map.x, player->pos.x, dir.x, ray.dir.x);
 	if (!game->world_map[(int)ray.map.y][(int)ray.map.x].hit)
 	{
+		printf("X %f Y %f\n", ray.map.x, ray.map.y);
 		move_map(ray, game);
-		game->world_map[(int)ray.map.y][(int)ray.map.x].hit = true;
+		// game->world_map[(int)ray.map.y][(int)ray.map.x].hit = true;
 	}
+	else
+		printf("dummy\n");
 }
 
 // struct map;
@@ -97,6 +100,26 @@ void cast_ray(t_ray ray, t_player *player, t_game *game)
 // map -> bool hit
 // map -> double hit_dist
 // map->hist_dist > ray.hist_dist: map->hist_dist = ray.hit_dist;
+
+void reset_map(t_map **map, int len)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (map[i])
+	{
+		while (j < len)
+		{
+			map[i][j].hit = false;
+			map[i][j].hit_dist = 0;
+			j++;
+		}
+		i++;
+	}
+	
+}
 
 void raycast(t_game *game)
 {
@@ -116,4 +139,5 @@ void raycast(t_game *game)
 		cast_ray(ray, player, game);
 		x++;
 	}
+	reset_map(game->world_map, 11);
 }
