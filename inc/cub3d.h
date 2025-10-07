@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/06 16:13:38 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/07 16:53:10 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include "libft.h"
 # include "MLX42.h"
 # include "stdbool.h"
+
+# define SCREEN_HEIGHT 600
+# define SCREEN_WIDTH 900
 
 typedef struct s_vector
 {
@@ -49,26 +52,36 @@ typedef struct s_ray
 
 typedef struct s_map
 {
-	bool		hit;
-	int			content;
-	double		hit_dist;
+	bool			hit;
+	int				content;
+	t_ray			ray;
+	mlx_image_t		*img;
 } t_map;
+
+typedef struct s_img
+{
+	mlx_image_t		*img_wall;
+} t_img;
+
+typedef struct s_texture
+{
+	mlx_texture_t *wall_texture;
+} t_texture;
 
 typedef struct s_game
 {
 	mlx_t			*mlx;
 	t_player		*player;
-	mlx_image_t		*img_bounce;
-	mlx_image_t		*img_wall;
-	mlx_texture_t	*wall_texture;
+	t_texture		*textures;
 	t_map			**world_map;
 	int				width;
 	int				height;
+	int				game_width;
 } t_game;
 
 void	testfunc(void *ptr);
 void	test_keyhook(mlx_key_data_t keydata, void *param);
 void	raycast(t_game *game);
-t_map	**read_map(char *file_name);
+t_map	**read_map(char *file_name, t_game *game);
 
 #endif

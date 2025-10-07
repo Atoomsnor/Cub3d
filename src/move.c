@@ -6,69 +6,13 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/06 16:18:35 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/07 12:37:18 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
 #include <math.h>
-
-void testfunc(void *ptr)
-{
-	mlx_image_t *img;
-	static int x = 5;
-	static int y = 5;
-	static int bounce = 0;
-
-	img = (mlx_image_t *)ptr;
-	img->instances[0].x += x;
-	img->instances[0].y += y;
-	if (img->instances[0].x >= 700 || img->instances[0].x <= 0)
-	{
-		x = -x;
-		bounce++;
-	}
-	if (img->instances[0].y >= 400 || img->instances[0].y <= 0)
-	{
-		y = -y;
-		bounce++;
-	}
-	if (bounce == 5)
-		bounce = 0, img->instances[0].z++;
-}
-
-void calculate_pos_w(t_game *game, double wall_y, double speed)
-{
-	double diff = wall_y - game->player->pos.y;
-
-	printf("%f\n", diff);
-	if (diff >= 1)
-	{
-		game->player->pos.y += speed;
-		int width = 900 / diff;
-		int height = 600 / diff;
-		game->img_wall->instances->x = 900 / 2 - width / 2;
-		game->img_wall->instances->y = 600 / 2 - height / 2;
-		mlx_resize_image(game->img_wall, width, height);
-	}
-}
-
-void calculate_pos_s(t_game *game, double wall_y, double speed)
-{
-	double diff = wall_y - game->player->pos.y;
-
-	printf("%f\n", diff);
-	if (diff > 0)
-	{
-		game->player->pos.y -= speed;
-		double width = 900 / diff;
-		double height = 600 / diff;
-		game->img_wall->instances->x = 900 / 2 - width / 2;
-		game->img_wall->instances->y = 600 / 2 - height / 2;
-		mlx_resize_image(game->img_wall, width, height);
-	}
-}
 
 void move_up(t_game *game, double speed)
 {

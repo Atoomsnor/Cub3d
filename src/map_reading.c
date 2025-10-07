@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 12:53:25 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/06 17:31:43 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/07 12:52:39 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	count_lines(char *file_name)
 	return (i);
 }
 
-t_map	**read_map(char *file_name)
+t_map	**read_map(char *file_name, t_game *game)
 {
 	t_map	**map;
 	int		fd;
@@ -59,12 +59,12 @@ t_map	**read_map(char *file_name)
 	{
 		char *tmp = get_next_line(fd);
 		map[i] = ft_calloc(ft_strlen(tmp), sizeof(struct s_map));
+		game->game_width = ft_strlen(tmp);
 		int	j = 0;
 		while (tmp[j] && tmp[j] >= '0' && tmp[j] <= '9')
 		{
 			map[i][j].content = tmp[j] - '0';
 			map[i][j].hit = false;
-			map[i][j].hit_dist = 0;
 			printf("%i", map[i][j].content);
 			j++;
 		}
@@ -73,5 +73,6 @@ t_map	**read_map(char *file_name)
 		i++;
 	}
 	close(fd);
+	(void)game;
 	return (map);
 }

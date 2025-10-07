@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:36:29 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/06 14:53:55 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/07 16:53:27 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,14 @@ int	main(int argc, char **argv)
 	game->width = 900;
 	game->height = 600;
 	printf("%f\n", game->player->pos.x);
-	game->world_map = read_map(argv[1]);
-	game->mlx = mlx_init(900, 600, "CUB3D", false);
-	game->wall_texture = mlx_load_png("./img/Wallgrey1.png");
-	game->img_wall = mlx_texture_to_image(game->mlx, game->wall_texture);
-	mlx_image_to_window(game->mlx, game->img_wall, 418, 268);
+	game->textures = ft_calloc(1, sizeof(struct s_texture));
+	game->textures->wall_texture = mlx_load_png("./img/Wallgrey1.png");
+	printf("err\n");
+	game->world_map = read_map(argv[1], game);
+	game->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "CUB3D", false);
+	raycast(game);
+	// game->img_wall = mlx_texture_to_image(game->mlx, game->textures->wall_texture);
+	// mlx_image_to_window(game->mlx, game->img_wall, 418, 268);
 	mlx_key_hook(game->mlx, &test_keyhook, game);
 	mlx_loop(game->mlx);
 }	
