@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/07 16:53:10 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/07 20:04:56 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 # include "MLX42.h"
 # include "stdbool.h"
 
-# define SCREEN_HEIGHT 600
-# define SCREEN_WIDTH 900
+# define SCREEN_HEIGHT 640
+# define SCREEN_WIDTH 960
+# define SCALE 640
 
 typedef struct s_vector
 {
@@ -37,6 +38,8 @@ typedef struct s_ray
 {
 	t_vector	dir;
 	t_vector	map;
+	t_vector	wall;
+	t_vector	tex;
 	t_vector	side_dist;
 	t_vector	delta_dist;
 	double		hit_dist;

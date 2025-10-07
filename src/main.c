@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:36:29 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/07 16:53:27 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/07 19:02:29 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		argv[1] = "map.txt";
 	game->player = init_player(2, 5, 1, 0);
-	game->width = 900;
-	game->height = 600;
 	printf("%f\n", game->player->pos.x);
 	game->textures = ft_calloc(1, sizeof(struct s_texture));
 	game->textures->wall_texture = mlx_load_png("./img/Wallgrey1.png");

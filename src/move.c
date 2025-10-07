@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/07 12:37:18 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/07 18:36:17 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 void move_up(t_game *game, double speed)
 {
-	printf("posx: %f posx+speed: %f\n", game->player->pos.x, game->player->pos.x + speed);
 	if (game->world_map[(int)(game->player->pos.y)][(int)(game->player->pos.x + speed)].content == 0)
 	{
 		game->player->pos.x += speed;

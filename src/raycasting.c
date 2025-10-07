@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:29:00 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/07 17:14:55 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/07 20:05:21 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,29 +61,24 @@ void cast_ray(t_ray ray, t_player *player, t_game *game)
 		if (game->world_map[(int)ray.map.y][(int)ray.map.x].content > 0)
 			ray.hit = true;
 	}
-	// double abc;
 	// if (!side)
-	// 	abc = (ray.map.x - player->pos.x + (1 - dir.x) / 2) / ray.dir.x;
+	// 	ray.hit_dist = (ray.map.x - player->pos.x + (1 - dir.x) / 2) / ray.dir.x;
 	// else
-	// 	abc = (ray.map.y - player->pos.y + (1 - dir.y) / 2) / ray.dir.y;
+	// 	ray.hit_dist = (ray.map.y - player->pos.y + (1 - dir.y) / 2) / ray.dir.y;
 	if (!side)
 		ray.hit_dist = ray.side_dist.x - ray.delta_dist.x;
 	else
 		ray.hit_dist = ray.side_dist.y - ray.delta_dist.y;
-
-	double wallX;
 	if (!side)
-		wallX = player->pos.y + ray.hit_dist * ray.dir.y;
+		ray.wall.x = player->pos.y + ray.hit_dist * ray.dir.y;
 	else
-		wallX = player->pos.x + ray.hit_dist * ray.dir.x;
-
-		
-	wallX -= floor((wallX));
-	int texX = (int)wallX * 600;
+		ray.wall.x = player->pos.x + ray.hit_dist * ray.dir.x;
+	ray.wall.x -= floor((ray.wall.x));
+	ray.tex.x = (int)ray.wall.x * SCALE;
 	if (side == 0 && ray.dir.x > 0)
-		texX = 600 - texX - 1;
+		ray.tex.x = SCALE - ray.tex.x - 1;
 	if (side == 1 && ray.dir.y < 0)
-		texX = 600 - texX - 1;
+		ray.tex.x = SCALE - ray.tex.x - 1;
 	// printf("ray hit distance: %f = (%f - %f + (1 - %f) / 2) / %f\n", ray.hit_dist, ray.map.x, player->pos.x, dir.x, ray.dir.x);
 	if (!game->world_map[(int)ray.map.y][(int)ray.map.x].hit)
 	{
@@ -120,19 +115,22 @@ void reset_map(t_map **map, int len)
 
 void move_map(t_game *game, t_map *map)
 {
-	double diff = map->ray.hit_dist;
-
-	printf("diff: %f\n", diff);
-	if (diff > 0)
+	if (map->ray.hit_dist > 0)
 	{
-		double width = SCREEN_HEIGHT / diff;
-		double height = SCREEN_HEIGHT / diff;
-		double x = (map->ray.dir.x - 1) * 600 - (map->ray.dir.y - 1) * 600;
-		printf("%f\n", x);
-		double y = SCREEN_HEIGHT / 2 - height / 2;
+		printf("diff: %f\n", map->ray.hit_dist);
+		int width = (int)(SCALE / map->ray.hit_dist);
+		int height = (int)(SCALE / map->ray.hit_dist);
+		int x = map->ray.wall.x;
+		printf("%i\n", x);
+		int y = SCREEN_HEIGHT / 2 - height / 2;
+		double step = 1.0 * SCALE / y;
+		double texPos = (y - SCREEN_HEIGHT / 2 + height / 2) * step;
+		printf("%f %f\n", step, texPos);
+		// if (y + height > SCREEN_HEIGHT)
+		// 	y *= 2;
 		map->img = mlx_texture_to_image(game->mlx, game->textures->wall_texture);
 		mlx_resize_image(map->img, width, height);
-		mlx_image_to_window(game->mlx, map->img, x, y);
+		mlx_image_to_window(game->mlx, map->img, texPos, y);
 	}
 }
 
@@ -166,12 +164,13 @@ void raycast(t_game *game)
 
 	player = game->player;
 	x = 0;
-	while (x < game->width)
+	while (x < SCREEN_WIDTH)
 	{
-		camera.x = 2 * x / (double)game->width - 1;
+		camera.x = 2 * x / (double)SCREEN_WIDTH - 1;
 		ray.dir.x = player->dir.x + player->plane.x * camera.x;
 		ray.dir.y = player->dir.y + player->plane.y * camera.x;
 		ray.hit = false;
+		ray.wall.x = x;
 		cast_ray(ray, player, game);
 		x++;
 	}
