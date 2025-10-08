@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:29:00 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/07 20:05:21 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/08 23:58:43 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <math.h>
 #include <stdio.h>
 
-void cast_ray(t_ray ray, t_player *player, t_game *game)
+void cast_ray(t_ray ray, t_player *player, t_game *game, int x)
 {
 	t_vector	dir;
 	int			side;
@@ -79,14 +79,50 @@ void cast_ray(t_ray ray, t_player *player, t_game *game)
 		ray.tex.x = SCALE - ray.tex.x - 1;
 	if (side == 1 && ray.dir.y < 0)
 		ray.tex.x = SCALE - ray.tex.x - 1;
-	// printf("ray hit distance: %f = (%f - %f + (1 - %f) / 2) / %f\n", ray.hit_dist, ray.map.x, player->pos.x, dir.x, ray.dir.x);
-	if (!game->world_map[(int)ray.map.y][(int)ray.map.x].hit)
+	if (ray.hit_dist > 0)
 	{
-		printf("X %f Y %f\n", ray.map.x, ray.map.y);
-		game->world_map[(int)ray.map.y][(int)ray.map.x].ray = ray;
-		game->world_map[(int)ray.map.y][(int)ray.map.x].hit = true;
+		//printf("diff: %f\n", ray.hit_dist);
+		int height = (int)(SCALE / ray.hit_dist);
+		int y_start = -SCREEN_HEIGHT / 2 + height / 2;
+		if (y_start < 0)
+			y_start = 0;
+		int y_end = SCREEN_HEIGHT / 2 + height / 2;
+		if (y_end >= SCREEN_HEIGHT)
+			y_end = SCREEN_HEIGHT - 1;
+		double step = 1.0 * SCALE / y_start;
+		double texPos = (y_start - SCREEN_HEIGHT / 2 + height / 2) * step;
+		printf("%f %f\n", step, texPos);
+		printf("x: %i, y: %i height: %i\n", x, y_start, y_end);
+		int color = 6969;
+		if (side == 1)
+			color = 696969;
+		for (int i = y_end; i > y_start; i--)
+			mlx_put_pixel(game->screen_buffer, x, i, color + ray.map.x + ray.map.y);	
+		mlx_image_to_window(game->mlx, game->screen_buffer, 0, 0);
 	}
 }
+
+void move_map(t_game *game, t_map *map)
+{
+	if (map->ray.hit_dist > 0)
+	{
+		printf("diff: %f\n", map->ray.hit_dist);
+		int width = (int)(SCALE / map->ray.hit_dist);
+		int height = (int)(SCALE / map->ray.hit_dist);
+		int x = map->ray.wall.x;
+		printf("%i\n", x);
+		int y = SCREEN_HEIGHT / 2 - height / 2;
+		double step = 1.0 * SCALE / y;
+		double texPos = (y - SCREEN_HEIGHT / 2 + height / 2) * step;
+		printf("%f %f\n", step, texPos);
+		// if (y + height > SCREEN_HEIGHT)
+		// 	y *= 2;
+		map->img = mlx_texture_to_image(game->mlx, game->textures->wall_texture);
+		mlx_resize_image(map->img, width, height);
+		mlx_image_to_window(game->mlx, map->img, texPos, y);
+	}
+}
+
 
 // struct map;
 // map -> int var;
@@ -113,47 +149,47 @@ void reset_map(t_map **map, int len)
 	}
 }
 
-void move_map(t_game *game, t_map *map)
-{
-	if (map->ray.hit_dist > 0)
-	{
-		printf("diff: %f\n", map->ray.hit_dist);
-		int width = (int)(SCALE / map->ray.hit_dist);
-		int height = (int)(SCALE / map->ray.hit_dist);
-		int x = map->ray.wall.x;
-		printf("%i\n", x);
-		int y = SCREEN_HEIGHT / 2 - height / 2;
-		double step = 1.0 * SCALE / y;
-		double texPos = (y - SCREEN_HEIGHT / 2 + height / 2) * step;
-		printf("%f %f\n", step, texPos);
-		// if (y + height > SCREEN_HEIGHT)
-		// 	y *= 2;
-		map->img = mlx_texture_to_image(game->mlx, game->textures->wall_texture);
-		mlx_resize_image(map->img, width, height);
-		mlx_image_to_window(game->mlx, map->img, texPos, y);
-	}
-}
+//void move_map(t_game *game, t_map *map)
+//{
+//	if (map->ray.hit_dist > 0)
+//	{
+//		printf("diff: %f\n", map->ray.hit_dist);
+//		int width = (int)(SCALE / map->ray.hit_dist);
+//		int height = (int)(SCALE / map->ray.hit_dist);
+//		int x = map->ray.wall.x;
+//		printf("%i\n", x);
+//		int y = SCREEN_HEIGHT / 2 - height / 2;
+//		double step = 1.0 * SCALE / y;
+//		double texPos = (y - SCREEN_HEIGHT / 2 + height / 2) * step;
+//		printf("%f %f\n", step, texPos);
+//		// if (y + height > SCREEN_HEIGHT)
+//		// 	y *= 2;
+//		map->img = mlx_texture_to_image(game->mlx, game->textures->wall_texture);
+//		mlx_resize_image(map->img, width, height);
+//		mlx_image_to_window(game->mlx, map->img, texPos, y);
+//	}
+//}
 
-void locate_hits(t_map **map, int len, t_game *game)
-{
-	int	i;
-	int	j;
+//void locate_hits(t_map **map, int len, t_game *game)
+//{
+//	int	i;
+//	int	j;
 
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (j < len)
-		{
-			if (map[i][j].img)
-				mlx_delete_image(game->mlx, map[i][j].img);
-			if (map[i][j].hit == true)
-				move_map(game, &(map[i][j]));
-			j++;
-		}
-		i++;
-	}
-}
+//	i = 0;
+//	while (map[i])
+//	{
+//		j = 0;
+//		while (j < len)
+//		{
+//			if (map[i][j].img)
+//				mlx_delete_image(game->mlx, map[i][j].img);
+//			if (map[i][j].hit == true)
+//				move_map(game, &(map[i][j]));
+//			j++;
+//		}
+//		i++;
+//	}
+//}
 
 void raycast(t_game *game)
 {
@@ -164,6 +200,10 @@ void raycast(t_game *game)
 
 	player = game->player;
 	x = 0;
+	if (game->screen_buffer)
+		mlx_delete_image(game->mlx, game->screen_buffer);
+	game->screen_buffer = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+    ft_memset(game->screen_buffer->pixels, 0, game->screen_buffer->width * game->screen_buffer->height * sizeof(int32_t));
 	while (x < SCREEN_WIDTH)
 	{
 		camera.x = 2 * x / (double)SCREEN_WIDTH - 1;
@@ -171,9 +211,10 @@ void raycast(t_game *game)
 		ray.dir.y = player->dir.y + player->plane.y * camera.x;
 		ray.hit = false;
 		ray.wall.x = x;
-		cast_ray(ray, player, game);
+		cast_ray(ray, player, game, x);
 		x++;
 	}
-	locate_hits(game->world_map, 11, game);
+	mlx_image_to_window(game->mlx, game->screen_buffer, 0, 0);
+	//locate_hits(game->world_map, 11, game);
 	reset_map(game->world_map, 11);
 }
