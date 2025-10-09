@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/09 16:18:36 by roversch         ###   ########.fr       */
+/*   Updated: 2025/10/09 18:45:47 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ static void	move_backward(t_game *game, double speed, float mod)
 
 	pos = &game->player->pos;
 	dir = game->player->dir;
-	next_x = pos->x + (speed + mod) * dir.x;
-	next_y = pos->y + (speed + mod) * dir.y;
+	next_x = pos->x - (speed + mod) * dir.x;
+	next_y = pos->y - (speed + mod) * dir.y;
 	if ((next_x > 0)
 		&& game->world_map[(int)(pos->y)][(int)(next_x)].content == 0)
 		pos->x -= dir.x * speed;

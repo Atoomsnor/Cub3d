@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/09 15:57:30 by roversch         ###   ########.fr       */
+/*   Updated: 2025/10/10 00:21:28 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,14 @@ typedef struct s_img
 	mlx_image_t		*WE;
 	mlx_image_t		*EA;
 	mlx_image_t		*img_wall;
+	mlx_image_t		*screen;
+	mlx_image_t		*gun;
 } t_img;
 
 typedef struct s_texture
 {
 	mlx_texture_t *wall_texture;
+	mlx_texture_t *gun;
 } t_texture;
 
 typedef struct s_game
@@ -82,7 +85,9 @@ typedef struct s_game
 	mlx_image_t		*img_wall;
 	t_texture		*textures;
 	t_map			**world_map;
+	t_img			*img;
 	mlx_image_t		*screen_buffer;
+	mlx_image_t		*gun;
 	int				width;
 	int				height;
 	int				game_width;

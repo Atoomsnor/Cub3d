@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:29:00 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/09 16:08:44 by roversch         ###   ########.fr       */
+/*   Updated: 2025/10/10 00:28:36 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,6 @@ void cast_ray(t_ray ray, t_player *player, t_game *game, int x)
 		if (game->world_map[(int)ray.map.y][(int)ray.map.x].content > 0)
 			ray.hit = true;
 	}
-	// if (!side)
-	// 	ray.hit_dist = (ray.map.x - player->pos.x + (1 - dir.x) / 2) / ray.dir.x;
-	// else
-	// 	ray.hit_dist = (ray.map.y - player->pos.y + (1 - dir.y) / 2) / ray.dir.y;
 	if (!side)
 		ray.hit_dist = ray.side_dist.x - ray.delta_dist.x;
 	else
@@ -104,10 +100,8 @@ void cast_ray(t_ray ray, t_player *player, t_game *game, int x)
 		ray.tex.x = SCALE - ray.tex.x - 1;
 	if (side == 1 && ray.dir.y < 0)
 		ray.tex.x = SCALE - ray.tex.x - 1;
-	// printf("%f\n", ray.tex.x);
 	if (ray.hit_dist > 0)
 	{
-		//printf("diff: %f\n", ray.hit_dist);
 		int height = (int)(SCREEN_HEIGHT / ray.hit_dist);
 		int y_start = SCREEN_HEIGHT / 2 + -height / 2;
 		if (y_start < 0)
@@ -121,46 +115,42 @@ void cast_ray(t_ray ray, t_player *player, t_game *game, int x)
 		{
 			int tex_y = (int)texPos & (SCALE - 1);
 			texPos += step;
-			uint32_t color = get_color(game->img_wall, ray.tex.x, tex_y);
-			// if (side == 1) color = (color >> 1) & 8355711;
+			mlx_image_t *img;
+			if (!side && ray.dir.x > 0)
+				img = game->img->EA;
+			else if (!side)
+				img = game->img->WE;
+			else if (ray.dir.y > 0)
+				img = game->img->SO;
+			else
+				img = game->img->NO;
+			uint32_t color = get_color(img, ray.tex.x, tex_y);
 			put_pixel(game->screen_buffer, x, y, color);
 		}
-		// printf("x: %i, start: %i end: %i\n", x, y_start, y_end);
-		// int color = 6969;
-		// if (side == 1)
-		// 	color = 696969;
-		// static int delta_y = 0;
-		// if (!delta_y)
-		// 	delta_y = y_end - y_start;
-		// else
-		// 	delta_y--;
-		// printf("delta y: %i\n", delta_y);
-		// for (int i = y_end; i > y_start; i--)
-		// 	put_pixel(game->screen_buffer, x, i, get_color(game->img_wall, delta_y, i));	
 		mlx_image_to_window(game->mlx, game->screen_buffer, 0, 0);
 	}
 }
 
-void move_map(t_game *game, t_map *map)
-{
-	if (map->ray.hit_dist > 0)
-	{
-		printf("diff: %f\n", map->ray.hit_dist);
-		int width = (int)(SCALE / map->ray.hit_dist);
-		int height = (int)(SCALE / map->ray.hit_dist);
-		int x = map->ray.wall.x;
-		printf("%i\n", x);
-		int y = SCREEN_HEIGHT / 2 - height / 2;
-		double step = 1.0 * SCALE / y;
-		double texPos = (y - SCREEN_HEIGHT / 2 + height / 2) * step;
-		printf("%f %f\n", step, texPos);
-		// if (y + height > SCREEN_HEIGHT)
-		// 	y *= 2;
-		map->img = mlx_texture_to_image(game->mlx, game->textures->wall_texture);
-		mlx_resize_image(map->img, width, height);
-		mlx_image_to_window(game->mlx, map->img, texPos, y);
-	}
-}
+//void move_map(t_game *game, t_map *map)
+//{
+//	if (map->ray.hit_dist > 0)
+//	{
+//		printf("diff: %f\n", map->ray.hit_dist);
+//		int width = (int)(SCALE / map->ray.hit_dist);
+//		int height = (int)(SCALE / map->ray.hit_dist);
+//		int x = map->ray.wall.x;
+//		printf("%i\n", x);
+//		int y = SCREEN_HEIGHT / 2 - height / 2;
+//		double step = 1.0 * SCALE / y;
+//		double texPos = (y - SCREEN_HEIGHT / 2 + height / 2) * step;
+//		printf("%f %f\n", step, texPos);
+//		// if (y + height > SCREEN_HEIGHT)
+//		// 	y *= 2;
+//		map->img = mlx_texture_to_image(game->mlx, game->textures->wall_texture);
+//		mlx_resize_image(map->img, width, height);
+//		mlx_image_to_window(game->mlx, map->img, texPos, y);
+//	}
+//}
 
 
 // struct map;
@@ -254,4 +244,5 @@ void raycast(t_game *game)
 		x++;
 	}
 	mlx_image_to_window(game->mlx, game->screen_buffer, 0, 0);
+	game->screen_buffer->instances[0].z = 0;
 }
