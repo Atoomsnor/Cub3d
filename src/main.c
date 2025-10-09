@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:36:29 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/09 12:34:53 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/09 13:18:45 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	main(int argc, char **argv)
 	game->img_wall = mlx_texture_to_image(game->mlx, game->textures->wall_texture);
 	mlx_resize_image(game->img_wall, SCALE, SCALE);
 	raycast(game);
+	printf("test1\n");
 	//mlx_image_to_window(game->mlx, game->screen_buffer, 0, 0);
 	// game->img_wall = mlx_texture_to_image(game->mlx, game->textures->wall_texture);
 	// mlx_image_to_window(game->mlx, game->img_wall, 418, 268);
