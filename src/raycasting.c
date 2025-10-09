@@ -6,13 +6,43 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:29:00 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/08 23:58:43 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/09 13:06:08 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
 #include <stdio.h>
+
+int get_rgba(int r, int g, int b, int a)
+{
+    return (r << 24 | g << 16 | b << 8 | a);
+}
+
+// int get_color(mlx_image_t* image, uint32_t x, uint32_t y)
+// {
+// 	uint8_t		*pixelstart = &image->pixels[(y * image->width + x) * 4];
+// 	return (((pixelstart[0] << 24) | (pixelstart[1] << 16) | (pixelstart[2] << 8) | pixelstart[3]));
+// }
+
+int get_color(mlx_image_t* image, uint32_t x, uint32_t y)
+{
+	uint8_t		*pixelstart = &image->pixels[(y * SCALE + x) * 4];
+	return ((pixelstart[0] | (pixelstart[1] << 8) | (pixelstart[2] << 16) | (pixelstart[3] << 24)));
+}
+
+void put_pixel(mlx_image_t* image, uint32_t x, uint32_t y, uint32_t color)
+{
+	uint8_t* pixelstart;
+
+	if (!image || x >= image->width || y >= image->height)
+		return ;
+	pixelstart = &image->pixels[(y * image->width + x) * 4];
+	*(pixelstart++) = (uint8_t)(color & 0xFF);
+	*(pixelstart++) = (uint8_t)(color >> 8);
+	*(pixelstart++) = (uint8_t)(color >> 16);
+	*(pixelstart++) = (uint8_t)(color >> 24);
+}
 
 void cast_ray(t_ray ray, t_player *player, t_game *game, int x)
 {
@@ -83,7 +113,7 @@ void cast_ray(t_ray ray, t_player *player, t_game *game, int x)
 	{
 		//printf("diff: %f\n", ray.hit_dist);
 		int height = (int)(SCALE / ray.hit_dist);
-		int y_start = -SCREEN_HEIGHT / 2 + height / 2;
+		int y_start = SCREEN_HEIGHT / 2 + -height / 2;
 		if (y_start < 0)
 			y_start = 0;
 		int y_end = SCREEN_HEIGHT / 2 + height / 2;
@@ -91,13 +121,26 @@ void cast_ray(t_ray ray, t_player *player, t_game *game, int x)
 			y_end = SCREEN_HEIGHT - 1;
 		double step = 1.0 * SCALE / y_start;
 		double texPos = (y_start - SCREEN_HEIGHT / 2 + height / 2) * step;
-		printf("%f %f\n", step, texPos);
-		printf("x: %i, y: %i height: %i\n", x, y_start, y_end);
-		int color = 6969;
-		if (side == 1)
-			color = 696969;
-		for (int i = y_end; i > y_start; i--)
-			mlx_put_pixel(game->screen_buffer, x, i, color + ray.map.x + ray.map.y);	
+		for (int y = y_start; y < y_end; y++)
+		{
+			int tex_y = (int)texPos & (SCALE - 1);
+			texPos += step;
+			uint32_t color = get_color(game->img_wall, ray.tex.x, tex_y);
+			// if (side == 1) color = (color >> 1) & 8355711;
+			put_pixel(game->screen_buffer, x, y, color);
+		}
+		// printf("x: %i, start: %i end: %i\n", x, y_start, y_end);
+		// int color = 6969;
+		// if (side == 1)
+		// 	color = 696969;
+		// static int delta_y = 0;
+		// if (!delta_y)
+		// 	delta_y = y_end - y_start;
+		// else
+		// 	delta_y--;
+		// printf("delta y: %i\n", delta_y);
+		// for (int i = y_end; i > y_start; i--)
+		// 	put_pixel(game->screen_buffer, x, i, get_color(game->img_wall, delta_y, i));	
 		mlx_image_to_window(game->mlx, game->screen_buffer, 0, 0);
 	}
 }

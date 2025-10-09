@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/08 22:07:30 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/09 11:35:03 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_game
 {
 	mlx_t			*mlx;
 	t_player		*player;
+	mlx_image_t		*img_wall;
 	t_texture		*textures;
 	t_map			**world_map;
 	mlx_image_t		*screen_buffer;

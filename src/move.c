@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/08 23:55:51 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/09 10:37:34 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,9 @@ void test_keyhook(mlx_key_data_t keydata, void *param)
 	if (!param)
 		return ;
 	game = param;
-	if (keydata.action == MLX_PRESS)
+	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
 	{
-		double speed = 0.25f;
+		double speed = 0.05f;
 		if (keydata.key == MLX_KEY_ESCAPE)
 			mlx_close_window(game->mlx);
 		else if (keydata.key == MLX_KEY_W)
