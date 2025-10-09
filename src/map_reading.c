@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_reading.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 12:53:25 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/08 22:09:03 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/09 16:20:52 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void *free_and_null(void *ptr)
+void	*free_and_null(void *ptr)
 {
 	free(ptr);
 	ptr = NULL;
@@ -73,6 +73,6 @@ t_map	**read_map(char *file_name, t_game *game)
 		i++;
 	}
 	close(fd);
-	(void)game;
+	(void)game; //?
 	return (map);
 }

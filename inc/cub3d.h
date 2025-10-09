@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/09 14:18:14 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/09 15:57:30 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,10 @@ typedef struct s_map
 
 typedef struct s_img
 {
+	mlx_image_t		*NO;
+	mlx_image_t		*SO;
+	mlx_image_t		*WE;
+	mlx_image_t		*EA;
 	mlx_image_t		*img_wall;
 } t_img;
 

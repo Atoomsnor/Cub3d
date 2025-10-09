@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:36:29 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/09 14:15:06 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/09 16:23:37 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	main(int argc, char **argv)
 	printf("%f\n", game->player->pos.x);
 	game->textures = ft_calloc(1, sizeof(struct s_texture));
 	game->textures->wall_texture = mlx_load_png("./img/Wallgrey1.png");
+	// parsing(argv[1], game);
 	game->world_map = read_map(argv[1], game);
 	game->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "CUB3D", false);
 	game->img_wall = mlx_texture_to_image(game->mlx, game->textures->wall_texture);

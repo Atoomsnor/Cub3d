@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:29:00 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/09 14:23:04 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/09 16:08:44 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ void move_map(t_game *game, t_map *map)
 //		// 	y *= 2;
 //		map->img = mlx_texture_to_image(game->mlx, game->textures->wall_texture);
 //		mlx_resize_image(map->img, width, height);
-//		mlx_image_to_window(game->mlx, map->img, texPos, y);
+//		mlx_image_to_window(game->mlx, 28 daysmap->img, texPos, y);
 //	}
 //}
 
