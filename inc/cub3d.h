@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/09 11:35:03 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/09 14:18:14 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 # define SCREEN_HEIGHT 640
 # define SCREEN_WIDTH 960
-# define SCALE 640
+# define SCALE 64
 
 typedef struct s_vector
 {
@@ -85,8 +85,7 @@ typedef struct s_game
 	
 } t_game;
 
-void	testfunc(void *ptr);
-void	test_keyhook(mlx_key_data_t keydata, void *param);
+void	test_keyhook(void *param);
 void	raycast(t_game *game);
 t_map	**read_map(char *file_name, t_game *game);
 

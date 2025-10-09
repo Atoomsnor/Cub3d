@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:36:29 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/09 13:18:45 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/09 14:15:06 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,13 @@ int	main(int argc, char **argv)
 	game->world_map = read_map(argv[1], game);
 	game->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "CUB3D", false);
 	game->img_wall = mlx_texture_to_image(game->mlx, game->textures->wall_texture);
+	game->screen_buffer = NULL;
 	mlx_resize_image(game->img_wall, SCALE, SCALE);
 	raycast(game);
-	printf("test1\n");
 	//mlx_image_to_window(game->mlx, game->screen_buffer, 0, 0);
 	// game->img_wall = mlx_texture_to_image(game->mlx, game->textures->wall_texture);
 	// mlx_image_to_window(game->mlx, game->img_wall, 418, 268);
-	mlx_key_hook(game->mlx, &test_keyhook, game);
+	// mlx_key_hook(game->mlx, &test_keyhook, game);
+	mlx_loop_hook(game->mlx, &test_keyhook, game);
 	mlx_loop(game->mlx);
 }	

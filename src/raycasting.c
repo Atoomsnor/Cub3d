@@ -6,18 +6,13 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:29:00 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/09 13:06:08 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/09 14:23:04 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
 #include <stdio.h>
-
-int get_rgba(int r, int g, int b, int a)
-{
-    return (r << 24 | g << 16 | b << 8 | a);
-}
 
 // int get_color(mlx_image_t* image, uint32_t x, uint32_t y)
 // {
@@ -104,22 +99,23 @@ void cast_ray(t_ray ray, t_player *player, t_game *game, int x)
 	else
 		ray.wall.x = player->pos.x + ray.hit_dist * ray.dir.x;
 	ray.wall.x -= floor((ray.wall.x));
-	ray.tex.x = (int)ray.wall.x * SCALE;
+	ray.tex.x = ray.wall.x * SCALE;
 	if (side == 0 && ray.dir.x > 0)
 		ray.tex.x = SCALE - ray.tex.x - 1;
 	if (side == 1 && ray.dir.y < 0)
 		ray.tex.x = SCALE - ray.tex.x - 1;
+	// printf("%f\n", ray.tex.x);
 	if (ray.hit_dist > 0)
 	{
 		//printf("diff: %f\n", ray.hit_dist);
-		int height = (int)(SCALE / ray.hit_dist);
+		int height = (int)(SCREEN_HEIGHT / ray.hit_dist);
 		int y_start = SCREEN_HEIGHT / 2 + -height / 2;
 		if (y_start < 0)
 			y_start = 0;
 		int y_end = SCREEN_HEIGHT / 2 + height / 2;
 		if (y_end >= SCREEN_HEIGHT)
 			y_end = SCREEN_HEIGHT - 1;
-		double step = 1.0 * SCALE / y_start;
+		double step = 1.0 * SCALE / height;
 		double texPos = (y_start - SCREEN_HEIGHT / 2 + height / 2) * step;
 		for (int y = y_start; y < y_end; y++)
 		{
@@ -174,23 +170,23 @@ void move_map(t_game *game, t_map *map)
 // map -> double hit_dist
 // map->hist_dist > ray.hist_dist: map->hist_dist = ray.hit_dist;
 
-void reset_map(t_map **map, int len)
-{
-	int	i;
-	int	j;
+// void reset_map(t_map **map, int len)
+// {
+// 	int	i;
+// 	int	j;
 
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (j < len)
-		{
-			map[i][j].hit = false;
-			j++;
-		}
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (map[i])
+// 	{
+// 		j = 0;
+// 		while (j < len)
+// 		{
+// 			map[i][j].hit = false;
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
 
 //void move_map(t_game *game, t_map *map)
 //{
@@ -258,6 +254,4 @@ void raycast(t_game *game)
 		x++;
 	}
 	mlx_image_to_window(game->mlx, game->screen_buffer, 0, 0);
-	//locate_hits(game->world_map, 11, game);
-	reset_map(game->world_map, 11);
 }

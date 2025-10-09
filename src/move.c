@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/09 10:37:34 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/09 14:19:37 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void move_forward(t_game *game, double speed)
 		game->player->pos.x += game->player->dir.x * speed;
 	if (game->world_map[(int)(game->player->pos.y + speed * game->player->dir.y)][(int)(game->player->pos.x)].content == 0)
 		game->player->pos.y += game->player->dir.y * speed;
-	raycast(game);
 }
 
 void move_backward(t_game *game, double speed)
@@ -50,7 +49,6 @@ void move_backward(t_game *game, double speed)
 		game->player->pos.x -= game->player->dir.x * speed;
 	if (game->world_map[(int)(game->player->pos.y - speed * game->player->dir.y)][(int)(game->player->pos.x)].content == 0)
 		game->player->pos.y -= game->player->dir.y * speed;
-	raycast(game);
 }
 
 void turn_left(t_game *game, double rot_speed)
@@ -66,7 +64,6 @@ void turn_left(t_game *game, double rot_speed)
 	player->dir.y = old_dir_x * sin(-rot_speed) + player->dir.y * cos(-rot_speed);
 	player->plane.x = player->plane.x * cos(-rot_speed) - player->plane.y * sin(-rot_speed);
 	player->plane.y = old_plane_x * sin(-rot_speed) + player->plane.y * cos(-rot_speed);
-	raycast(game);
 }
 
 void turn_right(t_game *game, double rot_speed)
@@ -82,32 +79,29 @@ void turn_right(t_game *game, double rot_speed)
 	player->dir.y = old_dir_x * sin(rot_speed) + player->dir.y * cos(rot_speed);
 	player->plane.x = player->plane.x * cos(rot_speed) - player->plane.y * sin(rot_speed);
 	player->plane.y = old_plane_x * sin(rot_speed) + player->plane.y * cos(rot_speed);
-	raycast(game);
 }
 
-void test_keyhook(mlx_key_data_t keydata, void *param)
+void test_keyhook(void *param)
 {
 	t_game	*game;
 
 	if (!param)
 		return ;
 	game = param;
-	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
-	{
-		double speed = 0.05f;
-		if (keydata.key == MLX_KEY_ESCAPE)
-			mlx_close_window(game->mlx);
-		else if (keydata.key == MLX_KEY_W)
-			move_forward(game, speed);
-		else if (keydata.key == MLX_KEY_S)
-			move_backward(game, speed);
-		else if (keydata.key == MLX_KEY_W)
-			move_up(game, speed);
-		else if (keydata.key == MLX_KEY_S)
-			move_down(game, speed);
-		else if (keydata.key == MLX_KEY_A)
-			turn_left(game, 0.1f);
-		else if (keydata.key == MLX_KEY_D)
-			turn_right(game, 0.1f);
-	}
+	double speed = 0.05f;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(game->mlx);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
+		move_forward(game, speed);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
+		move_backward(game, speed);
+	// if (mlx_is_key_down(game->mlx, MLX_KEY_W))
+		// move_up(game, speed);
+	// if (mlx_is_key_down(game->mlx, MLX_KEY_S))
+		// move_down(game, speed);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+		turn_left(game, 0.05f);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+		turn_right(game, 0.05f);
+	raycast(game);
 }
