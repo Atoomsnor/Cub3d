@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/09 14:19:37 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/09 14:50:15 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,27 @@ void move_down(t_game *game, double speed)
 
 void move_forward(t_game *game, double speed)
 {
-	if (game->world_map[(int)(game->player->pos.y)][(int)(game->player->pos.x + speed * game->player->dir.x)].content == 0)
+	if (game->player->pos.x + (speed + 0.1f) * game->player->dir.x > 0
+			&& game->world_map[(int)(game->player->pos.y)][(int)(game->player->pos.x + (speed + 0.1f) * game->player->dir.x)].content == 0)
 		game->player->pos.x += game->player->dir.x * speed;
-	if (game->world_map[(int)(game->player->pos.y + speed * game->player->dir.y)][(int)(game->player->pos.x)].content == 0)
+	if (game->player->pos.y + (speed + 0.1f) * game->player->dir.y > 0
+			&& game->world_map[(int)(game->player->pos.y + (speed + 0.1f) * game->player->dir.y)][(int)(game->player->pos.x)].content == 0)
 		game->player->pos.y += game->player->dir.y * speed;
 }
 
 void move_backward(t_game *game, double speed)
 {
-	
-	if (game->world_map[(int)(game->player->pos.y)][(int)(game->player->pos.x - speed * game->player->dir.x)].content == 0)
+	float mod;
+
+	mod = 0.1f;
+	// if (game->player->pos.x - (speed - mod) * game->player->dir.x  < 0)
+	// 	mod = 0;
+	if ((game->player->pos.x - (speed + mod) * game->player->dir.x  > 0) &&game->world_map[(int)(game->player->pos.y)][(int)(game->player->pos.x - (speed + mod) * game->player->dir.x - mod)].content == 0)
 		game->player->pos.x -= game->player->dir.x * speed;
-	if (game->world_map[(int)(game->player->pos.y - speed * game->player->dir.y)][(int)(game->player->pos.x)].content == 0)
+	// mod = 0.5f;
+	// if (game->player->pos.y - (speed - mod) * game->player->dir.y < 0)
+	// 	mod = 0;
+	if ((game->player->pos.y - (speed + mod) * game->player->dir.y > 0) && game->world_map[(int)(game->player->pos.y - (speed + mod) * game->player->dir.y)][(int)(game->player->pos.x)].content == 0)
 		game->player->pos.y -= game->player->dir.y * speed;
 }
 
