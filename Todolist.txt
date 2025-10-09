@@ -6,7 +6,7 @@
 #    By: roversch <roversch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/18 12:38:51 by roversch          #+#    #+#              #
-#    Updated: 2025/09/18 13:28:44 by roversch         ###   ########.fr        #
+#    Updated: 2025/10/09 13:09:17 by roversch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,12 +20,12 @@ get a texture?
 https://lodev.org/cgtutor/raycasting.html
 - Plan to do bonus
 
+ye
 Rowan
 Makeifle bs /dependencies
 add MLX42 as submodule and find the recursive gitpull cmnd
 
 Nils
-Yer
 
 git checkout nils
 git add .
