@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/10 00:21:28 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/13 00:56:42 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,31 +46,22 @@ typedef struct s_ray
 	bool		hit;
 } t_ray;
 
-// struct map;
-// map -> int var;
-// map -> int x  int y
-// map -> bool hit
-// map -> double hit_dist
-// map->hist_dist > ray.hist_dist: map->hist_dist = ray.hit_dist;
-
-typedef struct s_map
-{
-	bool			hit;
-	int				content;
-	t_ray			ray;
-	mlx_image_t		*img;
-} t_map;
-
 typedef struct s_img
 {
 	mlx_image_t		*NO;
 	mlx_image_t		*SO;
 	mlx_image_t		*WE;
 	mlx_image_t		*EA;
-	mlx_image_t		*img_wall;
 	mlx_image_t		*screen;
 	mlx_image_t		*gun;
 } t_img;
+
+typedef struct s_fps
+{
+	size_t	start_time;
+	size_t	frames;
+	size_t	last_time;
+} t_fps;
 
 typedef struct s_texture
 {
@@ -82,20 +73,22 @@ typedef struct s_game
 {
 	mlx_t			*mlx;
 	t_player		*player;
-	mlx_image_t		*img_wall;
-	t_texture		*textures;
-	t_map			**world_map;
 	t_img			*img;
 	mlx_image_t		*screen_buffer;
-	mlx_image_t		*gun;
+	t_fps			*fps;
+	int				**world_map;
 	int				width;
 	int				height;
 	int				game_width;
 	
 } t_game;
 
-void	test_keyhook(void *param);
-void	raycast(t_game *game);
-t_map	**read_map(char *file_name, t_game *game);
+void		test_keyhook(void *param);
+void		raycast(t_game *game);
+int			**read_map(char *file_name, t_game *game);
+size_t		get_time(void);
+mlx_image_t	*png_to_image(const char *path, mlx_t *mlx);
+t_game		*init_game(char **argv);
+size_t		get_fps(t_game *game);
 
 #endif

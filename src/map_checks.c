@@ -3,33 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   map_checks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 12:46:52 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/09 12:47:19 by roversch         ###   ########.fr       */
+/*   Updated: 2025/10/12 23:28:28 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
 
-int	check_empty(t_map **map)
+int	check_empty(int **map)
 {
 	if (map[0])
 		return (1);
 	return (0);
 }
 
-int	check_characters(t_map **map)
+int	check_characters(int **map)
 {
 	int	y;
 	int	x;
 
 	y = 0;
-	while (map[y][0].content != 1)
+	while (map[y][0] != 1)
 	{
 		x = 0;
-		while (map[y][x].content)
+		while (map[y][x])
 		{
 			
 		}

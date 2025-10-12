@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/09 18:45:47 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/13 00:56:49 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ static void	move_forward(t_game *game, double speed, float mod)
 	next_x = pos->x + (speed + mod) * dir.x;
 	next_y = pos->y + (speed + mod) * dir.y;
 	if (next_x > 0
-		&& game->world_map[(int)(pos->y)][(int)(next_x)].content == 0)
+		&& game->world_map[(int)(pos->y)][(int)(next_x)] != 1)
 		pos->x += dir.x * speed;
 	if (next_y > 0
-		&& game->world_map[(int)(next_y)][(int)(pos->x)].content == 0)
+		&& game->world_map[(int)(next_y)][(int)(pos->x)] != 1)
 		pos->y += dir.y * speed;
 }
 
@@ -45,10 +45,10 @@ static void	move_backward(t_game *game, double speed, float mod)
 	next_x = pos->x - (speed + mod) * dir.x;
 	next_y = pos->y - (speed + mod) * dir.y;
 	if ((next_x > 0)
-		&& game->world_map[(int)(pos->y)][(int)(next_x)].content == 0)
+		&& game->world_map[(int)(pos->y)][(int)(next_x)] != 1)
 		pos->x -= dir.x * speed;
 	if ((pos->y - (speed + mod) * dir.y > 0)
-		&& game->world_map[(int)(next_y)][(int)(pos->x)].content == 0)
+		&& game->world_map[(int)(next_y)][(int)(pos->x)] != 1)
 		pos->y -= dir.y * speed;
 }
 
@@ -104,5 +104,6 @@ void	test_keyhook(void *param)
 		turn_left(game, speed);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 		turn_right(game, speed);
+	get_fps(game);
 	raycast(game);
 }

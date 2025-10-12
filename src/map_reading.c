@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_reading.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 12:53:25 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/09 16:20:52 by roversch         ###   ########.fr       */
+/*   Updated: 2025/10/12 23:29:11 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int	count_lines(char *file_name)
 	return (i);
 }
 
-t_map	**read_map(char *file_name, t_game *game)
+int	**read_map(char *file_name, t_game *game)
 {
-	t_map	**map;
+	int		**map;
 	int		fd;
 	int		line_count;
 	int		i;
@@ -54,18 +54,17 @@ t_map	**read_map(char *file_name, t_game *game)
 	line_count = count_lines(file_name);
 	fd = open(file_name, O_RDONLY);
 	i = 0;
-	map = ft_calloc(line_count, sizeof(struct s_map *));
+	map = ft_calloc(line_count, sizeof(int *));
 	while (i < line_count)
 	{
 		char *tmp = get_next_line(fd);
-		map[i] = ft_calloc(ft_strlen(tmp), sizeof(struct s_map));
+		map[i] = ft_calloc(ft_strlen(tmp), sizeof(int));
 		game->game_width = ft_strlen(tmp);
 		int	j = 0;
 		while (tmp[j] && tmp[j] >= '0' && tmp[j] <= '9')
 		{
-			map[i][j].content = tmp[j] - '0';
-			map[i][j].hit = false;
-			printf("%i", map[i][j].content);
+			map[i][j] = tmp[j] - '0';
+			printf("%i", map[i][j]);
 			j++;
 		}
 		printf("\n");
