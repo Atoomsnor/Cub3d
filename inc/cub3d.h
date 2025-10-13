@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/13 00:56:42 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/13 17:39:45 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ typedef struct s_fps
 	size_t	start_time;
 	size_t	frames;
 	size_t	last_time;
+	size_t	time;
+	double	delta_time;
 } t_fps;
 
 typedef struct s_texture
@@ -76,6 +78,7 @@ typedef struct s_game
 	t_img			*img;
 	mlx_image_t		*screen_buffer;
 	t_fps			*fps;
+	t_vector		mouse;
 	int				**world_map;
 	int				width;
 	int				height;
@@ -90,5 +93,9 @@ size_t		get_time(void);
 mlx_image_t	*png_to_image(const char *path, mlx_t *mlx);
 t_game		*init_game(char **argv);
 size_t		get_fps(t_game *game);
+void		mouse(t_game *game);
+void		cursor_hook(double x, double y, void *ptr);
+void		turn_right(t_game *game, double speed);
+void		turn_left(t_game *game, double speed);
 
 #endif

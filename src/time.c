@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 00:25:32 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/13 01:05:35 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/13 17:42:55 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,10 @@ size_t	get_fps(t_game *game)
 	double frame_time;
 
 	time = get_time() - game->fps->start_time;
+	game->fps->time = time;
 	frame_time = (time - game->fps->last_time) / 1000.0;
-	game->fps->last_time= time;
-	printf("%f\n", 1.0 / frame_time);
-	//if (time - game->fps->last_time > 1000)
-	//{
-	//	game->fps->last_time = time;
-	//	printf("%zu: %zu\n", time / 1000, game->fps->frames);
-	//	game->fps->frames = 0;
-	//}
-	//else
-	//	game->fps->frames++;
-	
+	game->fps->delta_time = time - game->fps->last_time;
+	//printf("%f\n", 1.0 / frame_time);
+	game->fps->last_time = time;
 	return (1.0 / frame_time);
 }

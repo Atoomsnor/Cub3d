@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/13 00:56:49 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/13 17:39:33 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	move_backward(t_game *game, double speed, float mod)
 		pos->y -= dir.y * speed;
 }
 
-static void	turn_left(t_game *game, double speed)
+void	turn_left(t_game *game, double speed)
 {
 	t_player	*player;
 	double		old_dir_x;
@@ -67,7 +67,7 @@ static void	turn_left(t_game *game, double speed)
 	player->plane.y = old_plane_x * sin(-speed) + player->plane.y * cos(-speed);
 }
 
-static void	turn_right(t_game *game, double speed)
+void	turn_right(t_game *game, double speed)
 {
 	t_player	*player;
 	double		old_dir_x;
@@ -92,7 +92,8 @@ void	test_keyhook(void *param)
 	if (!param)
 		return ;
 	game = param;
-	speed = 0.05f;
+	get_fps(game);
+	speed = 0.005f * game->fps->delta_time;
 	mod = 0.2f;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(game->mlx);
@@ -101,9 +102,8 @@ void	test_keyhook(void *param)
 	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
 		move_backward(game, speed, mod);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
-		turn_left(game, speed);
+		turn_left(game, speed / 2.0f);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
-		turn_right(game, speed);
-	get_fps(game);
+		turn_right(game, speed / 2.0f);
 	raycast(game);
 }

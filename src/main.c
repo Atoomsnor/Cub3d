@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:36:29 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/13 00:48:42 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/13 19:04:22 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,7 @@ int	main(int argc, char **argv)
 	game->img->gun->instances[0].z = 1;
 	mlx_loop_hook(game->mlx, &test_keyhook, game);
 	mlx_resize_hook(game->mlx, resize_hook, game);
+	mlx_cursor_hook(game->mlx, cursor_hook, game);
+	mouse(game);
 	mlx_loop(game->mlx);
 }
