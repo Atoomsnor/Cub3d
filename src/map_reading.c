@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 12:53:25 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/12 23:29:11 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/14 17:41:18 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,31 @@ int	**read_map(char *file_name, t_game *game)
 	close(fd);
 	(void)game; //?
 	return (map);
+}
+
+char	**get_map(char *input)
+{
+	int		fd;
+	int		i;
+	int		line_count;
+	char	**ret;
+
+	line_count = count_lines(input);
+	if (!line_count)
+		return (NULL);
+	fd = open(input, O_RDONLY);
+	if (fd < 0)
+		return (ft_printf("Invalid file.\n"), NULL);
+	i = 0;
+	ret = (char **)ft_calloc(line_count + 1, sizeof(char *));
+	if (!ret)
+		return (NULL);
+	ret[i] = get_next_line(fd);
+	while (ret[i])
+	{
+		i++;
+		ret[i] = get_next_line(fd);
+	}
+	close(fd);
+	return (ret);
 }

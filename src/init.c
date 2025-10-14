@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 00:29:41 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/13 17:01:23 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/14 15:51:11 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_img *init_images(mlx_t *mlx)
 	img->SO = png_to_image("./img/Wallgrey2.png", mlx);
 	img->WE = png_to_image("./img/Walldark2.png", mlx);
 	img->gun = png_to_image("./img/Gun.png", mlx);
+	img->hud = png_to_image("./img/Hud.png", mlx);
 	return (img);
 }
 

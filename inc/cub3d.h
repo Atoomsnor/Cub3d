@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/13 17:39:45 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/14 18:45:54 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_img
 	mlx_image_t		*EA;
 	mlx_image_t		*screen;
 	mlx_image_t		*gun;
+	mlx_image_t		*hud;
 } t_img;
 
 typedef struct s_fps
@@ -65,11 +66,17 @@ typedef struct s_fps
 	double	delta_time;
 } t_fps;
 
-typedef struct s_texture
+typedef struct s_parse
 {
-	mlx_texture_t *wall_texture;
-	mlx_texture_t *gun;
-} t_texture;
+	char			**map;
+	char			*NO_texture;
+	char			*SO_texture;
+	char			*WE_texture;
+	char			*EA_texture;
+	uint32_t		*floor_color;
+	uint32_t		*ceiling_color;
+
+} t_parse;
 
 typedef struct s_game
 {
@@ -97,5 +104,8 @@ void		mouse(t_game *game);
 void		cursor_hook(double x, double y, void *ptr);
 void		turn_right(t_game *game, double speed);
 void		turn_left(t_game *game, double speed);
+void		curse(t_game *game);
+int			check_input(char *map_name);
+char		**get_map(char *input);
 
 #endif

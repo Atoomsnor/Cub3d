@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/13 17:39:33 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/14 15:57:58 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	test_keyhook(void *param)
 	game = param;
 	get_fps(game);
 	speed = 0.005f * game->fps->delta_time;
-	mod = 0.2f;
+	mod = 0.5f;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(game->mlx);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
@@ -105,5 +105,6 @@ void	test_keyhook(void *param)
 		turn_left(game, speed / 2.0f);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 		turn_right(game, speed / 2.0f);
+	// curse(game);
 	raycast(game);
 }
