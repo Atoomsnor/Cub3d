@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/14 18:45:54 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/20 13:57:51 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_img
 	mlx_image_t		*WE;
 	mlx_image_t		*EA;
 	mlx_image_t		*screen;
-	mlx_image_t		*gun;
 	mlx_image_t		*hud;
 } t_img;
 
@@ -68,13 +67,16 @@ typedef struct s_fps
 
 typedef struct s_parse
 {
+	int				**int_map;
 	char			**map;
 	char			*NO_texture;
 	char			*SO_texture;
 	char			*WE_texture;
 	char			*EA_texture;
-	uint32_t		*floor_color;
-	uint32_t		*ceiling_color;
+	char			*floor_color;
+	char			*ceiling_color;
+	t_vector		pos;
+	t_vector		dir;
 
 } t_parse;
 
@@ -98,14 +100,14 @@ void		raycast(t_game *game);
 int			**read_map(char *file_name, t_game *game);
 size_t		get_time(void);
 mlx_image_t	*png_to_image(const char *path, mlx_t *mlx);
-t_game		*init_game(char **argv);
+t_game		*init_game(t_parse parse);
 size_t		get_fps(t_game *game);
 void		mouse(t_game *game);
 void		cursor_hook(double x, double y, void *ptr);
 void		turn_right(t_game *game, double speed);
 void		turn_left(t_game *game, double speed);
 void		curse(t_game *game);
-int			check_input(char *map_name);
+int			check_input(char *map_name, t_parse *parse);
 char		**get_map(char *input);
 
 #endif

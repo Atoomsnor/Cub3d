@@ -1,9 +1,9 @@
-NO "./img/Wallgrey1"
-SO "./img/Walldark1"
-WE "./img/Wallgrey2"
-EA "./img/Walldark1"
+NO "img"
+SO "img"
+WE "img"
+EA "img"
 
-F 100,0s0
+F 100,0,0
 C 0,0,50
 
 111111111111111111111111111
