@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/20 13:57:51 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/21 12:33:05 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ typedef struct s_img
 	mlx_image_t		*EA;
 	mlx_image_t		*screen;
 	mlx_image_t		*hud;
+	int32_t			floor_color;
+	int32_t			ceiling_color;
 } t_img;
 
 typedef struct s_fps

@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:29:00 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/13 00:25:19 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/21 13:18:17 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 int get_color(mlx_image_t* image, uint32_t x, uint32_t y)
 {
 	uint8_t		*pixelstart = &image->pixels[(y * SCALE + x) * 4];
+	// printf("%i\n", pixelstart[0]);
 	return ((pixelstart[0] | (pixelstart[1] << 8) | (pixelstart[2] << 16) | (pixelstart[3] << 24)));
 }
 
@@ -31,6 +32,25 @@ void put_pixel(mlx_image_t* image, uint32_t x, uint32_t y, uint32_t color)
 	*(pixelstart++) = (uint8_t)(color >> 8);
 	*(pixelstart++) = (uint8_t)(color >> 16);
 	*(pixelstart++) = (uint8_t)(color >> 24);
+}
+
+void cast_floor(t_game *game, int x, int y)
+{
+	while (y < game->height)
+	{
+		put_pixel(game->screen_buffer, x, y, game->img->floor_color);
+		y++;
+	}
+	// mlx_image_to_window(game->mlx, game->screen_buffer, 0, 0);
+}
+
+void cast_ceiling(t_game *game, int x, int y)
+{
+	while (y > 0)
+	{
+		put_pixel(game->screen_buffer, x, y, game->img->ceiling_color);
+		y--;
+	}
 }
 
 void cast_ray(t_ray ray, t_player *player, t_game *game, int x)
@@ -120,6 +140,8 @@ void cast_ray(t_ray ray, t_player *player, t_game *game, int x)
 				img = game->img->NO;
 			put_pixel(game->screen_buffer, x, y, get_color(img, ray.tex.x, tex_y));
 		}
+		cast_floor(game, x, y_end);
+		cast_ceiling(game, x, y_start);
 		mlx_image_to_window(game->mlx, game->screen_buffer, 0, 0);
 	}
 }

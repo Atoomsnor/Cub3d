@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/14 15:57:58 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/21 12:56:53 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	turn_right(t_game *game, double speed)
 	old_dir_x = player->dir.x;
 	old_plane_x = player->plane.x;
 	player->dir.x = player->dir.x * cos(speed) - player->dir.y * sin(speed);
+	printf("%f\n", player->dir.x);
 	player->dir.y = old_dir_x * sin(speed) + player->dir.y * cos(speed);
 	player->plane.x = player->plane.x * cos(speed) - player->plane.y * sin(speed);
 	player->plane.y = old_plane_x * sin(speed) + player->plane.y * cos(speed);

@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:20:47 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/20 14:01:21 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/21 14:00:12 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,17 @@ char *fill_info(char *input)
 	i = 0;
 	while (input[i] == ' ')
 		i++;
-	if (input[i] != '"')
-		return (NULL);
 	len = i + 1;
-	while (input[len] && input[len] != '"' && input[len] != '\n')
+	while (input[len] && input[len] != '\n')
 		len++;
-	if (input[len] != '"')
-		return (NULL);
-	out = ft_substr(input, i + 1, len - (i + 1));
+	out = ft_substr(input, i, len - (i));
 	return (out);
 }
+
+// char *get_rgb_info(char *input)
+// {
+	
+// }
 
 int	parsing(char *map_name, t_parse *parse)
 {
@@ -58,9 +59,9 @@ int	parsing(char *map_name, t_parse *parse)
 			else if (!ft_strncmp(&parse->map[i][j], "WE ", 3))
 				parse->WE_texture = fill_info(&parse->map[i][j + 3]);
 			else if (!ft_strncmp(&parse->map[i][j], "F ", 2))
-				parse->floor_color = "100,0,0";
+				parse->floor_color = fill_info(&parse->map[i][j + 2]);//get_rgb_info(&parse->map[i][j + 2]);
 			else if (!ft_strncmp(&parse->map[i][j], "C ", 2))
-				parse->ceiling_color = "0,0,50";
+				parse->ceiling_color = fill_info(&parse->map[i][j + 2]);
 			j++;
 			if (parse->NO_texture && parse->SO_texture && parse->EA_texture && parse->WE_texture && parse->floor_color && parse->ceiling_color)
 				return (i);
@@ -86,14 +87,14 @@ void set_pos_and_dir(t_parse *parse, int y, int x, char dir)
 {
 	parse->pos.x = x;
 	parse->pos.y = y;
-	// if (dir == 'N')
-	// 	parse->dir.y = 1;
-	// else if (dir == 'E')
-	// 	parse->dir.x = 1;
-	// else if (dir == 'S')
-	// 	parse->dir.y = -1;
-	// else if (dir == 'W')
-	// 	parse->dir.x = -1;
+	if (dir == 'N')
+		parse->dir.y = -1;
+	else if (dir == 'E')
+		parse->dir.x = 1;
+	else if (dir == 'S')
+		parse->dir.y = 1;
+	else if (dir == 'W')
+		parse->dir.x = -1;
 	(void)dir;
 }
 
@@ -161,7 +162,7 @@ int check_input(char *map_name, t_parse *parse)
 	parse->SO_texture = NULL;
 	parse->floor_color = NULL;
 	parse->ceiling_color = NULL;
-	parse->dir.x = 1;
+	parse->dir.x = 0;
 	parse->dir.y = 0;
 	map_pos = parsing(map_name, parse);
 	if (map_pos == -1)
