@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/21 12:33:05 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/21 17:44:33 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,6 @@ void		turn_left(t_game *game, double speed);
 void		curse(t_game *game);
 int			check_input(char *map_name, t_parse *parse);
 char		**get_map(char *input);
+bool		check_map(t_parse *parse,  char **map);
 
 #endif

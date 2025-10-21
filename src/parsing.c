@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:20:47 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/21 14:00:12 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/21 17:46:58 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char *fill_info(char *input)
 	int		len;
 
 	i = 0;
-	while (input[i] == ' ')
+	while (ft_iswhitespace(input[i]))
 		i++;
 	len = i + 1;
 	while (input[len] && input[len] != '\n')
@@ -30,11 +30,6 @@ char *fill_info(char *input)
 	out = ft_substr(input, i, len - (i));
 	return (out);
 }
-
-// char *get_rgb_info(char *input)
-// {
-	
-// }
 
 int	parsing(char *map_name, t_parse *parse)
 {
@@ -59,7 +54,7 @@ int	parsing(char *map_name, t_parse *parse)
 			else if (!ft_strncmp(&parse->map[i][j], "WE ", 3))
 				parse->WE_texture = fill_info(&parse->map[i][j + 3]);
 			else if (!ft_strncmp(&parse->map[i][j], "F ", 2))
-				parse->floor_color = fill_info(&parse->map[i][j + 2]);//get_rgb_info(&parse->map[i][j + 2]);
+				parse->floor_color = fill_info(&parse->map[i][j + 2]);
 			else if (!ft_strncmp(&parse->map[i][j], "C ", 2))
 				parse->ceiling_color = fill_info(&parse->map[i][j + 2]);
 			j++;
@@ -141,7 +136,7 @@ int look_for_empty_lines(int map_pos, char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] != ' ' || map[i][j] != '\n')
+			if (ft_iswhitespace(map[i][j]) || map[i][j] != '\n')
 				return (map_pos + i);
 			j++;
 		}
@@ -150,12 +145,8 @@ int look_for_empty_lines(int map_pos, char **map)
 	return (-1);
 }
 
-int check_input(char *map_name, t_parse *parse)
+void set_parse_vars_null(t_parse *parse)
 {
-	int		map_pos;
-
-	if (check_name(map_name) == -1)
-		return (printf("Error\nInvalid map name\n"), -1);
 	parse->EA_texture = NULL;
 	parse->NO_texture = NULL;
 	parse->WE_texture = NULL;
@@ -164,13 +155,23 @@ int check_input(char *map_name, t_parse *parse)
 	parse->ceiling_color = NULL;
 	parse->dir.x = 0;
 	parse->dir.y = 0;
+}
+
+int check_input(char *map_name, t_parse *parse)
+{
+	int		map_pos;
+
+	if (check_name(map_name) == -1)
+		return (printf("Error\nInvalid map name\n"), -1);
+	set_parse_vars_null(parse);
 	map_pos = parsing(map_name, parse);
 	if (map_pos == -1)
 		return (printf("Error\n"), -1);
-	map_pos = look_for_empty_lines(map_pos, &parse->map[map_pos]);
+	map_pos = look_for_empty_lines(map_pos, &parse->map[map_pos]) + 1;
 	if (map_pos == -1)
 		return (printf("Error\n"), -1);
-	// check_map();
+	if (check_map(parse, &parse->map[map_pos]))
+		return (-1);
 	parse->int_map = ctoi_map(&parse->map[map_pos], parse);
 	return (1);
 }
