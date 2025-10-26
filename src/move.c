@@ -6,13 +6,12 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/21 18:11:51 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/26 02:22:45 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> //can be removed later
-#include <math.h>
 
 static void	move_forward(t_game *game, double speed, float mod)
 {
@@ -60,8 +59,8 @@ static void	move_left(t_game *game, double speed, float mod)
 	double		next_y;
 
 	pos = &game->player->pos;
-	dir = game->player->dir;
-	dir.y = dir.y - 1;
+	dir.y = -game->player->dir.x;
+	dir.x = game->player->dir.y;
 	next_x = pos->x + (speed + mod) * dir.x;
 	next_y = pos->y + (speed + mod) * dir.y;
 	if (next_x > 0
@@ -80,7 +79,8 @@ static void	move_right(t_game *game, double speed, float mod)
 	double		next_y;
 
 	pos = &game->player->pos;
-	dir = game->player->dir;
+	dir.y = game->player->dir.x;
+	dir.x = -game->player->dir.y;
 	next_x = pos->x + (speed + mod) * dir.x;
 	next_y = pos->y + (speed + mod) * dir.y;
 	if (next_x > 0
@@ -89,36 +89,6 @@ static void	move_right(t_game *game, double speed, float mod)
 	if (next_y > 0
 		&& game->world_map[(int)(next_y)][(int)(pos->x)] != 1)
 		pos->y += dir.y * speed;
-}
-
-void	turn_left(t_game *game, double speed)
-{
-	t_player	*player;
-	double		old_dir_x;
-	double		old_plane_x;
-
-	player = game->player;
-	old_dir_x = player->dir.x;
-	old_plane_x = player->plane.x;
-	player->dir.x = player->dir.x * cos(-speed) - player->dir.y * sin(-speed);
-	player->dir.y = old_dir_x * sin(-speed) + player->dir.y * cos(-speed);
-	player->plane.x = player->plane.x * cos(-speed) - player->plane.y * sin(-speed);
-	player->plane.y = old_plane_x * sin(-speed) + player->plane.y * cos(-speed);
-}
-
-void	turn_right(t_game *game, double speed)
-{
-	t_player	*player;
-	double		old_dir_x;
-	double		old_plane_x;
-
-	player = game->player;
-	old_dir_x = player->dir.x;
-	old_plane_x = player->plane.x;
-	player->dir.x = player->dir.x * cos(speed) - player->dir.y * sin(speed);
-	player->dir.y = old_dir_x * sin(speed) + player->dir.y * cos(speed);
-	player->plane.x = player->plane.x * cos(speed) - player->plane.y * sin(speed);
-	player->plane.y = old_plane_x * sin(speed) + player->plane.y * cos(speed);
 }
 
 // add an open flag to all for bonus doors

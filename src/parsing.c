@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:20:47 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/21 17:46:58 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/26 02:20:44 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,19 @@ int	parsing(char *map_name, t_parse *parse)
 		while(parse->map[i][j])
 		{
 			if (!ft_strncmp(&parse->map[i][j], "NO ", 3))
-				parse->NO_texture = fill_info(&parse->map[i][j + 3]);
+				parse->no_texture = fill_info(&parse->map[i][j + 3]);
 			else if (!ft_strncmp(&parse->map[i][j], "SO ", 3))
-				parse->SO_texture = fill_info(&parse->map[i][j + 3]);
+				parse->so_texture = fill_info(&parse->map[i][j + 3]);
 			else if (!ft_strncmp(&parse->map[i][j], "EA ", 3))
-				parse->EA_texture = fill_info(&parse->map[i][j + 3]);
+				parse->ea_texture = fill_info(&parse->map[i][j + 3]);
 			else if (!ft_strncmp(&parse->map[i][j], "WE ", 3))
-				parse->WE_texture = fill_info(&parse->map[i][j + 3]);
+				parse->we_texture = fill_info(&parse->map[i][j + 3]);
 			else if (!ft_strncmp(&parse->map[i][j], "F ", 2))
 				parse->floor_color = fill_info(&parse->map[i][j + 2]);
 			else if (!ft_strncmp(&parse->map[i][j], "C ", 2))
 				parse->ceiling_color = fill_info(&parse->map[i][j + 2]);
 			j++;
-			if (parse->NO_texture && parse->SO_texture && parse->EA_texture && parse->WE_texture && parse->floor_color && parse->ceiling_color)
+			if (parse->no_texture && parse->so_texture && parse->ea_texture && parse->we_texture && parse->floor_color && parse->ceiling_color)
 				return (i);
 		}
 		i++;
@@ -147,10 +147,10 @@ int look_for_empty_lines(int map_pos, char **map)
 
 void set_parse_vars_null(t_parse *parse)
 {
-	parse->EA_texture = NULL;
-	parse->NO_texture = NULL;
-	parse->WE_texture = NULL;
-	parse->SO_texture = NULL;
+	parse->ea_texture = NULL;
+	parse->no_texture = NULL;
+	parse->we_texture = NULL;
+	parse->so_texture = NULL;
 	parse->floor_color = NULL;
 	parse->ceiling_color = NULL;
 	parse->dir.x = 0;

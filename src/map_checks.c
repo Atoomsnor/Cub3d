@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 12:46:52 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/21 18:04:00 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/26 02:02:30 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ bool	check_characters(char **map)
 		}
 		y++;
 	}
+	printf("\n");
 	if (player_count != 1)
 		return (false);
 	return (true);

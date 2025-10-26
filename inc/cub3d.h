@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/21 17:44:33 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/26 02:20:04 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ typedef struct s_vector
 {
 	double	x;
 	double	y;
-} t_vector;
+}	t_vector;
 
 typedef struct s_player
 {
 	t_vector	pos;
 	t_vector	dir;
 	t_vector	plane;
-} t_player;
+}	t_player;
 
 typedef struct s_ray
 {
@@ -44,19 +44,22 @@ typedef struct s_ray
 	t_vector	delta_dist;
 	double		hit_dist;
 	bool		hit;
-} t_ray;
+	int			side;
+	int			x;
+	int			y;
+}	t_ray;
 
 typedef struct s_img
 {
-	mlx_image_t		*NO;
-	mlx_image_t		*SO;
-	mlx_image_t		*WE;
-	mlx_image_t		*EA;
+	mlx_image_t		*no;
+	mlx_image_t		*so;
+	mlx_image_t		*we;
+	mlx_image_t		*ea;
 	mlx_image_t		*screen;
 	mlx_image_t		*hud;
 	int32_t			floor_color;
 	int32_t			ceiling_color;
-} t_img;
+}	t_img;
 
 typedef struct s_fps
 {
@@ -65,22 +68,22 @@ typedef struct s_fps
 	size_t	last_time;
 	size_t	time;
 	double	delta_time;
-} t_fps;
+}	t_fps;
 
 typedef struct s_parse
 {
 	int				**int_map;
 	char			**map;
-	char			*NO_texture;
-	char			*SO_texture;
-	char			*WE_texture;
-	char			*EA_texture;
+	char			*no_texture;
+	char			*so_texture;
+	char			*we_texture;
+	char			*ea_texture;
 	char			*floor_color;
 	char			*ceiling_color;
 	t_vector		pos;
 	t_vector		dir;
 
-} t_parse;
+}	t_parse;
 
 typedef struct s_game
 {
@@ -94,8 +97,7 @@ typedef struct s_game
 	int				width;
 	int				height;
 	int				game_width;
-	
-} t_game;
+}	t_game;
 
 void		test_keyhook(void *param);
 void		raycast(t_game *game);
@@ -111,6 +113,11 @@ void		turn_left(t_game *game, double speed);
 void		curse(t_game *game);
 int			check_input(char *map_name, t_parse *parse);
 char		**get_map(char *input);
-bool		check_map(t_parse *parse,  char **map);
+bool		check_map(t_parse *parse, char **map);
+void		a(t_ray ray, t_game *game);
+int			get_color(mlx_image_t *image, uint32_t x, uint32_t y);
+void		put_pixel(mlx_image_t *image, uint32_t x,
+				uint32_t y, uint32_t color);
+void	resize_hook(int32_t width, int32_t height, void *ptr);
 
 #endif
