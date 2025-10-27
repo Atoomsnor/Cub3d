@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   a.c                                                :+:      :+:    :+:   */
+/*   ray_to_image.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 02:12:07 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/26 02:20:59 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/27 12:38:26 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	cast_floor(t_game *game, int x, int y)
+static void	draw_floor(t_game *game, int x, int y)
 {
 	while (y < game->height)
 	{
@@ -21,7 +21,7 @@ static void	cast_floor(t_game *game, int x, int y)
 	}
 }
 
-void	cast_ceiling(t_game *game, int x, int y)
+static void	draw_ceiling(t_game *game, int x, int y)
 {
 	while (y > 0)
 	{
@@ -30,7 +30,7 @@ void	cast_ceiling(t_game *game, int x, int y)
 	}
 }
 
-static void	a_loop(const int height, int y_end, t_game *game, t_ray ray)
+static void	draw_wall(const int height, int y_end, t_game *game, t_ray ray)
 {
 	mlx_image_t	*img;
 	int			tex_y;
@@ -57,7 +57,7 @@ static void	a_loop(const int height, int y_end, t_game *game, t_ray ray)
 	}
 }
 
-void	a(t_ray ray, t_game *game)
+void	ray_to_image(t_ray ray, t_game *game)
 {
 	const int	height = (int)(game->height / ray.hit_dist);
 	int			y_start;
@@ -70,8 +70,7 @@ void	a(t_ray ray, t_game *game)
 	if (y_end >= game->height)
 		y_end = game->height - 1;
 	ray.y = y_start;
-	a_loop(height, y_end, game, ray);
-	cast_floor(game, ray.x, y_end);
-	cast_ceiling(game, ray.x, y_start);
-	mlx_image_to_window(game->mlx, game->screen_buffer, 0, 0);
+	draw_wall(height, y_end, game, ray);
+	draw_floor(game, ray.x, y_end);
+	draw_ceiling(game, ray.x, y_start);
 }

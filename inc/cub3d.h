@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/26 02:20:04 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/27 12:38:15 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void		curse(t_game *game);
 int			check_input(char *map_name, t_parse *parse);
 char		**get_map(char *input);
 bool		check_map(t_parse *parse, char **map);
-void		a(t_ray ray, t_game *game);
+void		ray_to_image(t_ray ray, t_game *game);
 int			get_color(mlx_image_t *image, uint32_t x, uint32_t y);
 void		put_pixel(mlx_image_t *image, uint32_t x,
 				uint32_t y, uint32_t color);

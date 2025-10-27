@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:29:00 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/26 02:13:08 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/27 12:38:22 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static void	cast_ray(t_ray ray, t_player *player, t_game *game)
 	dda_loop(&ray, game, dir);
 	side_based_calculations(&ray, player->pos);
 	if (ray.hit_dist > 0)
-		a(ray, game);
+		ray_to_image(ray, game);
 }
 
 void	raycast(t_game *game)
