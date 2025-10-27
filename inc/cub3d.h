@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/27 13:43:49 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/27 18:27:26 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,20 @@ typedef struct s_game
 	int				height;
 }	t_game;
 
+// *map_checks* //
+
+int			check_name(char *name);
+int			look_for_empty_lines(int map_pos, char **map);
+
+// *test* //
+void		print_map(char **map, int width);
+
+
+
+int flood_and_walls(char **map, t_parse *parse);
+
+
+
 void		test_keyhook(void *param);
 void		raycast(t_game *game);
 size_t		get_time(void);
@@ -111,7 +125,7 @@ void		turn_left(t_game *game, double speed);
 void		curse(t_game *game);
 int			check_input(char *map_name, t_parse *parse);
 char		**get_map(char *input);
-bool		check_map(t_parse *parse, char **map);
+int		check_map(t_parse *parse, char **map);
 void		ray_to_image(t_ray ray, t_game *game);
 int			get_color(mlx_image_t *image, uint32_t x, uint32_t y);
 void		put_pixel(mlx_image_t *image, uint32_t x,

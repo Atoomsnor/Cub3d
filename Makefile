@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+         #
+#    By: roversch <roversch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/18 15:46:40 by roversch          #+#    #+#              #
-#    Updated: 2025/10/27 14:39:40 by nhendrik         ###   ########.fr        #
+#    Updated: 2025/10/27 19:35:33 by roversch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,20 +18,22 @@ DEPFLAGS	= 	-MMD
 INCLUDES	=	-I ./inc -I libft/ -I MLX42/include/MLX42
 
 #cub3D
-SRC_DIR		=	src
+SRC_DIRS	=	src/ src/map_checks/
+VPATH		=	$(SRC_DIRS)
 SRC			=	main.c move.c raycasting.c map_reading.c time.c init.c cursor.c \
 				parsing.c map_checks.c turn.c ray_to_image.c pixels.c resize.c \
+				file_checks.c flood_fill.c
 
-OBJ_DIR		=	obj
-OBJ			=	$(SRC:%.c=$(OBJ_DIR)/%.o)
+OBJ_DIR		=	obj/
+OBJ			=	$(SRC:%.c=$(OBJ_DIR)%.o)
 
 #Libft
 LIBFT_DIR	=	libft
 LIBFT_LIB	=	$(LIBFT_DIR)/libft.a
 
 #MLX42
-MLX42_DIR   =	MLX42
-MLX42_LIB   =	$(MLX42_DIR)/build/libmlx42.a
+MLX42_DIR	=	MLX42
+MLX42_LIB	=	$(MLX42_DIR)/build/libmlx42.a
 MLX_LIBS	=	$(MLX42_LIB) -ldl -lglfw -lm
 
 #Targets
@@ -40,12 +42,12 @@ all: $(NAME)
 $(NAME): $(OBJ) libft libmlx Makefile
 	$(CC) $(OBJ) -L. $(LIBFT_LIB) $(MLX_LIBS) $(CFLAGS) -o $(NAME)
 
-#Object directory
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+#Directories
+%/:
+	mkdir -p $@
 
 #cub3D objects
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c Makefile | $(OBJ_DIR)
+$(OBJ_DIR)%.o: %.c Makefile | $(OBJ_DIR)
 	$(CC) -c $(CFLAGS) $(DEPFLAGS) $(INCLUDES) $< -o $@
 
 #Libft objects
@@ -68,5 +70,6 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re libft libmlx
+.PRECIOUS : $(OBJ_DIR)
 
 -include $(OBJ:.o=.d)

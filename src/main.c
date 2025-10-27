@@ -3,16 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:36:29 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/26 02:19:39 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/27 18:12:00 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
 #include <math.h>
+
+void print_map(char **map, int width)
+{
+	for (int i = 0; map[i]; i++)
+	{
+		for (int j = 0; j < width; j++)
+		{
+			if (!map[i][j])
+				printf("J");
+			else
+				printf("%c", map[i][j]);
+		}
+		printf("\n");
+	}
+}
 
 mlx_image_t	*png_to_image(const char *path, mlx_t *mlx)
 {

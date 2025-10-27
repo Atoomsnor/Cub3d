@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:20:47 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/27 15:00:24 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/27 19:31:32 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,6 @@ int	parsing(char *map_name, t_parse *parse)
 	return (-1);
 }
 
-int	check_name(char *name)
-{
-	int	i;
-
-	i = 0;
-	while (name[i] && ft_strncmp(&name[i], ".cub\0", 5))
-		i++;
-	if (!name[i])
-		return (-1);
-	return (0);
-}
-
 int **ctoi_map(char **map)
 {
 	int **out;
@@ -109,26 +97,6 @@ int **ctoi_map(char **map)
 	return (out);
 }
 
-int look_for_empty_lines(int map_pos, char **map)
-{
-	int i;
-	int	j;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (ft_iswhitespace(map[i][j]) || map[i][j] != '\n')
-				return (map_pos + i);
-			j++;
-		}
-		i++;
-	}
-	return (-1);
-}
-
 void set_parse_vars_null(t_parse *parse)
 {
 	parse->ea_texture = NULL;
@@ -150,11 +118,13 @@ int check_input(char *map_name, t_parse *parse)
 	set_parse_vars_null(parse);
 	map_pos = parsing(map_name, parse);
 	if (map_pos == -1)
-		return (printf("Error\n"), -1);
-	map_pos = look_for_empty_lines(map_pos, &parse->map[map_pos]) + 1;
+		return (printf("Error\nNot enough elements\n"), -1);
+	printf("%i\n", map_pos);
+	map_pos = look_for_empty_lines(map_pos, &parse->map[map_pos]) + 1;//???
+	printf("%i\n", map_pos);
 	if (map_pos == -1)
 		return (printf("Error\n"), -1);
-	if (check_map(parse, &parse->map[map_pos]))
+	if (check_map(parse, &parse->map[map_pos]) == -1)
 		return (-1);
 	parse->int_map = ctoi_map(&parse->map[map_pos]);
 	return (1);

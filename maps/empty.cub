@@ -1,0 +1,6 @@
+NO ./img/Wallgrey1.png
+SO ./img/Wallblue.png
+C 200,100,50
+F 64,49,36
+WE ./img/Walldark1.png
+EA ./img/Wallred.png
