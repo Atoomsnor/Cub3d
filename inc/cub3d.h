@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/27 12:38:15 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/27 13:43:49 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,10 @@ typedef struct s_game
 	int				**world_map;
 	int				width;
 	int				height;
-	int				game_width;
 }	t_game;
 
 void		test_keyhook(void *param);
 void		raycast(t_game *game);
-int			**read_map(char *file_name, t_game *game);
 size_t		get_time(void);
 mlx_image_t	*png_to_image(const char *path, mlx_t *mlx);
 t_game		*init_game(t_parse parse);

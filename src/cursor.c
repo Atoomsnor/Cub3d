@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 17:26:03 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/26 01:58:47 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/27 14:47:05 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void curse(t_game *game)
 	speed = 0;
 	if (game->mouse.x > x)
 	{
-		// printf("%f %f\n", game->mouse.x, x);
 		speed = (game->mouse.x - x) * game->fps->delta_time / 50000.0f;
 		printf("speed: %f\n", speed);
 		turn_left(game, speed);
@@ -49,7 +48,6 @@ void curse(t_game *game)
 	}
 	else if (game->mouse.x < x)
 	{
-		// printf("%f %f\n", game->mouse.x, x);
 		speed = (x - game->mouse.x) * game->fps->delta_time / 50000.0f;
 		printf("speed: %f\n", speed);
 		turn_right(game, speed);

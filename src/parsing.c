@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:20:47 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/26 02:20:44 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/27 15:00:24 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,22 +78,7 @@ int	check_name(char *name)
 	return (0);
 }
 
-void set_pos_and_dir(t_parse *parse, int y, int x, char dir)
-{
-	parse->pos.x = x;
-	parse->pos.y = y;
-	if (dir == 'N')
-		parse->dir.y = -1;
-	else if (dir == 'E')
-		parse->dir.x = 1;
-	else if (dir == 'S')
-		parse->dir.y = 1;
-	else if (dir == 'W')
-		parse->dir.x = -1;
-	(void)dir;
-}
-
-int **ctoi_map(char **map, t_parse *parse)
+int **ctoi_map(char **map)
 {
 	int **out;
 	int	i;
@@ -114,7 +99,6 @@ int **ctoi_map(char **map, t_parse *parse)
 				out[i][j] = map[i][j] - '0';
 			else if (map[i][j] == 'N' || map[i][j] == 'E' || map[i][j] == 'S' || map[i][j] == 'W')
 			{
-				set_pos_and_dir(parse, i, j, map[i][j]);
 				printf("x %i, y %i\n", j, i);
 				out[i][j] = 0;
 			}
@@ -172,6 +156,6 @@ int check_input(char *map_name, t_parse *parse)
 		return (printf("Error\n"), -1);
 	if (check_map(parse, &parse->map[map_pos]))
 		return (-1);
-	parse->int_map = ctoi_map(&parse->map[map_pos], parse);
+	parse->int_map = ctoi_map(&parse->map[map_pos]);
 	return (1);
 }
