@@ -6,7 +6,7 @@
 /*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/27 18:27:26 by roversch         ###   ########.fr       */
+/*   Updated: 2025/10/28 12:31:39 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_img
 	mlx_image_t		*ea;
 	mlx_image_t		*screen;
 	mlx_image_t		*hud;
+	mlx_image_t		*gun1;
 	int32_t			floor_color;
 	int32_t			ceiling_color;
 }	t_img;

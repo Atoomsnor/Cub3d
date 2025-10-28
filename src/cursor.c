@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cursor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 17:26:03 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/27 14:47:05 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/28 11:07:25 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void cursor_hook(double x, double y, void *ptr)
 	t_game	*game;
 	double	speed;
 
-	
 	(void)y;
 	game = (t_game *)ptr;
 	mlx_set_mouse_pos(game->mlx, game->width / 2, game->height / 2);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 00:29:41 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/26 02:18:53 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/28 13:06:15 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_img	*init_images(mlx_t *mlx, t_parse parse)
 	img->so = png_to_image(parse.so_texture, mlx);
 	img->we = png_to_image(parse.we_texture, mlx);
 	img->hud = png_to_image("./img/Hud.png", mlx);
+	img->gun1 = png_to_image("./img/gun1.png", mlx);
 	img->floor_color = str_to_color(parse.floor_color);
 	ft_printf("%s\n", parse.floor_color);
 	img->ceiling_color = str_to_color(parse.ceiling_color);

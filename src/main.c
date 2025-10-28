@@ -6,7 +6,7 @@
 /*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:36:29 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/27 18:12:00 by roversch         ###   ########.fr       */
+/*   Updated: 2025/10/28 12:59:13 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	main(int argc, char **argv)
 	game = init_game(parse);
 	raycast(game);
 	mlx_image_to_window(game->mlx, game->img->hud, 0, 0);
+	mlx_image_to_window(game->mlx, game->img->gun1, 0, 0);
 	game->img->hud->instances[0].z = 5;
 	mlx_loop_hook(game->mlx, &test_keyhook, game);
 	mlx_resize_hook(game->mlx, resize_hook, game);
