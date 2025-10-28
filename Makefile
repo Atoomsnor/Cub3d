@@ -6,7 +6,7 @@
 #    By: roversch <roversch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/18 15:46:40 by roversch          #+#    #+#              #
-#    Updated: 2025/10/27 19:35:33 by roversch         ###   ########.fr        #
+#    Updated: 2025/10/28 15:54:10 by roversch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ DEPFLAGS	= 	-MMD
 INCLUDES	=	-I ./inc -I libft/ -I MLX42/include/MLX42
 
 #cub3D
-SRC_DIRS	=	src/ src/map_checks/
+SRC_DIRS	=	src/ src/map_checks/ src/raycasting/ src/user_input/ src/visual/ src/utils/
 VPATH		=	$(SRC_DIRS)
 SRC			=	main.c move.c raycasting.c map_reading.c time.c init.c cursor.c \
 				parsing.c map_checks.c turn.c ray_to_image.c pixels.c resize.c \

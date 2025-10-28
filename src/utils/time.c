@@ -6,7 +6,7 @@
 /*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 00:25:32 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/28 12:12:55 by roversch         ###   ########.fr       */
+/*   Updated: 2025/10/28 15:56:58 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ size_t	get_fps(t_game *game)
 	frame_time = (time - game->fps->last_time) / 1000.0;
 	game->fps->delta_time = time - game->fps->last_time;
 	game->fps->last_time = time;
-	printf("%f\n", 1.0 / frame_time);
+	// printf("%f\n", 1.0 / frame_time);
 	return (1.0 / frame_time);
 }
