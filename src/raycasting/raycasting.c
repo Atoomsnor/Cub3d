@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:29:00 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/27 12:38:22 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/29 19:50:41 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,24 +79,24 @@ void	side_based_calculations(t_ray *ray, t_vector pos)
 		ray->tex.x = SCALE - ray->tex.x - 1;
 }
 
-static void	cast_ray(t_ray ray, t_player *player, t_game *game)
+static void	cast_ray(t_ray ray, t_player player, t_game *game)
 {
 	t_vector	dir;
 
-	ray.map.x = (int)player->pos.x;
-	ray.map.y = (int)player->pos.y;
+	ray.map.x = (int)player.pos.x;
+	ray.map.y = (int)player.pos.y;
 	ray.delta_dist.x = fabs(1 / ray.dir.x);
 	ray.delta_dist.y = fabs(1 / ray.dir.y);
-	dir_and_side_dist(&ray, &dir, *player);
+	dir_and_side_dist(&ray, &dir, player);
 	dda_loop(&ray, game, dir);
-	side_based_calculations(&ray, player->pos);
+	side_based_calculations(&ray, player.pos);
 	if (ray.hit_dist > 0)
 		ray_to_image(ray, game);
 }
 
 void	raycast(t_game *game)
 {
-	t_player	*player;
+	t_player	player;
 	t_vector	camera;
 	t_ray		ray;
 
@@ -110,8 +110,8 @@ void	raycast(t_game *game)
 	while (ray.x < game->width)
 	{
 		camera.x = 2 * ray.x / (double)game->width - 1;
-		ray.dir.x = player->dir.x + player->plane.x * camera.x;
-		ray.dir.y = player->dir.y + player->plane.y * camera.x;
+		ray.dir.x = player.dir.x + player.plane.x * camera.x;
+		ray.dir.y = player.dir.y + player.plane.y * camera.x;
 		ray.hit = false;
 		cast_ray(ray, player, game);
 		ray.x++;

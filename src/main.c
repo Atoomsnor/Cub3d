@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:36:29 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/28 12:59:13 by roversch         ###   ########.fr       */
+/*   Updated: 2025/10/29 20:25:14 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,38 @@ mlx_image_t	*png_to_image(const char *path, mlx_t *mlx)
 	return (ret);
 }
 
+int	free_and_null(void *ptr)
+{
+	free(ptr);
+	ptr = NULL;
+	return (-1);
+}
+
+int empty_parse(t_parse *parse)
+{
+	//free int map (maybe pointer saved in game struct so conditional?)
+	//free char map
+	//free texture paths (ptr in game struct, conditional?)
+	return (1);	
+}
+
 int	main(int argc, char **argv)
 {
-	t_game		*game;
+	t_game		game;
 	t_parse		parse;
 
 	if (argc != 2)
 		argv[1] = "map.txt";
 	if (check_input(argv[1], &parse) == -1)
 		return (1);
-	game = init_game(parse);
-	raycast(game);
-	mlx_image_to_window(game->mlx, game->img->hud, 0, 0);
-	mlx_image_to_window(game->mlx, game->img->gun1, 0, 0);
-	game->img->hud->instances[0].z = 5;
-	mlx_loop_hook(game->mlx, &test_keyhook, game);
-	mlx_resize_hook(game->mlx, resize_hook, game);
-	mlx_cursor_hook(game->mlx, cursor_hook, game);
-	mouse(game);
-	mlx_loop(game->mlx);
+	if (init_game(&game, parse) == -1)
+		return (empty_parse(&parse));
+	raycast(&game);
+	mlx_image_to_window(game.mlx, game.img.hud, 0, 0);
+	game.img.hud->instances[0].z = 5;
+	mlx_loop_hook(game.mlx, &test_keyhook, &game);
+	mlx_resize_hook(game.mlx, resize_hook, &game);
+	mlx_cursor_hook(game.mlx, cursor_hook, &game);
+	mouse(&game);
+	mlx_loop(game.mlx);
 }

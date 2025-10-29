@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/10/28 12:31:39 by roversch         ###   ########.fr       */
+=======
+/*   Updated: 2025/10/29 19:47:45 by nhendrik         ###   ########.fr       */
+>>>>>>> 7944d6c (pulling before push)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +93,10 @@ typedef struct s_parse
 typedef struct s_game
 {
 	mlx_t			*mlx;
-	t_player		*player;
-	t_img			*img;
+	t_player		player;
+	t_img			img;
 	mlx_image_t		*screen_buffer;
-	t_fps			*fps;
+	t_fps			fps;
 	t_vector		mouse;
 	int				**world_map;
 	int				width;
@@ -117,7 +121,7 @@ void		test_keyhook(void *param);
 void		raycast(t_game *game);
 size_t		get_time(void);
 mlx_image_t	*png_to_image(const char *path, mlx_t *mlx);
-t_game		*init_game(t_parse parse);
+int			init_game(t_game *game, t_parse parse);
 size_t		get_fps(t_game *game);
 void		mouse(t_game *game);
 void		cursor_hook(double x, double y, void *ptr);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/28 11:26:53 by roversch         ###   ########.fr       */
+/*   Updated: 2025/10/29 20:25:47 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static void	move_forward(t_game *game, double speed, const float mod)
 	double		next_x;
 	double		next_y;
 
-	pos = &game->player->pos;
-	dir = game->player->dir;
+	pos = &game->player.pos;
+	dir = game->player.dir;
 	next_x = pos->x + (speed + mod) * dir.x;
 	next_y = pos->y + (speed + mod) * dir.y;
 	if (next_x > 0
@@ -39,8 +39,8 @@ static void	move_backward(t_game *game, double speed, const float mod)
 	double		next_x;
 	double		next_y;
 
-	pos = &game->player->pos;
-	dir = game->player->dir;
+	pos = &game->player.pos;
+	dir = game->player.dir;
 	next_x = pos->x - (speed + mod) * dir.x;
 	next_y = pos->y - (speed + mod) * dir.y;
 	if ((next_x > 0)
@@ -58,9 +58,9 @@ static void	move_left(t_game *game, double speed, const float sideways_mod)
 	double		next_x;
 	double		next_y;
 
-	pos = &game->player->pos;
-	dir.y = -game->player->dir.x;
-	dir.x = game->player->dir.y;
+	pos = &game->player.pos;
+	dir.y = -game->player.dir.x;
+	dir.x = game->player.dir.y;
 	next_x = pos->x + (speed + sideways_mod) * dir.x;
 	next_y = pos->y + (speed + sideways_mod) * dir.y;
 	if (next_x > 0
@@ -78,9 +78,9 @@ static void	move_right(t_game *game, double speed, const float sideways_mod)
 	double		next_x;
 	double		next_y;
 
-	pos = &game->player->pos;
-	dir.y = game->player->dir.x;
-	dir.x = -game->player->dir.y;
+	pos = &game->player.pos;
+	dir.y = game->player.dir.x;
+	dir.x = -game->player.dir.y;
 	next_x = pos->x + (speed + sideways_mod) * dir.x;
 	next_y = pos->y + (speed + sideways_mod) * dir.y;
 	if (next_x > 0
@@ -104,7 +104,7 @@ void	test_keyhook(void *param)
 		return ;
 	game = param;
 	get_fps(game);
-	speed = 0.005f * game->fps->delta_time;
+	speed = 0.005f * game->fps.delta_time;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(game->mlx);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:11:45 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/28 16:24:47 by roversch         ###   ########.fr       */
+/*   Updated: 2025/10/29 20:26:09 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,13 +115,9 @@ int flood_and_walls(char **map, t_parse *parse)
 		i++;
 	}
 	flood_map[height] = ft_calloc(width + 1, sizeof(char));
-	print_map(flood_map, width + 1);
 	flood_map = fill_whitespace(flood_map, width + 1);
-	print_map(flood_map, width + 1);
-	printf ("\n\nNL\n\n");
 	if (flood(&flood_map, 0, (int)parse->pos.y, (int)parse->pos.x + 1) == -1)
 		return (-1);
-	print_map(flood_map, width + 1);
 	if (flood_check(flood_map) == -1)
 		return (-1);
 	return (0);
