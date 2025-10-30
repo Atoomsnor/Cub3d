@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:36:29 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/29 20:25:14 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/29 21:42:41 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	free_and_null(void *ptr)
 	return (-1);
 }
 
-int empty_parse(t_parse *parse)
+int empty_parse(t_parse *parse, bool map)
 {
 	//free int map (maybe pointer saved in game struct so conditional?)
 	//free char map
@@ -65,7 +65,7 @@ int	main(int argc, char **argv)
 	if (check_input(argv[1], &parse) == -1)
 		return (1);
 	if (init_game(&game, parse) == -1)
-		return (empty_parse(&parse));
+		return (empty_parse(&parse, true));
 	raycast(&game);
 	mlx_image_to_window(game.mlx, game.img.hud, 0, 0);
 	game.img.hud->instances[0].z = 5;
