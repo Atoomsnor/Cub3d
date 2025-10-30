@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   cursor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 17:26:03 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/29 20:25:53 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/30 13:16:46 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
-void mouse(t_game *game)
+
+void	mouse(t_game *game)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = 0;
 	y = 0;
@@ -25,9 +26,9 @@ void mouse(t_game *game)
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
 }
 
-void curse(t_game *game)
+void	curse(t_game *game)
 {
-	double speed;
+	double	speed;
 	int		x;
 	int		y;
 
@@ -35,7 +36,7 @@ void curse(t_game *game)
 	y = 0;
 	mlx_get_mouse_pos(game->mlx, &x, &y);
 	mlx_set_mouse_pos(game->mlx, game->width / 2, game->height / 2);
-	if (x < 0 || y < 0  || x > game->width || y > game->height)
+	if (x < 0 || y < 0 || x > game->width || y > game->height)
 		return ;
 	speed = 0;
 	if (game->mouse.x > x)
@@ -56,7 +57,7 @@ void curse(t_game *game)
 	}
 }
 
-void cursor_hook(double x, double y, void *ptr)
+void	cursor_hook(double x, double y, void *ptr)
 {
 	t_game	*game;
 	double	speed;

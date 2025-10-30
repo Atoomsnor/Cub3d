@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/29 20:25:47 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/30 13:17:32 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ static void	move_right(t_game *game, double speed, const float sideways_mod)
 void	test_keyhook(void *param)
 {
 	const float	mod = 0.5f;
-	const float sideways_mod = 0.15f;
-	t_game	*game;
-	double	speed;
+	const float	sideways_mod = 0.15f;
+	t_game		*game;
+	double		speed;
 	static bool	been_down = false;
 
 	if (!param)

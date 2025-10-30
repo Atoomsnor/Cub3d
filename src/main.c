@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:36:29 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/29 21:42:41 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/30 13:13:39 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <math.h>
 
-void print_map(char **map, int width)
+void	print_map(char **map, int width)
 {
 	for (int i = 0; map[i]; i++)
 	{
@@ -47,12 +47,12 @@ int	free_and_null(void *ptr)
 	return (-1);
 }
 
-int empty_parse(t_parse *parse, bool map)
+int	empty_parse(t_parse *parse, bool map)
 {
 	//free int map (maybe pointer saved in game struct so conditional?)
 	//free char map
 	//free texture paths (ptr in game struct, conditional?)
-	return (1);	
+	return (1);
 }
 
 int	main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:20:47 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/27 19:31:32 by roversch         ###   ########.fr       */
+/*   Updated: 2025/10/30 13:17:49 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-char *fill_info(char *input)
+char	*fill_info(char *input)
 {
 	char	*out;
 	int		i;
@@ -43,7 +43,7 @@ int	parsing(char *map_name, t_parse *parse)
 	while (parse->map[i])
 	{
 		j = 0;
-		while(parse->map[i][j])
+		while (parse->map[i][j])
 		{
 			if (!ft_strncmp(&parse->map[i][j], "NO ", 3))
 				parse->no_texture = fill_info(&parse->map[i][j + 3]);
@@ -58,7 +58,8 @@ int	parsing(char *map_name, t_parse *parse)
 			else if (!ft_strncmp(&parse->map[i][j], "C ", 2))
 				parse->ceiling_color = fill_info(&parse->map[i][j + 2]);
 			j++;
-			if (parse->no_texture && parse->so_texture && parse->ea_texture && parse->we_texture && parse->floor_color && parse->ceiling_color)
+			if (parse->no_texture && parse->so_texture && parse->ea_texture
+				&& parse->we_texture && parse->floor_color && parse->ceiling_color)
 				return (i);
 		}
 		i++;
@@ -66,9 +67,9 @@ int	parsing(char *map_name, t_parse *parse)
 	return (-1);
 }
 
-int **ctoi_map(char **map)
+int	**ctoi_map(char **map)
 {
-	int **out;
+	int	**out;
 	int	i;
 	int	j;
 
@@ -85,7 +86,8 @@ int **ctoi_map(char **map)
 		{
 			if (map[i][j] == '0' || map[i][j] == '1')
 				out[i][j] = map[i][j] - '0';
-			else if (map[i][j] == 'N' || map[i][j] == 'E' || map[i][j] == 'S' || map[i][j] == 'W')
+			else if (map[i][j] == 'N' || map[i][j] == 'E'
+					|| map[i][j] == 'S' || map[i][j] == 'W')
 			{
 				printf("x %i, y %i\n", j, i);
 				out[i][j] = 0;
@@ -97,7 +99,7 @@ int **ctoi_map(char **map)
 	return (out);
 }
 
-void set_parse_vars_null(t_parse *parse)
+void	set_parse_vars_null(t_parse *parse)
 {
 	parse->ea_texture = NULL;
 	parse->no_texture = NULL;
@@ -109,7 +111,7 @@ void set_parse_vars_null(t_parse *parse)
 	parse->dir.y = 0;
 }
 
-int check_input(char *map_name, t_parse *parse)
+int	check_input(char *map_name, t_parse *parse)
 {
 	int		map_pos;
 

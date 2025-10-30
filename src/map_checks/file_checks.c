@@ -6,16 +6,16 @@
 /*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:21:56 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/27 19:28:05 by roversch         ###   ########.fr       */
+/*   Updated: 2025/10/30 13:13:50 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
 
-int look_for_empty_lines(int map_pos, char **map)
+int	look_for_empty_lines(int map_pos, char **map)
 {
-	int i;
+	int	i;
 	int	j;
 
 	i = 0;

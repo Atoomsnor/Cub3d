@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:11:45 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/29 20:26:09 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/30 13:15:48 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
 
-static int flood(char ***map, int count, int i, int j)
+static int	flood(char ***map, int count, int i, int j)
 {
 	if (count > 500)
 		return (-1);
 	(*map)[i][j] = 'F';
-	if ((*map)[i + 1][j] == 'X' || (*map)[i - 1][j] == 'X' || (*map)[i][j + 1] == 'X' || (*map)[i][j - 1] == 'X')
+	if ((*map)[i + 1][j] == 'X' || (*map)[i - 1][j] == 'X'
+		|| (*map)[i][j + 1] == 'X' || (*map)[i][j - 1] == 'X')
 		return (-1);
 	if ((*map)[i + 1][j] == '0')
 		if (!flood(map, count + 1, i + 1, j))
@@ -46,7 +47,8 @@ static int	flood_check(char **flood_map)
 		x = 0;
 		while (flood_map[y][x])
 		{
-			if (!(flood_map[y][x] == '1' || flood_map[y][x] == 'F' ||flood_map[y][x] == 'X' || flood_map[y][x] == '\n'))
+			if (!(flood_map[y][x] == '1' || flood_map[y][x] == 'F'
+					|| flood_map[y][x] == 'X' || flood_map[y][x] == '\n'))
 				return (-1);
 			x++;
 		}
@@ -74,7 +76,7 @@ static int	find_widest_point(char **map)
 	return (width);
 }
 
-static char **fill_whitespace(char **flood_map, int width)
+static char	**fill_whitespace(char **flood_map, int width)
 {
 	int	i;
 	int	j;
@@ -94,7 +96,7 @@ static char **fill_whitespace(char **flood_map, int width)
 	return (flood_map);
 }
 
-int flood_and_walls(char **map, t_parse *parse)
+int	flood_and_walls(char **map, t_parse *parse)
 {
 	char	**flood_map;
 	int		height;
@@ -108,7 +110,7 @@ int flood_and_walls(char **map, t_parse *parse)
 	width = find_widest_point(map);
 	i = 0;
 	flood_map[0] = ft_calloc(width + 1, sizeof(char));
-	while(i < height)
+	while (i < height)
 	{
 		flood_map[i + 1] = ft_calloc(width + 1, sizeof(char));
 		ft_strlcpy(&flood_map[i][1], map[i], width);

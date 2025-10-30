@@ -6,7 +6,7 @@
 /*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 12:46:52 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/27 18:26:26 by roversch         ###   ########.fr       */
+/*   Updated: 2025/10/30 13:14:29 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	is_map_character(char c)
 	return (0);
 }
 
-void set_pos_and_dir(t_parse *parse, int y, int x, char dir)
+void	set_pos_and_dir(t_parse *parse, int y, int x, char dir)
 {
 	parse->pos.x = x;
 	parse->pos.y = y;
@@ -53,8 +53,9 @@ int	check_characters(char **map, t_parse *parse)
 			if (map[y][x] == '1')
 				in_map = true;
 			if (!in_map && is_map_character(map[y][x]))
-					return (-1);
-			if (map[y][x] == 'N' || map[y][x] == 'E' || map[y][x] == 'W' || map[y][x] == 'S')
+				return (-1);
+			if (map[y][x] == 'N' || map[y][x] == 'E'
+					|| map[y][x] == 'W' || map[y][x] == 'S')
 			{
 				set_pos_and_dir(parse, y, x, map[y][x]);
 				player_count++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 00:29:41 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/29 20:25:09 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/10/30 13:13:13 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	init_player(t_player *player, t_vector pos, t_vector dir)
 
 int32_t	str_to_color(char *str)
 {
-	char **ptr;
-	int	r;
-	int	g;
-	int	b;
+	char	**ptr;
+	int		r;
+	int		g;
+	int		b;
 
 	ptr = ft_split(str, ',');
 	r = ft_atoi(ptr[2]);
