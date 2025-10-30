@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:11:45 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/30 13:15:48 by roversch         ###   ########.fr       */
+/*   Updated: 2025/10/30 18:26:27 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,28 @@ static int	flood(char ***map, int count, int i, int j)
 	return (0);
 }
 
-static int	flood_check(char **flood_map)
-{
-	int	y;
-	int	x;
+//static int	flood_check(char **flood_map)
+//{
+//	int	y;
+//	int	x;
 
-	y = 0;
-	while (flood_map[y])
-	{
-		x = 0;
-		while (flood_map[y][x])
-		{
-			if (!(flood_map[y][x] == '1' || flood_map[y][x] == 'F'
-					|| flood_map[y][x] == 'X' || flood_map[y][x] == '\n'))
-				return (-1);
-			x++;
-		}
-		y++;
-	}
-	return (0);
-}
+//	y = 0;
+//	while (flood_map[y])
+//	{
+//		x = 0;
+//		printf("a\n");
+//		while (flood_map[y][x])
+//		{
+//			printf("%i %i\n", y, x);
+//			if (!(flood_map[y][x] == '1' || flood_map[y][x] == 'F'
+//					|| flood_map[y][x] == 'X' || flood_map[y][x] == '\n'))
+//				return (-1);
+//			x++;
+//		}
+//		y++;
+//	}
+//	return (0);
+//}
 
 static int	find_widest_point(char **map)
 {
@@ -109,10 +111,10 @@ int	flood_and_walls(char **map, t_parse *parse)
 	flood_map = ft_calloc(height + 2, sizeof(char *));
 	width = find_widest_point(map);
 	i = 0;
-	flood_map[0] = ft_calloc(width + 1, sizeof(char));
+	flood_map[0] = ft_calloc(width + 2, sizeof(char));
 	while (i < height)
 	{
-		flood_map[i + 1] = ft_calloc(width + 1, sizeof(char));
+		flood_map[i + 1] = ft_calloc(width + 2, sizeof(char));
 		ft_strlcpy(&flood_map[i][1], map[i], width);
 		i++;
 	}
@@ -120,7 +122,8 @@ int	flood_and_walls(char **map, t_parse *parse)
 	flood_map = fill_whitespace(flood_map, width + 1);
 	if (flood(&flood_map, 0, (int)parse->pos.y, (int)parse->pos.x + 1) == -1)
 		return (-1);
-	if (flood_check(flood_map) == -1)
-		return (-1);
+	//if (flood_check(flood_map) == -1)
+		//return (-1);
+	free_matrix(flood_map);
 	return (0);
 }

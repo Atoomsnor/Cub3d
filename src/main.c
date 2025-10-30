@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:36:29 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/30 13:13:39 by roversch         ###   ########.fr       */
+/*   Updated: 2025/10/30 18:15:49 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
 
@@ -40,21 +41,6 @@ mlx_image_t	*png_to_image(const char *path, mlx_t *mlx)
 	return (ret);
 }
 
-int	free_and_null(void *ptr)
-{
-	free(ptr);
-	ptr = NULL;
-	return (-1);
-}
-
-int	empty_parse(t_parse *parse, bool map)
-{
-	//free int map (maybe pointer saved in game struct so conditional?)
-	//free char map
-	//free texture paths (ptr in game struct, conditional?)
-	return (1);
-}
-
 int	main(int argc, char **argv)
 {
 	t_game		game;
@@ -66,6 +52,7 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init_game(&game, parse) == -1)
 		return (empty_parse(&parse, true));
+	empty_parse(&parse, false);
 	raycast(&game);
 	mlx_image_to_window(game.mlx, game.img.hud, 0, 0);
 	game.img.hud->instances[0].z = 5;

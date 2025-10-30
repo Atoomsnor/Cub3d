@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/30 12:19:16 by roversch         ###   ########.fr       */
+/*   Updated: 2025/10/30 18:20:09 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,13 @@ void		print_map(char **map, int width);
 
 
 
-int flood_and_walls(char **map, t_parse *parse);
+int			flood_and_walls(char **map, t_parse *parse);
 
+// *cleanup* //
 
+int			free_and_null(void *ptr);
+void		free_matrix(void *ptr);
+int			empty_parse(t_parse *parse, bool map);
 
 void		test_keyhook(void *param);
 void		raycast(t_game *game);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: roversch <roversch@student.42.fr>          +#+  +:+       +#+         #
+#    By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/18 15:46:40 by roversch          #+#    #+#              #
-#    Updated: 2025/10/28 15:54:10 by roversch         ###   ########.fr        #
+#    Updated: 2025/10/30 18:35:06 by nhendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,11 @@ DEPFLAGS	= 	-MMD
 INCLUDES	=	-I ./inc -I libft/ -I MLX42/include/MLX42
 
 #cub3D
-SRC_DIRS	=	src/ src/map_checks/ src/raycasting/ src/user_input/ src/visual/ src/utils/
+SRC_DIRS	=	src/ src/map_checks/ src/raycasting/ src/user_input/ src/visual/ src/utils/ src/cleanup
 VPATH		=	$(SRC_DIRS)
 SRC			=	main.c move.c raycasting.c map_reading.c time.c init.c cursor.c \
 				parsing.c map_checks.c turn.c ray_to_image.c pixels.c resize.c \
-				file_checks.c flood_fill.c
+				file_checks.c flood_fill.c cleanup_utils.c parser_cleanup.c
 
 OBJ_DIR		=	obj/
 OBJ			=	$(SRC:%.c=$(OBJ_DIR)%.o)
