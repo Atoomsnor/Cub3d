@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:36:29 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/30 18:15:49 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/04 16:32:21 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,12 @@ mlx_image_t	*png_to_image(const char *path, mlx_t *mlx)
 	mlx_image_t		*ret;
 
 	texture = mlx_load_png(path);
+	if (!texture)
+		return (NULL);
 	ret = mlx_texture_to_image(mlx, texture);
 	mlx_delete_texture(texture);
+	if (!ret)
+		return (NULL);
 	return (ret);
 }
 
@@ -47,7 +51,7 @@ int	main(int argc, char **argv)
 	t_parse		parse;
 
 	if (argc != 2)
-		argv[1] = "map.txt";
+		argv[1] = "./maps/42.cub";
 	if (check_input(argv[1], &parse) == -1)
 		return (1);
 	if (init_game(&game, parse) == -1)
@@ -56,9 +60,16 @@ int	main(int argc, char **argv)
 	raycast(&game);
 	mlx_image_to_window(game.mlx, game.img.hud, 0, 0);
 	game.img.hud->instances[0].z = 5;
+	for (int i = 0; i < 5; i++)
+	{
+		mlx_image_to_window(game.mlx, game.img.gun[i], 0, 0);
+		game.img.gun[i]->instances[0].z = 1;
+	}
 	mlx_loop_hook(game.mlx, &test_keyhook, &game);
 	mlx_resize_hook(game.mlx, resize_hook, &game);
 	mlx_cursor_hook(game.mlx, cursor_hook, &game);
 	mouse(&game);
 	mlx_loop(game.mlx);
+	mlx_terminate(game.mlx);
+	free_matrix(game.world_map);
 }

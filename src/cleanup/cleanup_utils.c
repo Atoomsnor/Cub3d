@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 18:03:36 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/30 18:20:59 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/04 15:59:01 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,29 @@ void	free_matrix(void *ptr)
 	if (!ptr)
 		return ;
 	str = (char **)ptr;
+	i = 0;
 	while (str[i])
 	{
 		free_and_null(str[i]);
 		i++;
 	}
+	free_and_null(str);
+}
+
+void	free_flood(void *ptr)
+{
+	int		i;
+	char	**str;
+
+	if (!ptr)
+		return ;
+	str = (char **)ptr;
+	i = 0;
+	while (str[i])
+	{
+		free_and_null(str[i]);
+		i++;
+	}
+	free_and_null(str[i]);
 	free_and_null(str);
 }

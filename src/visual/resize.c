@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resize.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 02:19:41 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/30 13:26:06 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/04 17:00:09 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ void	resize_hook(int32_t width, int32_t height, void *ptr)
 	pos.x = 0;
 	pos.y = 0;
 	resize_image(game, &game->img.hud, "./img/Hud.png", pos);
-	resize_gun(game, &game->img.gun1, "./img/gun1.png", pos);
+	resize_gun(game, &game->img.gun[0], "./img/gun1.png", pos);
+	resize_gun(game, &game->img.gun[1], "./img/gun2.png", pos);
+	resize_gun(game, &game->img.gun[2], "./img/gun3.png", pos);
+	resize_gun(game, &game->img.gun[3], "./img/gun4.png", pos);
+	resize_gun(game, &game->img.gun[4], "./img/gun5.png", pos);
 	raycast(game);
 }

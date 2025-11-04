@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:20:47 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/30 13:17:49 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/04 15:53:06 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@ int	**ctoi_map(char **map)
 	i = 0;
 	while (map[i])
 		i++;
-	out = ft_calloc(i, sizeof(int *));
+	out = ft_calloc(i + 1, sizeof(int *));
+	if (!out)
+		return (NULL);
 	i = 0;
 	while (map[i])
 	{
@@ -89,7 +91,7 @@ int	**ctoi_map(char **map)
 			else if (map[i][j] == 'N' || map[i][j] == 'E'
 					|| map[i][j] == 'S' || map[i][j] == 'W')
 			{
-				printf("x %i, y %i\n", j, i);
+				// printf("x %i, y %i\n", j, i);
 				out[i][j] = 0;
 			}
 			j++;

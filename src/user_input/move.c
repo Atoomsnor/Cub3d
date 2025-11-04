@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/30 13:17:32 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/04 11:25:03 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ void	test_keyhook(void *param)
 	const float	sideways_mod = 0.15f;
 	t_game		*game;
 	double		speed;
-	static bool	been_down = false;
 
 	if (!param)
 		return ;
@@ -119,12 +118,6 @@ void	test_keyhook(void *param)
 		turn_left(game, speed / 2.0f);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
 		turn_right(game, speed / 2.0f);
-	bool	shoot_down = (mlx_is_mouse_down(game->mlx, MLX_MOUSE_BUTTON_LEFT) || mlx_is_key_down(game->mlx, MLX_KEY_SPACE));
-	if (shoot_down && !been_down)
-	{
-		
-		printf("YEE\n");
-	}
-	been_down = shoot_down;
+	shoot(game);
 	raycast(game);
 }

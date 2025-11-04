@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/30 18:20:09 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/04 15:59:30 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,16 @@ typedef struct s_img
 	mlx_image_t		*ea;
 	mlx_image_t		*screen;
 	mlx_image_t		*hud;
-	mlx_image_t		*gun1;
+	mlx_image_t		*gun[5];
 	int32_t			floor_color;
 	int32_t			ceiling_color;
 }	t_img;
+
+typedef struct s_sprite_anime
+{
+	bool	in_anime;
+	size_t	anime_start_time;
+}	t_sprite_anime;
 
 typedef struct s_fps
 {
@@ -92,6 +98,7 @@ typedef struct s_game
 	t_player		player;
 	t_img			img;
 	mlx_image_t		*screen_buffer;
+	t_sprite_anime	anime;
 	t_fps			fps;
 	t_vector		mouse;
 	int				**world_map;
@@ -108,7 +115,9 @@ int			look_for_empty_lines(int map_pos, char **map);
 void		print_map(char **map, int width);
 
 
+void		shoot(t_game *game);
 
+void		free_flood(void *ptr);
 int			flood_and_walls(char **map, t_parse *parse);
 
 // *cleanup* //

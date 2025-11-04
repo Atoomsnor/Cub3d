@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 18:02:59 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/30 18:28:50 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/04 15:53:32 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ void	free_texture_paths(t_parse *parse)
 		free_and_null(parse->floor_color);
 }
 
-int	empty_parse(t_parse *parse, bool map)
+int	empty_parse(t_parse *parse, bool out)
 {
-	if (map && parse->int_map)
+	if (out && parse->int_map)
 		free_matrix(parse->int_map);
 	free_texture_paths(parse);
-	//if (parse->map)
-		//free_matrix(parse->map);
+	if (parse->map)
+		free_matrix(parse->map);
 	return (1);
 }
