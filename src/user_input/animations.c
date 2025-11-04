@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 11:24:51 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/04 17:14:53 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/04 19:53:39 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void	shoot(t_game *game)
 		enable_and_disable_gun(game->img.gun[2], game->img.gun[3]);
 	else if (game->anime.in_anime && time - game->anime.anime_start_time < 400)
 		enable_and_disable_gun(game->img.gun[3], game->img.gun[4]);
-	else if (game->anime.in_anime)
+	else if (game->anime.in_anime && time - game->anime.anime_start_time < 500)
 	{
-		game->img.gun[1]->instances[0].enabled = false;
-		game->img.gun[2]->instances[0].enabled = false;
-		game->img.gun[3]->instances[0].enabled = false;
+		// game->img.gun[1]->instances[0].enabled = false;
+		// game->img.gun[2]->instances[0].enabled = false;
+		// game->img.gun[3]->instances[0].enabled = false;
 		enable_and_disable_gun(game->img.gun[4], game->img.gun[0]);
 		game->anime.in_anime = false;
 	}

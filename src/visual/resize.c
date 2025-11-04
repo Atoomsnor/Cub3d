@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resize.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 02:19:41 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/04 17:00:09 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/04 19:57:20 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	resize_gun(t_game *game, mlx_image_t **img, char *path, t_vector pos)
 	*img = png_to_image(path, game->mlx);
 	mlx_resize_image(*img, game->width, game->height);
 	mlx_image_to_window(game->mlx, *img, pos.x, pos.y);
+	(*img)->enabled = false;
+	(*img)->instances[0].z = 3;
 }
 
 void	resize_hook(int32_t width, int32_t height, void *ptr)
@@ -40,6 +42,7 @@ void	resize_hook(int32_t width, int32_t height, void *ptr)
 	pos.y = 0;
 	resize_image(game, &game->img.hud, "./img/Hud.png", pos);
 	resize_gun(game, &game->img.gun[0], "./img/gun1.png", pos);
+	game->img.gun[0]->enabled = true;
 	resize_gun(game, &game->img.gun[1], "./img/gun2.png", pos);
 	resize_gun(game, &game->img.gun[2], "./img/gun3.png", pos);
 	resize_gun(game, &game->img.gun[3], "./img/gun4.png", pos);
