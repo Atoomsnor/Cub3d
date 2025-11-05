@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:36:29 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/04 16:32:21 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:38:37 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ int	main(int argc, char **argv)
 	raycast(&game);
 	mlx_image_to_window(game.mlx, game.img.hud, 0, 0);
 	game.img.hud->instances[0].z = 5;
+	mlx_image_to_window(game.mlx, game.img.faces[0], 0, 0);
+	mlx_image_to_window(game.mlx, game.img.faces[1], 0, 0);
+	game.img.faces[0]->instances[0].z = 7;
+	game.img.faces[1]->instances[0].z = 7;
 	for (int i = 0; i < 5; i++)
 	{
 		mlx_image_to_window(game.mlx, game.img.gun[i], 0, 0);

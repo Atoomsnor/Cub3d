@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 11:24:51 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/04 19:53:39 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:13:32 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	shoot(t_game *game)
 		game->anime.in_anime = true;
 		game->anime.anime_start_time = time;
 	}
-	printf("%zu\n", time - game->anime.anime_start_time);
 	if (game->anime.in_anime && time - game->anime.anime_start_time < 100)
 		enable_and_disable_gun(game->img.gun[0], game->img.gun[1]);
 	else if (game->anime.in_anime && time - game->anime.anime_start_time < 200)
@@ -41,11 +40,11 @@ void	shoot(t_game *game)
 		enable_and_disable_gun(game->img.gun[2], game->img.gun[3]);
 	else if (game->anime.in_anime && time - game->anime.anime_start_time < 400)
 		enable_and_disable_gun(game->img.gun[3], game->img.gun[4]);
-	else if (game->anime.in_anime && time - game->anime.anime_start_time < 500)
+	else if (game->anime.in_anime)
 	{
-		// game->img.gun[1]->instances[0].enabled = false;
-		// game->img.gun[2]->instances[0].enabled = false;
-		// game->img.gun[3]->instances[0].enabled = false;
+		game->img.gun[1]->enabled = false;
+		game->img.gun[2]->enabled = false;
+		game->img.gun[3]->enabled = false;
 		enable_and_disable_gun(game->img.gun[4], game->img.gun[0]);
 		game->anime.in_anime = false;
 	}

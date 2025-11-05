@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/04 15:59:30 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:38:36 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_img
 	mlx_image_t		*ea;
 	mlx_image_t		*screen;
 	mlx_image_t		*hud;
+	mlx_image_t		*faces[2];
 	mlx_image_t		*gun[5];
 	int32_t			floor_color;
 	int32_t			ceiling_color;

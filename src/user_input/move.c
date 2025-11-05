@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/04 11:25:03 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:43:29 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,17 @@ void	test_keyhook(void *param)
 		move_right(game, speed, sideways_mod);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 		turn_left(game, speed / 2.0f);
+	else
+		game->img.faces[0]->enabled = false;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
 		turn_right(game, speed / 2.0f);
+	else
+		game->img.faces[1]->enabled = false;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT) && mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+	{
+		game->img.faces[0]->enabled = false;
+		game->img.faces[1]->enabled = false;
+	}
 	shoot(game);
 	raycast(game);
 }

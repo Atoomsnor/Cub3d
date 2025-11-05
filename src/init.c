@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 00:29:41 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/05 16:15:13 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:39:01 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int32_t	str_to_color(char *str)
 	int		b;
 
 	ptr = ft_split(str, ',');
-	if (!ptr || !ptr[0] || !ptr[1] || !ptr[2] || !input_numeral(ptr, 3))
+	if (!ptr || !ptr[0] || !ptr[1] || !ptr[2] || ptr[3] || !input_numeral(ptr, 3))
 		return (ft_printf("Error\nInvalid RGB input\n"),-1);
 	r = ft_atoi(ptr[2]);
 	g = ft_atoi(ptr[1]);
@@ -78,6 +78,14 @@ int	init_images(t_img *img, mlx_t *mlx, t_parse parse)
 	if (!img->we)
 		return (-1);
 	img->hud = png_to_image("./img/Hud.png", mlx);
+	img->faces[0] = png_to_image("./img/face_left.png", mlx);
+	if (!img->faces[0])
+		return (-1);
+	img->faces[0]->enabled = false;
+	img->faces[1] = png_to_image("./img/face_right.png", mlx);
+	if (!img->faces[1])
+		return (-1);
+	img->faces[1]->enabled = false;
 	img->gun[0] = png_to_image("./img/gun1.png", mlx);
 	img->gun[1] = png_to_image("./img/gun2.png", mlx);
 	img->gun[2] = png_to_image("./img/gun3.png", mlx);
