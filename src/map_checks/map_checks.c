@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_checks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 12:46:52 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/30 13:14:29 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/05 23:30:09 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 int	is_map_character(char c)
 {
-	if (c == 'N' || c == 'E' || c == 'W' || c == 'S' || c == '0')
+	if (c == 'N' || c == 'E' || c == 'W'
+		|| c == 'S' || c == '0')
 		return (1);
 	return (0);
 }
@@ -49,9 +50,10 @@ int	check_characters(char **map, t_parse *parse)
 		x = 0;
 		while (map[y][x])
 		{
-			// printf("%c", map[y][x]);
 			if (map[y][x] == '1')
 				in_map = true;
+			if (!is_map_character(map[y][x]) && !ft_iswhitespace(map[y][x]) && map[y][x] != '1')
+				return (-1);
 			if (!in_map && is_map_character(map[y][x]))
 				return (-1);
 			if (map[y][x] == 'N' || map[y][x] == 'E'
@@ -64,7 +66,6 @@ int	check_characters(char **map, t_parse *parse)
 		}
 		y++;
 	}
-	// printf("\n");
 	if (player_count != 1)
 		return (-1);
 	return (0);

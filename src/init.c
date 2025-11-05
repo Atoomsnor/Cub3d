@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 00:29:41 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/05 18:39:01 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/05 22:55:16 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,20 @@ int	init_images(t_img *img, mlx_t *mlx, t_parse parse)
 		return (-1);
 	img->faces[1]->enabled = false;
 	img->gun[0] = png_to_image("./img/gun1.png", mlx);
+	if (!img->gun[0])
+		return (-1);
 	img->gun[1] = png_to_image("./img/gun2.png", mlx);
+	if (!img->gun[1])
+		return (-1);
 	img->gun[2] = png_to_image("./img/gun3.png", mlx);
+	if (!img->gun[2])
+		return (-1);
 	img->gun[3] = png_to_image("./img/gun4.png", mlx);
+	if (!img->gun[3])
+		return (-1);
 	img->gun[4] = png_to_image("./img/gun5.png", mlx);
+	if (!img->gun[4])
+		return (-1);
 	for (int i = 1; i < 5; i++)
 		img->gun[i]->enabled = false;
 	img->floor_color = str_to_color(parse.floor_color);
