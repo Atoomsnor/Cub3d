@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 00:29:41 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/04 16:35:26 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/05 16:15:13 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,23 @@ void	init_player(t_player *player, t_vector pos, t_vector dir)
 	player->plane.y = player->dir.x * fov_scale;
 }
 
+bool	input_numeral(char **argv, int argc)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (i < argc && argv[i])
+	{
+		j = 0;
+		while (argv[i][j])
+			if (!ft_isdigit(argv[i][j++]))
+				return (false);
+		i++;
+	}
+	return (true);
+}
+
 int32_t	str_to_color(char *str)
 {
 	char	**ptr;
@@ -35,14 +52,14 @@ int32_t	str_to_color(char *str)
 	int		b;
 
 	ptr = ft_split(str, ',');
-	if (!ptr)
-		return (-1);
+	if (!ptr || !ptr[0] || !ptr[1] || !ptr[2] || !input_numeral(ptr, 3))
+		return (ft_printf("Error\nInvalid RGB input\n"),-1);
 	r = ft_atoi(ptr[2]);
 	g = ft_atoi(ptr[1]);
 	b = ft_atoi(ptr[0]);
 	free_matrix(ptr);
-	if (r > 255 || g > 255 || b > 255)
-		return (ft_printf("error\n"), 0);
+	if (r > 255 || g > 255 || b > 255 || r < 0 || g < 0 || b < 0)
+		return (ft_printf("Error\n"), -1);
 	return ((255 << 24 | (r << 16) | (g << 8) | (b)));
 }
 
@@ -69,7 +86,11 @@ int	init_images(t_img *img, mlx_t *mlx, t_parse parse)
 	for (int i = 1; i < 5; i++)
 		img->gun[i]->enabled = false;
 	img->floor_color = str_to_color(parse.floor_color);
+	if (img->floor_color == -1)
+		return (-1);
 	img->ceiling_color = str_to_color(parse.ceiling_color);
+	if (img->ceiling_color == -1)
+		return (-1);
 	return (0);
 }
 
