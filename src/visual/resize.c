@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 02:19:41 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/06 16:48:14 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/06 16:52:54 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ static int	resize_image(t_game *game, mlx_image_t **img,
 	*img = png_to_image(path, game->mlx);
 	if (!img)
 		return (-1);
-	if(mlx_resize_image(*img, game->width, game->height) == false)
+	if (mlx_resize_image(*img, game->width, game->height) == false)
 		return (-1);
-	if(mlx_image_to_window(game->mlx, *img, 0, 0) == -1)
+	if (mlx_image_to_window(game->mlx, *img, 0, 0) == -1)
 		return (-1);
 	(*img)->enabled = enabled;
 	(*img)->instances[0].z = z;
@@ -47,7 +47,7 @@ static int	resize_image(t_game *game, mlx_image_t **img,
 }
 
 static int	resize_guns(t_game *game)
-{ 
+{
 	if (resize_image(game, &game->img.gun[0], "./img/gun1.png", true) == -1)
 		return (-1);
 	if (resize_image(game, &game->img.gun[1], "./img/gun2.png", false) == -1)
@@ -63,7 +63,7 @@ static int	resize_guns(t_game *game)
 
 void	resize_hook(int32_t width, int32_t height, void *ptr)
 {
-	t_game		*game;
+	t_game	*game;
 
 	game = ptr;
 	game->width = width;
@@ -72,9 +72,11 @@ void	resize_hook(int32_t width, int32_t height, void *ptr)
 		return ;
 	if (resize_guns(game) == -1)
 		return ;
-	if (resize_image(game, &game->img.faces[0], "./img/face_left.png", false) == -1)
+	if (resize_image(game, &game->img.faces[0],
+			"./img/face_left.png", false) == -1)
 		return ;
-	if (resize_image(game, &game->img.faces[1], "./img/face_right.png", false) == -1)
+	if (resize_image(game, &game->img.faces[1],
+			"./img/face_right.png", false) == -1)
 		return ;
 	raycast(game);
 }
