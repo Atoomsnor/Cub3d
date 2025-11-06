@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: roversch <roversch@student.42.fr>          +#+  +:+       +#+         #
+#    By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/18 15:46:40 by roversch          #+#    #+#              #
-#    Updated: 2025/11/06 16:26:51 by roversch         ###   ########.fr        #
+#    Updated: 2025/11/06 21:55:24 by nhendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRC_DIRS	=	src/ \
 				src/raycasting/ \
 				src/user_input/ \
 				src/utils/ \
-				src/visual/
+				src/visual/ \
+				src/minimap/
 
 SRC			=	main.c \
 				cleanup_utils.c parser_cleanup.c \
@@ -37,7 +38,8 @@ SRC			=	main.c \
 				ray_to_image.c raycasting.c \
 				cursor.c gun.c move.c turn.c \
 				get_color.c time.c \
-				pixels.c resize.c
+				pixels.c resize.c \
+				minimap.c
 
 OBJ_DIR		=	obj/
 OBJ			=	$(SRC:%.c=$(OBJ_DIR)%.o)

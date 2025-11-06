@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_to_int.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:24:22 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/06 15:34:13 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/06 22:31:13 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	ctoi_pos(char c)
 	else if (c == 'N' || c == 'E'
 		|| c == 'S' || c == 'W')
 		return (0);
-	return (-1);
+	return (2);
 }
 
 int	**ctoi_map(char **map)
@@ -43,8 +43,10 @@ int	**ctoi_map(char **map)
 		while (map[i][j])
 		{
 			out[i][j] = ctoi_pos(map[i][j]);
+			printf("%i", out[i][j]);
 			j++;
 		}
+		printf("\n");
 		i++;
 	}
 	return (out);

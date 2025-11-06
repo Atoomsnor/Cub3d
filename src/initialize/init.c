@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 00:29:41 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/06 16:28:13 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/06 20:56:19 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,34 @@ static void	init_anime(t_sprite_anime *anime)
 	anime->in_anime = false;
 }
 
+static void	get_map_height_width(t_game *game, int **map)
+{
+	int	width;
+	int	i;
+	int	j;
+
+	i = 0;
+	width = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+			j++;
+		if (j > width)
+			width = j;
+		i++;
+	}
+	game->map_width = width;
+	game->map_height = i;
+}
+
 int	init_game(t_game *game, t_parse parse)
 {
 	init_player(&game->player, parse.pos, parse.dir);
 	game->width = SCREEN_WIDTH;
 	game->height = SCREEN_HEIGHT;
 	game->world_map = parse.int_map;
+	get_map_height_width(game, game->world_map);
 	game->mlx = mlx_init(game->width, game->height, "CUB3D", true);
 	if (!game->mlx)
 		return (-1);

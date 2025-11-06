@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:20:47 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/06 15:38:51 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/06 22:35:25 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,20 @@ static void	set_parse_vars_null(t_parse *parse)
 	parse->dir.y = 0;
 }
 
+bool empty_line(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_iswhitespace(str[i]) && str[i] != '\n')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
 int	check_input(char *map_name, t_parse *parse)
 {
 	int		map_pos;
@@ -100,6 +114,8 @@ int	check_input(char *map_name, t_parse *parse)
 	printf("%i\n", map_pos);
 	if (map_pos == -1)
 		return (printf("Error\n"), -1);
+	while (empty_line(parse->map[map_pos]))
+		map_pos++;
 	if (check_map(parse, &parse->map[map_pos]) == -1)
 		return (-1);
 	parse->int_map = ctoi_map(&parse->map[map_pos]);

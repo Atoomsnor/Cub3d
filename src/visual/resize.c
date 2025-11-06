@@ -6,26 +6,11 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 02:19:41 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/06 16:52:54 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/06 18:40:06 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-//static int	resize_enabled(t_game *game, mlx_image_t **img,
-//		char *path, int z)
-//{
-//	mlx_delete_image(game->mlx, *img);
-//	*img = png_to_image(path, game->mlx);
-//	if (!img)
-//		return (-1);
-//	if(mlx_resize_image(*img, game->width, game->height) == false)
-//		return (-1);
-//	if (mlx_image_to_window(game->mlx, *img, 0, 0) == -1)
-//		return (-1);
-//	(*img)->instances[0].z = z;
-//	return (0);
-//}
 
 static int	resize_image(t_game *game, mlx_image_t **img,
 		char *path, bool enabled)

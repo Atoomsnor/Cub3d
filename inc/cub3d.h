@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/06 16:26:38 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/06 21:54:44 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_img
 	mlx_image_t		*hud;
 	mlx_image_t		*faces[2];
 	mlx_image_t		*gun[5];
+	mlx_image_t		*minimap;
 	int32_t			floor_color;
 	int32_t			ceiling_color;
 }	t_img;
@@ -103,6 +104,8 @@ typedef struct s_game
 	t_fps			fps;
 	t_vector		mouse;
 	int				**world_map;
+	int				map_width;
+	int				map_height;
 	int				width;
 	int				height;
 }	t_game;
@@ -111,6 +114,7 @@ typedef struct s_game
 
 // void		print_map(char **map, int width);
 mlx_image_t	*png_to_image(const char *path, mlx_t *mlx);
+void		minimap(t_game *game);
 
 // *cleanup* //
 
