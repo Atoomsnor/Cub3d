@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/05 18:43:29 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:19:54 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static void	move_right(t_game *game, double speed, const float sideways_mod)
 }
 
 // add an open flag to all for bonus doors
-void	test_keyhook(void *param)
+void	key_hook(void *param)
 {
 	const float	mod = 0.5f;
 	const float	sideways_mod = 0.15f;
@@ -114,19 +114,7 @@ void	test_keyhook(void *param)
 		move_left(game, speed, sideways_mod);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 		move_right(game, speed, sideways_mod);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
-		turn_left(game, speed / 2.0f);
-	else
-		game->img.faces[0]->enabled = false;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
-		turn_right(game, speed / 2.0f);
-	else
-		game->img.faces[1]->enabled = false;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT) && mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
-	{
-		game->img.faces[0]->enabled = false;
-		game->img.faces[1]->enabled = false;
-	}
+	turn_hook(game, speed / 2.0f);
 	shoot(game);
 	raycast(game);
 }

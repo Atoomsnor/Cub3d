@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/05 18:38:36 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/06 15:01:50 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,44 +107,59 @@ typedef struct s_game
 	int				height;
 }	t_game;
 
-// *map_checks* //
+// *dogshit that needs removing later* //
 
-int			check_name(char *name);
-int			look_for_empty_lines(int map_pos, char **map);
-
-// *test* //
 void		print_map(char **map, int width);
+mlx_image_t	*png_to_image(const char *path, mlx_t *mlx);
 
+// *core* //
 
-void		shoot(t_game *game);
-
-void		free_flood(void *ptr);
-int			flood_and_walls(char **map, t_parse *parse);
+int			init_game(t_game *game, t_parse parse);
 
 // *cleanup* //
 
 int			free_and_null(void *ptr);
 void		free_matrix(void *ptr);
-int			empty_parse(t_parse *parse, bool map);
+void		free_flood(void *ptr);
+int			empty_parse(t_parse *parse, bool out);
 
-void		test_keyhook(void *param);
-void		raycast(t_game *game);
-size_t		get_time(void);
-mlx_image_t	*png_to_image(const char *path, mlx_t *mlx);
-int			init_game(t_game *game, t_parse parse);
-size_t		get_fps(t_game *game);
-void		mouse(t_game *game);
-void		cursor_hook(double x, double y, void *ptr);
-void		turn_right(t_game *game, double speed);
-void		turn_left(t_game *game, double speed);
-void		curse(t_game *game);
-int			check_input(char *map_name, t_parse *parse);
+// *map_checks* //
+
+int			look_for_empty_lines(int map_pos, char **map);
+int			check_name(char *name);
+int			flood_and_walls(char **map, t_parse *parse);
+int			check_map(t_parse *parse, char **map);
+
+// *parsing* //
+
 char		**get_map(char *input);
-int		check_map(t_parse *parse, char **map);
+int			check_input(char *map_name, t_parse *parse);
+
+// *raycasting* //
+
 void		ray_to_image(t_ray ray, t_game *game);
+void		raycast(t_game *game);
+
+// *user_input* //
+
+void		mouse_hook(t_game *game);
+void		cursor_hook(double x, double y, void *ptr);
+void		shoot(t_game *game);
+void		key_hook(void *param);
+void		turn_left(t_game *game, double speed);
+void		turn_right(t_game *game, double speed);
+void		turn_hook(t_game *game, double speed);
+
+// *utils* //
+
+size_t		get_time(void);
+size_t		get_fps(t_game *game);
+
+// *visual* //
+
 int			get_color(mlx_image_t *image, uint32_t x, uint32_t y);
 void		put_pixel(mlx_image_t *image, uint32_t x,
 				uint32_t y, uint32_t color);
-void	resize_hook(int32_t width, int32_t height, void *ptr);
+void		resize_hook(int32_t width, int32_t height, void *ptr);
 
 #endif

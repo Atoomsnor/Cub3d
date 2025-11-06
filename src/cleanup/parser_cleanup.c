@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_cleanup.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 18:02:59 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/04 15:53:32 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:23:50 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include "cub3d.h"
 
-void	free_texture_paths(t_parse *parse)
+static void	free_texture_paths(t_parse *parse)
 {
 	if (parse->ceiling_color)
 		free_and_null(parse->ceiling_color);

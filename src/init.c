@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 00:29:41 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/05 22:55:16 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/06 14:55:18 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
 
-void	init_player(t_player *player, t_vector pos, t_vector dir)
+static void	init_player(t_player *player, t_vector pos, t_vector dir)
 {
 	const double	fov_scale = 0.66;
 
@@ -27,7 +27,7 @@ void	init_player(t_player *player, t_vector pos, t_vector dir)
 	player->plane.y = player->dir.x * fov_scale;
 }
 
-bool	input_numeral(char **argv, int argc)
+static bool	input_numeral(char **argv, int argc)
 {
 	int	i;
 	int	j;
@@ -44,7 +44,7 @@ bool	input_numeral(char **argv, int argc)
 	return (true);
 }
 
-int32_t	str_to_color(char *str)
+static int32_t	str_to_color(char *str)
 {
 	char	**ptr;
 	int		r;
@@ -63,7 +63,7 @@ int32_t	str_to_color(char *str)
 	return ((255 << 24 | (r << 16) | (g << 8) | (b)));
 }
 
-int	init_images(t_img *img, mlx_t *mlx, t_parse parse)
+static int	init_images(t_img *img, mlx_t *mlx, t_parse parse)
 {
 	img->no = png_to_image(parse.no_texture, mlx);
 	if (!img->no)
@@ -112,7 +112,7 @@ int	init_images(t_img *img, mlx_t *mlx, t_parse parse)
 	return (0);
 }
 
-void	init_fps(t_fps *fps)
+static void	init_fps(t_fps *fps)
 {
 	fps->start_time = get_time();
 	fps->last_time = 0;
@@ -121,7 +121,7 @@ void	init_fps(t_fps *fps)
 	fps->frames = 0;
 }
 
-void	init_anime(t_sprite_anime *anime)
+static void	init_anime(t_sprite_anime *anime)
 {
 	anime->anime_start_time = 0;
 	anime->in_anime = false;

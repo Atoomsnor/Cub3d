@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:29:00 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/29 19:50:41 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/06 14:15:51 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <math.h>
 #include <stdio.h>
 
-void	dir_and_side_dist(t_ray *ray, t_vector *dir, t_player player)
+static void	dir_and_side_dist(t_ray *ray, t_vector *dir, t_player player)
 {
 	if (ray->dir.x < 0)
 	{
@@ -38,7 +38,7 @@ void	dir_and_side_dist(t_ray *ray, t_vector *dir, t_player player)
 	}
 }
 
-void	dda_loop(t_ray *ray, t_game *game, t_vector dir)
+static void	dda_loop(t_ray *ray, t_game *game, t_vector dir)
 {
 	while (1)
 	{
@@ -59,7 +59,7 @@ void	dda_loop(t_ray *ray, t_game *game, t_vector dir)
 	}
 }
 
-void	side_based_calculations(t_ray *ray, t_vector pos)
+static void	side_based_calculations(t_ray *ray, t_vector pos)
 {
 	if (!ray->side)
 	{

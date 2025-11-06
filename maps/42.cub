@@ -1,10 +1,10 @@
 NO ./img/Wallred.png
-SO ./img/Wallred.png
-WE ./img/Wallred.png
-EA ./img/Wallred.png
+SO ./img/Wallgrey.png
+WE ./img/Walldark.png
+EA ./img/Wallblue.png
 
-F 100,10,255
-C 255,0,0
+F 107,75,30
+C 81,100,107
 
             111111111111111
             100000000000001

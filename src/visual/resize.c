@@ -6,13 +6,13 @@
 /*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 02:19:41 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/04 19:57:20 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/06 14:18:54 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	resize_image(t_game *game, mlx_image_t **img, char *path, t_vector pos)
+static void	resize_image(t_game *game, mlx_image_t **img, char *path, t_vector pos)
 {
 	mlx_delete_image(game->mlx, *img);
 	*img = png_to_image(path, game->mlx);
@@ -20,7 +20,7 @@ void	resize_image(t_game *game, mlx_image_t **img, char *path, t_vector pos)
 	mlx_image_to_window(game->mlx, *img, pos.x, pos.y);
 }
 
-void	resize_gun(t_game *game, mlx_image_t **img, char *path, t_vector pos)
+static void	resize_gun(t_game *game, mlx_image_t **img, char *path, t_vector pos)
 {
 	mlx_delete_image(game->mlx, *img);
 	*img = png_to_image(path, game->mlx);
@@ -28,6 +28,16 @@ void	resize_gun(t_game *game, mlx_image_t **img, char *path, t_vector pos)
 	mlx_image_to_window(game->mlx, *img, pos.x, pos.y);
 	(*img)->enabled = false;
 	(*img)->instances[0].z = 3;
+}
+
+static void	resize_face(t_game *game, mlx_image_t **img, char *path, t_vector pos)
+{
+	mlx_delete_image(game->mlx, *img);
+	*img = png_to_image(path, game->mlx);
+	mlx_resize_image(*img, game->width, game->height);
+	mlx_image_to_window(game->mlx, *img, pos.x, pos.y);
+	(*img)->enabled = false;
+	(*img)->instances[0].z = 5;
 }
 
 void	resize_hook(int32_t width, int32_t height, void *ptr)
@@ -47,5 +57,7 @@ void	resize_hook(int32_t width, int32_t height, void *ptr)
 	resize_gun(game, &game->img.gun[2], "./img/gun3.png", pos);
 	resize_gun(game, &game->img.gun[3], "./img/gun4.png", pos);
 	resize_gun(game, &game->img.gun[4], "./img/gun5.png", pos);
+	resize_face(game, &game->img.faces[0], "./img/face_left.png", pos);
+	resize_face(game, &game->img.faces[1], "./img/face_right.png", pos);
 	raycast(game);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   turn.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 02:15:13 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/05 18:41:17 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:40:26 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,22 @@ void	turn_right(t_game *game, double speed)
 	player->plane.x = player->plane.x * cos(speed)
 		- player->plane.y * sin(speed);
 	player->plane.y = old_plane_x * sin(speed) + player->plane.y * cos(speed);
+}
+
+void	turn_hook(t_game *game, double speed)
+{
+	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+		turn_left(game, speed);
+	else
+		game->img.faces[0]->enabled = false;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+		turn_right(game, speed);
+	else
+		game->img.faces[1]->enabled = false;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT)
+		&& mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+	{
+		game->img.faces[0]->enabled = false;
+		game->img.faces[1]->enabled = false;
+	}
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:20:47 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/04 15:53:06 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/06 15:00:45 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-char	*fill_info(char *input)
+static char	*fill_info(char *input)
 {
 	char	*out;
 	int		i;
@@ -31,7 +31,7 @@ char	*fill_info(char *input)
 	return (out);
 }
 
-int	parsing(char *map_name, t_parse *parse)
+static int	parsing(char *map_name, t_parse *parse)
 {
 	int		i;
 	int		j;
@@ -67,7 +67,7 @@ int	parsing(char *map_name, t_parse *parse)
 	return (-1);
 }
 
-int	**ctoi_map(char **map)
+static int	**ctoi_map(char **map)
 {
 	int	**out;
 	int	i;
@@ -101,7 +101,7 @@ int	**ctoi_map(char **map)
 	return (out);
 }
 
-void	set_parse_vars_null(t_parse *parse)
+static void	set_parse_vars_null(t_parse *parse)
 {
 	parse->ea_texture = NULL;
 	parse->no_texture = NULL;

@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   animations.c                                       :+:      :+:    :+:   */
+/*   gun.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 11:24:51 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/05 18:13:32 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:15:43 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
 
-void enable_and_disable_gun(mlx_image_t *prev_anime, mlx_image_t *next_anime)
+static void	enable_and_disable_gun(mlx_image_t *prev_anime,
+		mlx_image_t *next_anime)
 {
 	prev_anime->enabled = false;
 	next_anime->enabled = true;
+}
+
+static void	reset_gun(t_game *game)
+{
+	game->img.gun[1]->enabled = false;
+	game->img.gun[2]->enabled = false;
+	game->img.gun[3]->enabled = false;
+	enable_and_disable_gun(game->img.gun[4], game->img.gun[0]);
+	game->anime.in_anime = false;
 }
 
 void	shoot(t_game *game)
@@ -41,11 +51,5 @@ void	shoot(t_game *game)
 	else if (game->anime.in_anime && time - game->anime.anime_start_time < 400)
 		enable_and_disable_gun(game->img.gun[3], game->img.gun[4]);
 	else if (game->anime.in_anime)
-	{
-		game->img.gun[1]->enabled = false;
-		game->img.gun[2]->enabled = false;
-		game->img.gun[3]->enabled = false;
-		enable_and_disable_gun(game->img.gun[4], game->img.gun[0]);
-		game->anime.in_anime = false;
-	}
+		reset_gun(game);
 }

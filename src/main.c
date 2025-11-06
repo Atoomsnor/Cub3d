@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:36:29 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/05 18:38:37 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:21:02 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ int	main(int argc, char **argv)
 		mlx_image_to_window(game.mlx, game.img.gun[i], 0, 0);
 		game.img.gun[i]->instances[0].z = 1;
 	}
-	mlx_loop_hook(game.mlx, &test_keyhook, &game);
+	mlx_loop_hook(game.mlx, &key_hook, &game);
 	mlx_resize_hook(game.mlx, resize_hook, &game);
 	mlx_cursor_hook(game.mlx, cursor_hook, &game);
-	mouse(&game);
+	mouse_hook(&game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
 	free_matrix(game.world_map);

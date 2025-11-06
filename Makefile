@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+         #
+#    By: roversch <roversch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/18 15:46:40 by roversch          #+#    #+#              #
-#    Updated: 2025/11/05 22:57:46 by nhendrik         ###   ########.fr        #
+#    Updated: 2025/11/06 14:52:37 by roversch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,16 +14,28 @@ NAME		=	cub3D
 
 CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror
-DEPFLAGS	= 	-MMD
+DEPFLAGS	=	-MMD
 INCLUDES	=	-I ./inc -I libft/ -I MLX42/include/MLX42
 
 #cub3D
-SRC_DIRS	=	src/ src/map_checks/ src/raycasting/ src/user_input/ src/visual/ src/utils/ src/cleanup
 VPATH		=	$(SRC_DIRS)
-SRC			=	main.c move.c raycasting.c map_reading.c time.c init.c cursor.c \
-				parsing.c map_checks.c turn.c ray_to_image.c pixels.c resize.c \
-				file_checks.c flood_fill.c cleanup_utils.c parser_cleanup.c \
-				animations.c
+SRC_DIRS	=	src/ \
+				src/cleanup/ \
+				src/map_checks/ \
+				src/parsing/ \
+				src/raycasting/ \
+				src/user_input/ \
+				src/utils/ \
+				src/visual/
+
+SRC			=	main.c init.c \
+				cleanup_utils.c parser_cleanup.c \
+				file_checks.c flood_fill.c map_checks.c \
+				map_reading.c parser.c \
+				ray_to_image.c raycasting.c \
+				cursor.c gun.c move.c turn.c \
+				time.c \
+				pixels.c resize.c
 
 OBJ_DIR		=	obj/
 OBJ			=	$(SRC:%.c=$(OBJ_DIR)%.o)

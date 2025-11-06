@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_reading.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 12:53:25 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/30 17:54:10 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/06 15:01:00 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void	*free_null(void *ptr)
+static void	*free_null(void *ptr)
 {
 	free(ptr);
 	ptr = NULL;
 	return (NULL);
 }
 
-int	count_lines(char *file_name)
+static int	count_lines(char *file_name)
 {
 	char	*line;
 	int		i;
