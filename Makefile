@@ -6,7 +6,7 @@
 #    By: roversch <roversch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/18 15:46:40 by roversch          #+#    #+#              #
-#    Updated: 2025/11/06 14:52:37 by roversch         ###   ########.fr        #
+#    Updated: 2025/11/06 16:26:51 by roversch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ INCLUDES	=	-I ./inc -I libft/ -I MLX42/include/MLX42
 VPATH		=	$(SRC_DIRS)
 SRC_DIRS	=	src/ \
 				src/cleanup/ \
+				src/initialize/ \
 				src/map_checks/ \
 				src/parsing/ \
 				src/raycasting/ \
@@ -28,13 +29,14 @@ SRC_DIRS	=	src/ \
 				src/utils/ \
 				src/visual/
 
-SRC			=	main.c init.c \
+SRC			=	main.c \
 				cleanup_utils.c parser_cleanup.c \
+				init.c set_images.c \
 				file_checks.c flood_fill.c map_checks.c \
-				map_reading.c parser.c \
+				map_reading.c map_to_int.c parser.c \
 				ray_to_image.c raycasting.c \
 				cursor.c gun.c move.c turn.c \
-				time.c \
+				get_color.c time.c \
 				pixels.c resize.c
 
 OBJ_DIR		=	obj/

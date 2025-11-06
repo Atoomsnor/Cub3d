@@ -6,7 +6,7 @@
 /*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/06 15:01:50 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/06 16:26:38 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,8 @@ typedef struct s_game
 
 // *dogshit that needs removing later* //
 
-void		print_map(char **map, int width);
+// void		print_map(char **map, int width);
 mlx_image_t	*png_to_image(const char *path, mlx_t *mlx);
-
-// *core* //
-
-int			init_game(t_game *game, t_parse parse);
 
 // *cleanup* //
 
@@ -123,6 +119,11 @@ void		free_matrix(void *ptr);
 void		free_flood(void *ptr);
 int			empty_parse(t_parse *parse, bool out);
 
+// *initialize* //
+
+int			init_game(t_game *game, t_parse parse);
+int			init_images(t_game *game, t_parse parse);
+void		set_base_visuals(t_game *game);
 // *map_checks* //
 
 int			look_for_empty_lines(int map_pos, char **map);
@@ -133,6 +134,7 @@ int			check_map(t_parse *parse, char **map);
 // *parsing* //
 
 char		**get_map(char *input);
+int			**ctoi_map(char **map);
 int			check_input(char *map_name, t_parse *parse);
 
 // *raycasting* //
@@ -152,6 +154,7 @@ void		turn_hook(t_game *game, double speed);
 
 // *utils* //
 
+int32_t		str_to_color(char *str);
 size_t		get_time(void);
 size_t		get_fps(t_game *game);
 

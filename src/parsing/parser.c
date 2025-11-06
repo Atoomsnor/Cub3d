@@ -6,7 +6,7 @@
 /*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:20:47 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/06 15:00:45 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/06 15:38:51 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,22 @@ static char	*fill_info(char *input)
 	return (out);
 }
 
+static void	compare_info(t_parse *parse, int i, int j)
+{
+	if (!ft_strncmp(&parse->map[i][j], "NO ", 3))
+		parse->no_texture = fill_info(&parse->map[i][j + 3]);
+	else if (!ft_strncmp(&parse->map[i][j], "SO ", 3))
+		parse->so_texture = fill_info(&parse->map[i][j + 3]);
+	else if (!ft_strncmp(&parse->map[i][j], "EA ", 3))
+		parse->ea_texture = fill_info(&parse->map[i][j + 3]);
+	else if (!ft_strncmp(&parse->map[i][j], "WE ", 3))
+		parse->we_texture = fill_info(&parse->map[i][j + 3]);
+	else if (!ft_strncmp(&parse->map[i][j], "F ", 2))
+		parse->floor_color = fill_info(&parse->map[i][j + 2]);
+	else if (!ft_strncmp(&parse->map[i][j], "C ", 2))
+		parse->ceiling_color = fill_info(&parse->map[i][j + 2]);
+}
+
 static int	parsing(char *map_name, t_parse *parse)
 {
 	int		i;
@@ -45,60 +61,16 @@ static int	parsing(char *map_name, t_parse *parse)
 		j = 0;
 		while (parse->map[i][j])
 		{
-			if (!ft_strncmp(&parse->map[i][j], "NO ", 3))
-				parse->no_texture = fill_info(&parse->map[i][j + 3]);
-			else if (!ft_strncmp(&parse->map[i][j], "SO ", 3))
-				parse->so_texture = fill_info(&parse->map[i][j + 3]);
-			else if (!ft_strncmp(&parse->map[i][j], "EA ", 3))
-				parse->ea_texture = fill_info(&parse->map[i][j + 3]);
-			else if (!ft_strncmp(&parse->map[i][j], "WE ", 3))
-				parse->we_texture = fill_info(&parse->map[i][j + 3]);
-			else if (!ft_strncmp(&parse->map[i][j], "F ", 2))
-				parse->floor_color = fill_info(&parse->map[i][j + 2]);
-			else if (!ft_strncmp(&parse->map[i][j], "C ", 2))
-				parse->ceiling_color = fill_info(&parse->map[i][j + 2]);
+			compare_info(parse, i, j);
 			j++;
-			if (parse->no_texture && parse->so_texture && parse->ea_texture
-				&& parse->we_texture && parse->floor_color && parse->ceiling_color)
+			if (parse->no_texture && parse->so_texture
+				&& parse->ea_texture && parse->we_texture
+				&& parse->floor_color && parse->ceiling_color)
 				return (i);
 		}
 		i++;
 	}
 	return (-1);
-}
-
-static int	**ctoi_map(char **map)
-{
-	int	**out;
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map[i])
-		i++;
-	out = ft_calloc(i + 1, sizeof(int *));
-	if (!out)
-		return (NULL);
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		out[i] = ft_calloc(ft_strlen(map[i]) + 1, sizeof(int));
-		while (map[i][j])
-		{
-			if (map[i][j] == '0' || map[i][j] == '1')
-				out[i][j] = map[i][j] - '0';
-			else if (map[i][j] == 'N' || map[i][j] == 'E'
-					|| map[i][j] == 'S' || map[i][j] == 'W')
-			{
-				// printf("x %i, y %i\n", j, i);
-				out[i][j] = 0;
-			}
-			j++;
-		}
-		i++;
-	}
-	return (out);
 }
 
 static void	set_parse_vars_null(t_parse *parse)

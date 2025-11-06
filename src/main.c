@@ -6,7 +6,7 @@
 /*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:36:29 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/06 13:21:02 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/06 16:16:46 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 #include <stdio.h>
 #include <math.h>
 
-void	print_map(char **map, int width)
-{
-	for (int i = 0; map[i]; i++)
-	{
-		for (int j = 0; j < width; j++)
-		{
-			if (!map[i][j])
-				printf("J");
-			else
-				printf("%c", map[i][j]);
-		}
-		printf("\n");
-	}
-}
+// void	print_map(char **map, int width)
+// {
+// 	for (int i = 0; map[i]; i++)
+// 	{
+// 		for (int j = 0; j < width; j++)
+// 		{
+// 			if (!map[i][j])
+// 				printf("J");
+// 			else
+// 				printf("%c", map[i][j]);
+// 		}
+// 		printf("\n");
+// 	}
+// }
 
 mlx_image_t	*png_to_image(const char *path, mlx_t *mlx)
 {
@@ -58,17 +58,7 @@ int	main(int argc, char **argv)
 		return (empty_parse(&parse, true));
 	empty_parse(&parse, false);
 	raycast(&game);
-	mlx_image_to_window(game.mlx, game.img.hud, 0, 0);
-	game.img.hud->instances[0].z = 5;
-	mlx_image_to_window(game.mlx, game.img.faces[0], 0, 0);
-	mlx_image_to_window(game.mlx, game.img.faces[1], 0, 0);
-	game.img.faces[0]->instances[0].z = 7;
-	game.img.faces[1]->instances[0].z = 7;
-	for (int i = 0; i < 5; i++)
-	{
-		mlx_image_to_window(game.mlx, game.img.gun[i], 0, 0);
-		game.img.gun[i]->instances[0].z = 1;
-	}
+	set_base_visuals(&game);
 	mlx_loop_hook(game.mlx, &key_hook, &game);
 	mlx_resize_hook(game.mlx, resize_hook, &game);
 	mlx_cursor_hook(game.mlx, cursor_hook, &game);

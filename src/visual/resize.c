@@ -6,13 +6,14 @@
 /*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 02:19:41 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/06 14:18:54 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/06 15:39:31 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	resize_image(t_game *game, mlx_image_t **img, char *path, t_vector pos)
+static void	resize_image(t_game *game, mlx_image_t **img,
+		char *path, t_vector pos)
 {
 	mlx_delete_image(game->mlx, *img);
 	*img = png_to_image(path, game->mlx);
@@ -20,7 +21,8 @@ static void	resize_image(t_game *game, mlx_image_t **img, char *path, t_vector p
 	mlx_image_to_window(game->mlx, *img, pos.x, pos.y);
 }
 
-static void	resize_gun(t_game *game, mlx_image_t **img, char *path, t_vector pos)
+static void	resize_gun(t_game *game, mlx_image_t **img,
+		char *path, t_vector pos)
 {
 	mlx_delete_image(game->mlx, *img);
 	*img = png_to_image(path, game->mlx);
@@ -30,7 +32,8 @@ static void	resize_gun(t_game *game, mlx_image_t **img, char *path, t_vector pos
 	(*img)->instances[0].z = 3;
 }
 
-static void	resize_face(t_game *game, mlx_image_t **img, char *path, t_vector pos)
+static void	resize_face(t_game *game, mlx_image_t **img,
+		char *path, t_vector pos)
 {
 	mlx_delete_image(game->mlx, *img);
 	*img = png_to_image(path, game->mlx);
