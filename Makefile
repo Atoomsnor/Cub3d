@@ -6,7 +6,7 @@
 #    By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/18 15:46:40 by roversch          #+#    #+#              #
-#    Updated: 2025/11/10 15:04:36 by nhendrik         ###   ########.fr        #
+#    Updated: 2025/11/10 18:15:24 by nhendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRC			=	main.c \
 				cleanup_utils.c parser_cleanup.c \
 				init.c set_images.c \
 				file_checks.c flood_fill.c map_checks.c \
-				map_reading.c map_to_int.c parser.c \
+				check_input.c map_reading.c map_to_int.c parser.c \
 				ray_to_image.c raycasting.c \
 				cursor.c gun.c move.c turn.c \
 				get_color.c time.c \

@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/10 14:49:23 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/10 18:07:18 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ static void	move_right(t_game *game, double speed, const float sideways_mod)
 		pos->y += dir.y * speed;
 }
 
-// add an open flag to all for bonus doors
 void	key_hook(void *param)
 {
 	const float	mod = 0.5f;
@@ -105,23 +104,16 @@ void	key_hook(void *param)
 	get_fps(game);
 	minimap(game);
 	speed = 0.005f * game->fps.delta_time;
-	if (speed < 1)
-	{
-		if (mlx_is_key_down(game->mlx, MLX_KEY_ENTER))
-			mlx_set_window_size(game->mlx, 960 * 2, 640 * 2);
-		if (mlx_is_key_down(game->mlx, MLX_KEY_BACKSLASH))
-			mlx_set_window_size(game->mlx, 960, 640);
-		if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
-			mlx_close_window(game->mlx);
-		if (mlx_is_key_down(game->mlx, MLX_KEY_W))
-			move_forward(game, speed, mod);
-		if (mlx_is_key_down(game->mlx, MLX_KEY_S))
-			move_backward(game, speed, mod);
-		if (mlx_is_key_down(game->mlx, MLX_KEY_A))
-			move_left(game, speed, sideways_mod);
-		if (mlx_is_key_down(game->mlx, MLX_KEY_D))
-			move_right(game, speed, sideways_mod);	
-	}
+	if (speed < 1 && mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(game->mlx);
+	if (speed < 1 && mlx_is_key_down(game->mlx, MLX_KEY_W))
+		move_forward(game, speed, mod);
+	if (speed < 1 && mlx_is_key_down(game->mlx, MLX_KEY_S))
+		move_backward(game, speed, mod);
+	if (speed < 1 && mlx_is_key_down(game->mlx, MLX_KEY_A))
+		move_left(game, speed, sideways_mod);
+	if (speed < 1 && mlx_is_key_down(game->mlx, MLX_KEY_D))
+		move_right(game, speed, sideways_mod);
 	turn_hook(game, speed / 2.0f);
 	shoot(game);
 	raycast(game);

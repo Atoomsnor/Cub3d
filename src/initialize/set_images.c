@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:54:25 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/10 13:29:49 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/10 18:13:07 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,10 @@ static void	disable_instances(t_img *img)
 
 int	init_images(t_game *game, t_parse parse)
 {
-	game->minimap.img = mlx_new_image(game->mlx, SCREEN_WIDTH / 6, SCREEN_HEIGHT / 4);
-	//ft_memset(game->minimap.img->pixels, 0, game->minimap.img->width * game->minimap.img->height * sizeof(int32_t));
-	mlx_image_to_window(game->mlx, game->minimap.img, SCREEN_WIDTH / 40, (double)SCREEN_HEIGHT / 26.666667f);
+	game->minimap.img = mlx_new_image(game->mlx,
+			SCREEN_WIDTH / 6, SCREEN_HEIGHT / 4);
+	mlx_image_to_window(game->mlx, game->minimap.img,
+		SCREEN_WIDTH / 40, (double)SCREEN_HEIGHT / 26.666667f);
 	game->minimap.img->instances[0].z = 10;
 	if (png_to_environment(&game->img, game->mlx, parse) == -1)
 		return (-1);

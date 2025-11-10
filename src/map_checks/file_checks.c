@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   file_checks.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:21:56 by roversch          #+#    #+#             */
-/*   Updated: 2025/10/30 13:13:50 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/10 17:50:52 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
 
-int	look_for_empty_lines(int map_pos, char **map)
+int	look_for_lines(int map_pos, char **map)
 {
 	int	i;
 	int	j;
@@ -24,7 +24,7 @@ int	look_for_empty_lines(int map_pos, char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (ft_iswhitespace(map[i][j]) || map[i][j] != '\n')
+			if (!ft_iswhitespace(map[i][j]) && map[i][j] != '\n')
 				return (map_pos + i);
 			j++;
 		}

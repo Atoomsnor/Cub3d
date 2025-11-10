@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:20:47 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/06 22:35:25 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/10 18:16:49 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,24 @@ static void	compare_info(t_parse *parse, int i, int j)
 		parse->ceiling_color = fill_info(&parse->map[i][j + 2]);
 }
 
-static int	parsing(char *map_name, t_parse *parse)
+static int	check_dupes(t_parse *parse, int i, int j)
+{
+	if (!ft_strncmp(&parse->map[i][j], "NO ", 3) && parse->no_texture)
+		return (-1);
+	else if (!ft_strncmp(&parse->map[i][j], "SO ", 3) && parse->so_texture)
+		return (-1);
+	else if (!ft_strncmp(&parse->map[i][j], "EA ", 3) && parse->ea_texture)
+		return (-1);
+	else if (!ft_strncmp(&parse->map[i][j], "WE ", 3) && parse->we_texture)
+		return (-1);
+	else if (!ft_strncmp(&parse->map[i][j], "F ", 2) && parse->floor_color)
+		return (-1);
+	else if (!ft_strncmp(&parse->map[i][j], "C ", 2) && parse->ceiling_color)
+		return (-1);
+	return (0);
+}
+
+int	parsing(char *map_name, t_parse *parse)
 {
 	int		i;
 	int		j;
@@ -61,63 +78,17 @@ static int	parsing(char *map_name, t_parse *parse)
 		j = 0;
 		while (parse->map[i][j])
 		{
+			if (check_dupes(parse, i, j) == -1)
+				return (printf("Error\nDuplicate elements\n"), -1);
 			compare_info(parse, i, j);
 			j++;
 			if (parse->no_texture && parse->so_texture
 				&& parse->ea_texture && parse->we_texture
 				&& parse->floor_color && parse->ceiling_color)
-				return (i);
+				return (i + 1);
 		}
 		i++;
 	}
+	printf("Error\nNot enough elements\n");
 	return (-1);
-}
-
-static void	set_parse_vars_null(t_parse *parse)
-{
-	parse->ea_texture = NULL;
-	parse->no_texture = NULL;
-	parse->we_texture = NULL;
-	parse->so_texture = NULL;
-	parse->floor_color = NULL;
-	parse->ceiling_color = NULL;
-	parse->dir.x = 0;
-	parse->dir.y = 0;
-}
-
-bool empty_line(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (!ft_iswhitespace(str[i]) && str[i] != '\n')
-			return (false);
-		i++;
-	}
-	return (true);
-}
-
-int	check_input(char *map_name, t_parse *parse)
-{
-	int		map_pos;
-
-	if (check_name(map_name) == -1)
-		return (printf("Error\nInvalid map name\n"), -1);
-	set_parse_vars_null(parse);
-	map_pos = parsing(map_name, parse);
-	if (map_pos == -1)
-		return (printf("Error\nNot enough elements\n"), -1);
-	printf("%i\n", map_pos);
-	map_pos = look_for_empty_lines(map_pos, &parse->map[map_pos]) + 1;//???
-	printf("%i\n", map_pos);
-	if (map_pos == -1)
-		return (printf("Error\n"), -1);
-	while (empty_line(parse->map[map_pos]))
-		map_pos++;
-	if (check_map(parse, &parse->map[map_pos]) == -1)
-		return (-1);
-	parse->int_map = ctoi_map(&parse->map[map_pos]);
-	return (1);
 }

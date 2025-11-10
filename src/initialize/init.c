@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 00:29:41 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/06 20:56:19 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/10 18:12:26 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ static void	init_player(t_player *player, t_vector pos, t_vector dir)
 	player->pos = pos;
 	player->pos.x += 0.5;
 	player->pos.y += 0.5;
-	// dir_x -1 == looking left dir_x 1 == looking right
 	player->dir = dir;
-	// dir_y -1 == looking down dir_y 1 == looking up
 	player->plane.x = -player->dir.y * fov_scale;
 	player->plane.y = player->dir.x * fov_scale;
 }

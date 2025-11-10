@@ -2,11 +2,9 @@ NO ./img/Wallred.png
 SO ./img/Wallgrey.png
 WE ./img/Walldark.png
 EA ./img/Wallblue.png
-EA ./img/Wallblue.png
 
-C 107,20,30
 C 81,100,255
-F 107,20,30
+F 69,240,99
 
             111111111111111
             100000000000001

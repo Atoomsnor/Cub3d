@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:11:45 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/10 13:45:35 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/10 18:08:54 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,8 @@ static char	**fill_whitespace(char **flood_map, int width)
 		{
 			if (ft_iswhitespace(flood_map[i][j]) || !flood_map[i][j])
 				flood_map[i][j] = 'X';
-			// printf("%c", flood_map[i][j]);
 			j++;
 		}
-		// printf("\n");
 		i++;
 	}
 	return (flood_map);

@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/10 15:08:59 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/10 18:16:24 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ int			init_images(t_game *game, t_parse parse);
 void		set_base_visuals(t_game *game);
 // *map_checks* //
 
-int			look_for_empty_lines(int map_pos, char **map);
+int			look_for_lines(int map_pos, char **map);
 int			check_name(char *name);
 int			flood_and_walls(char **map, t_parse *parse);
 int			find_widest_point(char **map);
@@ -150,6 +150,7 @@ int			check_map(t_parse *parse, char **map);
 char		**get_map(char *input);
 int			**ctoi_map(char **map);
 int			check_input(char *map_name, t_parse *parse);
+int			parsing(char *map_name, t_parse *parse);
 
 // *raycasting* //
 
@@ -180,5 +181,6 @@ void		put_pixel(mlx_image_t *image, uint32_t x,
 				uint32_t y, uint32_t color);
 void 		fill_buffer_color(mlx_image_t *image, uint32_t color);
 void		resize_hook(int32_t width, int32_t height, void *ptr);
+int			resize_minimap(t_game *game);
 
 #endif

@@ -6,14 +6,13 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 20:19:35 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/10 15:04:12 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/10 18:17:57 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
 #include <stdio.h>
-
 
 void	init_minimap(t_game *game)
 {
@@ -52,6 +51,21 @@ void put_player(mlx_image_t *img)
 		}
 		y++;
 	}
+}
+
+int	resize_minimap(t_game *game)
+{
+	int	z;
+
+	z = game->minimap.img->instances[0].z;
+	mlx_delete_image(game->mlx, game->minimap.img);
+	game->minimap.img = mlx_new_image(game->mlx, game->width / 6, game->height / 4);
+	if (!game->minimap.img)
+		return (-1);
+	if (mlx_image_to_window(game->mlx, game->minimap.img, game->width / 40, ceil((double)game->height / 26.666667f)) == -1)
+		return (-1);
+	game->minimap.img->instances[0].z = z;
+	return (0);
 }
 
 void	minimap(t_game *game)

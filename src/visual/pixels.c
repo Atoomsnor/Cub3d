@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 02:13:11 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/10 12:46:52 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/10 18:07:59 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	put_pixel(mlx_image_t *image, uint32_t x, uint32_t y, uint32_t color)
 	*(pixelstart++) = (uint8_t)(color >> 24);
 }
 
-void fill_buffer_color(mlx_image_t *image, uint32_t color)
+void	fill_buffer_color(mlx_image_t *image, uint32_t color)
 {
 	unsigned int	i;
 	unsigned int	j;
