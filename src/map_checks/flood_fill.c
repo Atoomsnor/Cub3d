@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:11:45 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/06 18:42:47 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/10 13:45:35 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	flood(char ***map, int count, int i, int j)
 //	return (0);
 //}
 
-static int	find_widest_point(char **map)
+int	find_widest_point(char **map)
 {
 	int	i;
 	int	width;
@@ -91,10 +91,10 @@ static char	**fill_whitespace(char **flood_map, int width)
 		{
 			if (ft_iswhitespace(flood_map[i][j]) || !flood_map[i][j])
 				flood_map[i][j] = 'X';
-			printf("%c", flood_map[i][j]);
+			// printf("%c", flood_map[i][j]);
 			j++;
 		}
-		printf("\n");
+		// printf("\n");
 		i++;
 	}
 	return (flood_map);

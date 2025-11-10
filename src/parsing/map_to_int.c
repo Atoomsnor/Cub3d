@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:24:22 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/06 22:31:13 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/10 13:51:54 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ static int	ctoi_pos(char c)
 
 int	**ctoi_map(char **map)
 {
-	int	**out;
-	int	i;
-	int	j;
+	const int	width = find_widest_point(map);
+	int			**out;
+	int			i;
+	int			j;
 
 	i = 0;
 	while (map[i])
@@ -38,15 +39,14 @@ int	**ctoi_map(char **map)
 	i = 0;
 	while (map[i])
 	{
-		j = 0;
-		out[i] = ft_calloc(ft_strlen(map[i]) + 1, sizeof(int));
-		while (map[i][j])
-		{
+		j = -1;
+		out[i] = ft_calloc(width + 1, sizeof(int));
+		if (!out[i])
+			return (free_matrix(out), NULL);
+		while (map[i][++j])
 			out[i][j] = ctoi_pos(map[i][j]);
-			printf("%i", out[i][j]);
-			j++;
-		}
-		printf("\n");
+		while (j < width)
+			out[i][j++] = 2;
 		i++;
 	}
 	return (out);

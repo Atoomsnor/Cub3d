@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 02:19:41 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/06 18:40:06 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/10 13:39:53 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,21 @@ static int	resize_guns(t_game *game)
 		return (-1);
 	return (0);
 }
+#include <math.h>
+int	resize_minimap(t_game *game) // move to minimap.c
+{
+	int	z;
+
+	z = game->minimap.img->instances[0].z;
+	mlx_delete_image(game->mlx, game->minimap.img);
+	game->minimap.img = mlx_new_image(game->mlx, game->width / 6, game->height / 4);
+	if (!game->minimap.img)
+		return (-1);
+	if (mlx_image_to_window(game->mlx, game->minimap.img, game->width / 40, ceil((double)game->height / 26.666667f)) == -1)
+		return (-1);
+	game->minimap.img->instances[0].z = z;
+	return (0);
+}
 
 void	resize_hook(int32_t width, int32_t height, void *ptr)
 {
@@ -62,6 +77,8 @@ void	resize_hook(int32_t width, int32_t height, void *ptr)
 		return ;
 	if (resize_image(game, &game->img.faces[1],
 			"./img/face_right.png", false) == -1)
+		return ;
+	if (resize_minimap(game) == -1)
 		return ;
 	raycast(game);
 }

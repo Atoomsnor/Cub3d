@@ -6,7 +6,7 @@
 #    By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/18 15:46:40 by roversch          #+#    #+#              #
-#    Updated: 2025/11/06 21:55:24 by nhendrik         ###   ########.fr        #
+#    Updated: 2025/11/10 15:04:36 by nhendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRC_DIRS	=	src/ \
 				src/user_input/ \
 				src/utils/ \
 				src/visual/ \
-				src/minimap/
+				src/bonus/
 
 SRC			=	main.c \
 				cleanup_utils.c parser_cleanup.c \

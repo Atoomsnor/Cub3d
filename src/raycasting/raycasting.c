@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:29:00 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/06 14:15:51 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/10 15:08:04 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	side_based_calculations(t_ray *ray, t_vector pos)
 		ray->tex.x = SCALE - ray->tex.x - 1;
 }
 
-static void	cast_ray(t_ray ray, t_player player, t_game *game)
+t_ray	cast_ray(t_ray ray, t_player player, t_game *game, bool to_image)
 {
 	t_vector	dir;
 
@@ -90,8 +90,9 @@ static void	cast_ray(t_ray ray, t_player player, t_game *game)
 	dir_and_side_dist(&ray, &dir, player);
 	dda_loop(&ray, game, dir);
 	side_based_calculations(&ray, player.pos);
-	if (ray.hit_dist > 0)
+	if (ray.hit_dist > 0 && to_image)
 		ray_to_image(ray, game);
+	return (ray);
 }
 
 void	raycast(t_game *game)
@@ -113,7 +114,7 @@ void	raycast(t_game *game)
 		ray.dir.x = player.dir.x + player.plane.x * camera.x;
 		ray.dir.y = player.dir.y + player.plane.y * camera.x;
 		ray.hit = false;
-		cast_ray(ray, player, game);
+		cast_ray(ray, player, game, true);
 		ray.x++;
 	}
 	mlx_image_to_window(game->mlx, game->screen_buffer, 0, 0);

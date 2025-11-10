@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/10 12:10:57 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/10 15:08:59 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ typedef struct s_img
 	mlx_image_t		*hud;
 	mlx_image_t		*faces[2];
 	mlx_image_t		*gun[5];
-	mlx_image_t		*minimap;
 	int32_t			floor_color;
 	int32_t			ceiling_color;
 }	t_img;
@@ -100,6 +99,7 @@ typedef struct s_minimap
 	t_vector		min;
 	t_vector		step;
 	t_vector		map_pos;
+	mlx_image_t		*img;
 }	t_minimap;
 
 typedef struct s_game
@@ -142,6 +142,7 @@ void		set_base_visuals(t_game *game);
 int			look_for_empty_lines(int map_pos, char **map);
 int			check_name(char *name);
 int			flood_and_walls(char **map, t_parse *parse);
+int			find_widest_point(char **map);
 int			check_map(t_parse *parse, char **map);
 
 // *parsing* //
@@ -153,6 +154,7 @@ int			check_input(char *map_name, t_parse *parse);
 // *raycasting* //
 
 void		ray_to_image(t_ray ray, t_game *game);
+t_ray		cast_ray(t_ray ray, t_player player, t_game *game, bool to_image);
 void		raycast(t_game *game);
 
 // *user_input* //
@@ -176,6 +178,7 @@ size_t		get_fps(t_game *game);
 int			get_color(mlx_image_t *image, uint32_t x, uint32_t y);
 void		put_pixel(mlx_image_t *image, uint32_t x,
 				uint32_t y, uint32_t color);
+void 		fill_buffer_color(mlx_image_t *image, uint32_t color);
 void		resize_hook(int32_t width, int32_t height, void *ptr);
 
 #endif

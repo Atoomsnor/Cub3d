@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/07 00:23:40 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/10 14:49:23 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	move_forward(t_game *game, double speed, const float mod)
 	dir = game->player.dir;
 	next_x = pos->x + (speed + mod) * dir.x;
 	next_y = pos->y + (speed + mod) * dir.y;
-	printf("move_forward: next_x %f next_y %f speed %f dt %f\n", next_x, next_y, speed, game->fps.delta_time);
 	if (next_x > 0 && next_x < game->map_width
 		&& game->world_map[(int)(pos->y)][(int)(next_x)] != 1)
 		pos->x += dir.x * speed;
@@ -44,7 +43,6 @@ static void	move_backward(t_game *game, double speed, const float mod)
 	dir = game->player.dir;
 	next_x = pos->x - (speed + mod) * dir.x;
 	next_y = pos->y - (speed + mod) * dir.y;
-	printf("move_backward: next_x %f next_y %f speed %f dt %f\n", next_x, next_y, speed, game->fps.delta_time);
 	if ((next_x > 0 && next_x < game->map_width)
 		&& game->world_map[(int)(pos->y)][(int)(next_x)] != 1)
 		pos->x -= dir.x * speed;
@@ -65,7 +63,6 @@ static void	move_left(t_game *game, double speed, const float sideways_mod)
 	dir.x = game->player.dir.y;
 	next_x = pos->x + (speed + sideways_mod) * dir.x;
 	next_y = pos->y + (speed + sideways_mod) * dir.y;
-	printf("move_left: next_x %f next_y %f speed %f dt %f\n", next_x, next_y, speed, game->fps.delta_time);
 	if (next_x > 0 && next_x < game->map_width
 		&& game->world_map[(int)(pos->y)][(int)(next_x)] != 1)
 		pos->x += dir.x * speed;
@@ -86,7 +83,6 @@ static void	move_right(t_game *game, double speed, const float sideways_mod)
 	dir.x = -game->player.dir.y;
 	next_x = pos->x + (speed + sideways_mod) * dir.x;
 	next_y = pos->y + (speed + sideways_mod) * dir.y;
-	printf("move_right: next_x %f next_y %f speed %f dt %f\n", next_x, next_y, speed, game->fps.delta_time);
 	if (next_x > 0 && next_x < game->map_width
 		&& game->world_map[(int)(pos->y)][(int)(next_x)] != 1)
 		pos->x += dir.x * speed;
@@ -111,6 +107,10 @@ void	key_hook(void *param)
 	speed = 0.005f * game->fps.delta_time;
 	if (speed < 1)
 	{
+		if (mlx_is_key_down(game->mlx, MLX_KEY_ENTER))
+			mlx_set_window_size(game->mlx, 960 * 2, 640 * 2);
+		if (mlx_is_key_down(game->mlx, MLX_KEY_BACKSLASH))
+			mlx_set_window_size(game->mlx, 960, 640);
 		if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 			mlx_close_window(game->mlx);
 		if (mlx_is_key_down(game->mlx, MLX_KEY_W))
