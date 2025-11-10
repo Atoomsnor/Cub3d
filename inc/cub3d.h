@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/06 21:54:44 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/10 12:10:57 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,16 @@ typedef struct s_parse
 	char			*ceiling_color;
 	t_vector		pos;
 	t_vector		dir;
-
 }	t_parse;
+
+typedef struct s_minimap
+{
+	int				**map;
+	t_vector		pos;
+	t_vector		min;
+	t_vector		step;
+	t_vector		map_pos;
+}	t_minimap;
 
 typedef struct s_game
 {
@@ -103,6 +111,7 @@ typedef struct s_game
 	t_sprite_anime	anime;
 	t_fps			fps;
 	t_vector		mouse;
+	t_minimap		minimap;
 	int				**world_map;
 	int				map_width;
 	int				map_height;

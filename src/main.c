@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:36:29 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/07 00:10:19 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/10 12:22:38 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	main(int argc, char **argv)
 		return (empty_parse(&parse, true));
 	empty_parse(&parse, false);
 	raycast(&game);
+	// init_minimap(&game); //add to init probbbbbb
 	minimap(&game);
 	set_base_visuals(&game);
 	mlx_loop_hook(game.mlx, &key_hook, &game);

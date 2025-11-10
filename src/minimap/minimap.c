@@ -3,16 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 20:19:35 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/06 23:12:35 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/10 12:22:34 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
 #include <stdio.h>
+
+
+// void	init_minimap(t_game *game)
+// {
+// 	int	pixels_per_map_x;
+// 	int	pixels_per_map_y;
+
+// 	game->minimap.map = game->world_map;
+// 	game->minimap.pos = game->player.pos;
+// 	game->minimap.min.x = game->minimap.pos.x - 5;
+// 	game->minimap.min.y = game->minimap.pos.y - 5;
+// 	pixels_per_map_x = game->img.minimap->width / 10;
+// 	pixels_per_map_y = game->img.minimap->height / 10;
+// 	game->minimap.step.x = 1.0 / pixels_per_map_x;
+// 	game->minimap.step.y = 1.0 / pixels_per_map_y;
+// 	game->minimap.map_pos = game->minimap.min;
+
+// }
 
 void	minimap(t_game *game)
 {
