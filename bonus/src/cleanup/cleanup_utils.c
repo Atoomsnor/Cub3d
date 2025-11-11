@@ -1,45 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   file_checks.c                                      :+:      :+:    :+:   */
+/*   cleanup_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/27 17:21:56 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/11 11:57:49 by roversch         ###   ########.fr       */
+/*   Created: 2025/10/30 18:03:36 by nhendrik          #+#    #+#             */
+/*   Updated: 2025/11/06 13:22:45 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <stdlib.h>
 
-int	look_for_lines(int map_pos, char **map)
+int	free_and_null(void *ptr)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (!ft_iswhitespace(map[i][j]) && map[i][j] != '\n')
-				return (map_pos + i);
-			j++;
-		}
-		i++;
-	}
+	free(ptr);
+	ptr = NULL;
 	return (-1);
 }
 
-int	check_name(char *name)
+void	free_matrix(void *ptr)
 {
-	int	i;
+	int		i;
+	char	**str;
 
+	if (!ptr)
+		return ;
+	str = (char **)ptr;
 	i = 0;
-	while (name[i] && ft_strncmp(&name[i], ".cub\0", 5))
+	while (str[i])
+	{
+		free_and_null(str[i]);
 		i++;
-	if (!name[i])
-		return (-1);
-	return (0);
+	}
+	free_and_null(str);
+}
+
+void	free_flood(void *ptr)
+{
+	int		i;
+	char	**str;
+
+	if (!ptr)
+		return ;
+	str = (char **)ptr;
+	i = 0;
+	while (str[i])
+	{
+		free_and_null(str[i]);
+		i++;
+	}
+	free_and_null(str[i]);
+	free_and_null(str);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/10 18:16:24 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/11 12:34:15 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,10 +119,6 @@ typedef struct s_game
 	int				height;
 }	t_game;
 
-// *dogshit that needs removing later* //
-
-// void		print_map(char **map, int width);
-mlx_image_t	*png_to_image(const char *path, mlx_t *mlx);
 void		minimap(t_game *game);
 
 // *cleanup* //
@@ -179,8 +175,9 @@ size_t		get_fps(t_game *game);
 int			get_color(mlx_image_t *image, uint32_t x, uint32_t y);
 void		put_pixel(mlx_image_t *image, uint32_t x,
 				uint32_t y, uint32_t color);
-void 		fill_buffer_color(mlx_image_t *image, uint32_t color);
+void		fill_buffer_color(mlx_image_t *image, uint32_t color);
 void		resize_hook(int32_t width, int32_t height, void *ptr);
 int			resize_minimap(t_game *game);
+mlx_image_t	*png_to_image(const char *path, mlx_t *mlx);
 
 #endif

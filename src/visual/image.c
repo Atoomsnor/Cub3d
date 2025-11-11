@@ -1,45 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   file_checks.c                                      :+:      :+:    :+:   */
+/*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/27 17:21:56 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/11 11:57:49 by roversch         ###   ########.fr       */
+/*   Created: 2025/11/11 12:32:44 by roversch          #+#    #+#             */
+/*   Updated: 2025/11/11 12:33:21 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <stdio.h>
 
-int	look_for_lines(int map_pos, char **map)
+mlx_image_t	*png_to_image(const char *path, mlx_t *mlx)
 {
-	int	i;
-	int	j;
+	mlx_texture_t	*texture;
+	mlx_image_t		*ret;
 
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (!ft_iswhitespace(map[i][j]) && map[i][j] != '\n')
-				return (map_pos + i);
-			j++;
-		}
-		i++;
-	}
-	return (-1);
-}
-
-int	check_name(char *name)
-{
-	int	i;
-
-	i = 0;
-	while (name[i] && ft_strncmp(&name[i], ".cub\0", 5))
-		i++;
-	if (!name[i])
-		return (-1);
-	return (0);
+	texture = mlx_load_png(path);
+	if (!texture)
+		return (printf("Error\nFailed to load image\n"), NULL);
+	ret = mlx_texture_to_image(mlx, texture);
+	mlx_delete_texture(texture);
+	if (!ret)
+		return (printf("Error\nFailed to create image\n"), NULL);
+	return (ret);
 }
