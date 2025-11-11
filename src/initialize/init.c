@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 00:29:41 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/11 11:55:42 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/11 14:06:05 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,6 @@ static void	init_fps(t_fps *fps)
 	fps->time = 0;
 	fps->delta_time = 0;
 	fps->frames = 0;
-}
-
-static void	init_anime(t_sprite_anime *anime)
-{
-	anime->anime_start_time = 0;
-	anime->in_anime = false;
 }
 
 static void	get_map_height_width(t_game *game, int **map)
@@ -73,7 +67,6 @@ int	init_game(t_game *game, t_parse parse)
 	if (init_images(game, parse) == -1)
 		return (mlx_terminate(game->mlx), -1);
 	init_fps(&game->fps);
-	init_anime(&game->anime);
 	game->screen_buffer = NULL;
 	return (0);
 }

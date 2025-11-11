@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 02:19:41 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/10 18:08:19 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/11 14:08:21 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,20 @@ static int	resize_image(t_game *game, mlx_image_t **img,
 	return (0);
 }
 
-static int	resize_guns(t_game *game)
-{
-	if (resize_image(game, &game->img.gun[0], "./img/gun1.png", true) == -1)
-		return (-1);
-	if (resize_image(game, &game->img.gun[1], "./img/gun2.png", false) == -1)
-		return (-1);
-	if (resize_image(game, &game->img.gun[2], "./img/gun3.png", false) == -1)
-		return (-1);
-	if (resize_image(game, &game->img.gun[3], "./img/gun4.png", false) == -1)
-		return (-1);
-	if (resize_image(game, &game->img.gun[4], "./img/gun5.png", false) == -1)
-		return (-1);
-	return (0);
-}
+// static int	resize_guns(t_game *game)
+// {
+// 	if (resize_image(game, &game->img.gun[0], "./img/gun1.png", true) == -1)
+// 		return (-1);
+// 	if (resize_image(game, &game->img.gun[1], "./img/gun2.png", false) == -1)
+// 		return (-1);
+// 	if (resize_image(game, &game->img.gun[2], "./img/gun3.png", false) == -1)
+// 		return (-1);
+// 	if (resize_image(game, &game->img.gun[3], "./img/gun4.png", false) == -1)
+// 		return (-1);
+// 	if (resize_image(game, &game->img.gun[4], "./img/gun5.png", false) == -1)
+// 		return (-1);
+// 	return (0);
+// }
 
 void	resize_hook(int32_t width, int32_t height, void *ptr)
 {
@@ -55,15 +55,15 @@ void	resize_hook(int32_t width, int32_t height, void *ptr)
 	game->height = height;
 	if (resize_image(game, &game->img.hud, "./img/Hud.png", true) == -1)
 		return ;
-	if (resize_guns(game) == -1)
-		return ;
-	if (resize_image(game, &game->img.faces[0],
-			"./img/face_left.png", false) == -1)
-		return ;
-	if (resize_image(game, &game->img.faces[1],
-			"./img/face_right.png", false) == -1)
-		return ;
-	if (resize_minimap(game) == -1)
-		return ;
+	// if (resize_guns(game) == -1)
+		// return ;
+	// if (resize_image(game, &game->img.faces[0],
+			// "./img/face_left.png", false) == -1)
+		// return ;
+	// if (resize_image(game, &game->img.faces[1],
+			// "./img/face_right.png", false) == -1)
+		// return ;
+	// if (resize_minimap(game) == -1)
+	// 	return ;
 	raycast(game);
 }

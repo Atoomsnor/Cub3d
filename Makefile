@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: roversch <roversch@student.42.fr>          +#+  +:+       +#+         #
+#    By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/18 15:46:40 by roversch          #+#    #+#              #
-#    Updated: 2025/11/11 13:15:01 by roversch         ###   ########.fr        #
+#    Updated: 2025/11/11 14:02:38 by nhendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,7 @@ CFLAGS		=	-Wall -Wextra -Werror
 DEPFLAGS	=	-MMD
 INCLUDES	=	-I ./inc -I libft/ -I MLX42/include/MLX42
 
-#cub3D
-VPATH		=	$(SRC_DIRS)
+#cub3D Regular
 SRC_DIRS	=	src/ \
 				src/cleanup/ \
 				src/initialize/ \
@@ -40,9 +39,9 @@ SRC			=	main.c \
 				get_color.c time.c \
 				image.c pixels.c resize.c \
 
-B_VPATH		=	$(B_SRC_DIRS)
+#cub3D Bonus
 B_SRC_DIRS	=	bonus/src/ \
-				bonus/src/bonus \
+				bonus/src/bonus/ \
 				bonus/src/cleanup/ \
 				bonus/src/initialize/ \
 				bonus/src/map_checks/ \
@@ -65,7 +64,7 @@ B_SRC		=	main.c \
 
 OBJ_DIR		=	obj/
 OBJ			=	$(SRC:%.c=$(OBJ_DIR)%.o)
-OBJ_B		=	$(B_SRC:%=obj/bonus_%)
+OBJ_B		=	$(B_SRC:%.c=$(OBJ_DIR)%_bonus.o)
 
 #Libft
 LIBFT_DIR	=	libft
@@ -79,6 +78,7 @@ MLX_LIBS	=	$(MLX42_LIB) -ldl -lglfw -lm
 #Targets
 all: $(NAME)
 
+VPATH = $(SRC_DIRS)
 $(NAME): $(OBJ) libft libmlx Makefile
 	$(CC) $(OBJ) -L. $(LIBFT_LIB) $(MLX_LIBS) $(CFLAGS) -o $(NAME)
 
@@ -86,13 +86,17 @@ $(NAME): $(OBJ) libft libmlx Makefile
 %/:
 	mkdir -p $@
 
-#cub3D objects
+#cub3D objects (regular)
 $(OBJ_DIR)%.o: %.c Makefile | $(OBJ_DIR)
 	$(CC) -c $(CFLAGS) $(DEPFLAGS) $(INCLUDES) $< -o $@
 
-#Bonus objects
-$(OBJ_DIR)bonus_%.o: %.c Makefile | $(OBJ_DIR)
-	$(CC) -c $(CFLAGS) $(DEPFLAGS) $(INCLUDES) -I ./bonus/inc -I ./inc $(B_VPATH:%=-I%) $< -o $@
+#Bonus target
+bonus: fclean libft libmlx
+	$(MAKE) -B VPATH="$(B_SRC_DIRS)" $(NAME_B)
+
+#Bonus objects (with _bonus suffix)
+$(OBJ_DIR)%_bonus.o: %.c Makefile | $(OBJ_DIR)
+	$(CC) -c $(CFLAGS) $(DEPFLAGS) $(INCLUDES) -I ./bonus/inc -I ./inc $< -o $@
 
 #Libft objects
 
@@ -103,9 +107,6 @@ libft:
 libmlx:
 	@cd $(MLX42_DIR) && cmake -B build && cmake --build build -j4
 
-bonus: fclean libft libmlx $(NAME_B)
-
-$(NAME_B): VPATH=$(B_VPATH)
 $(NAME_B): $(OBJ_B) libft libmlx Makefile
 	$(CC) $(OBJ_B) -L. $(LIBFT_LIB) $(MLX_LIBS) $(CFLAGS) -o $(NAME_B)
 
@@ -115,7 +116,7 @@ clean:
 
 fclean: clean
 	$(MAKE) -C $(LIBFT_DIR) fclean
-	rm -f $(NAME)
+	rm -f $(NAME) $(NAME_B)
 
 re: fclean all
 
@@ -123,3 +124,4 @@ re: fclean all
 .PRECIOUS : $(OBJ_DIR)
 
 -include $(OBJ:.o=.d)
+-include $(OBJ_B:.o=.d)
