@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/11 11:55:41 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/13 00:08:02 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void	move_forward(t_game *game, double speed, const float mod)
 {
@@ -24,10 +24,10 @@ static void	move_forward(t_game *game, double speed, const float mod)
 	next_x = pos->x + (speed + mod) * dir.x;
 	next_y = pos->y + (speed + mod) * dir.y;
 	if (next_x > 0 && next_x < game->map_width
-		&& game->world_map[(int)(pos->y)][(int)(next_x)] != 1)
+		&& game->world_map[(int)(pos->y)][(int)(next_x)] == 0)
 		pos->x += dir.x * speed;
 	if (next_y > 0 && next_y < game->map_height
-		&& game->world_map[(int)(next_y)][(int)(pos->x)] != 1)
+		&& game->world_map[(int)(next_y)][(int)(pos->x)] == 0)
 		pos->y += dir.y * speed;
 }
 
@@ -43,10 +43,10 @@ static void	move_backward(t_game *game, double speed, const float mod)
 	next_x = pos->x - (speed + mod) * dir.x;
 	next_y = pos->y - (speed + mod) * dir.y;
 	if ((next_x > 0 && next_x < game->map_width)
-		&& game->world_map[(int)(pos->y)][(int)(next_x)] != 1)
+		&& game->world_map[(int)(pos->y)][(int)(next_x)] == 0)
 		pos->x -= dir.x * speed;
 	if ((next_y > 0 && next_y < game->map_height)
-		&& game->world_map[(int)(next_y)][(int)(pos->x)] != 1)
+		&& game->world_map[(int)(next_y)][(int)(pos->x)] == 0)
 		pos->y -= dir.y * speed;
 }
 
@@ -63,10 +63,10 @@ static void	move_left(t_game *game, double speed, const float sideways_mod)
 	next_x = pos->x + (speed + sideways_mod) * dir.x;
 	next_y = pos->y + (speed + sideways_mod) * dir.y;
 	if (next_x > 0 && next_x < game->map_width
-		&& game->world_map[(int)(pos->y)][(int)(next_x)] != 1)
+		&& game->world_map[(int)(pos->y)][(int)(next_x)] == 0)
 		pos->x += dir.x * speed;
 	if (next_y > 0 && next_y < game->map_height
-		&& game->world_map[(int)(next_y)][(int)(pos->x)] != 1)
+		&& game->world_map[(int)(next_y)][(int)(pos->x)] == 0)
 		pos->y += dir.y * speed;
 }
 
@@ -83,10 +83,10 @@ static void	move_right(t_game *game, double speed, const float sideways_mod)
 	next_x = pos->x + (speed + sideways_mod) * dir.x;
 	next_y = pos->y + (speed + sideways_mod) * dir.y;
 	if (next_x > 0 && next_x < game->map_width
-		&& game->world_map[(int)(pos->y)][(int)(next_x)] != 1)
+		&& game->world_map[(int)(pos->y)][(int)(next_x)] == 0)
 		pos->x += dir.x * speed;
 	if (next_y > 0 && next_y < game->map_height
-		&& game->world_map[(int)(next_y)][(int)(pos->x)] != 1)
+		&& game->world_map[(int)(next_y)][(int)(pos->x)] == 0)
 		pos->y += dir.y * speed;
 }
 
@@ -114,6 +114,7 @@ void	key_hook(void *param)
 	if (speed < 1 && mlx_is_key_down(game->mlx, MLX_KEY_D))
 		move_right(game, speed, sideways_mod);
 	turn_hook(game, speed / 2.0f);
+	doors(game, false);
 	shoot(game);
 	raycast(game);
 }

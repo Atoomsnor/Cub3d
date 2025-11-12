@@ -6,11 +6,11 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 02:12:07 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/29 19:54:35 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/12 23:19:16 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void	draw_floor(t_game *game, int x, int y)
 {
@@ -51,6 +51,8 @@ static void	draw_wall(const int height, int y_end, t_game *game, t_ray ray)
 			img = game->img.so;
 		else
 			img = game->img.no;
+		if (game->world_map[(int)ray.map.y][(int)ray.map.x] == 3)
+			img = game->img.door;
 		put_pixel(game->screen_buffer, ray.x, ray.y,
 			get_color(img, ray.tex.x, tex_y));
 		ray.y++;

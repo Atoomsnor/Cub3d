@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 00:29:41 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/11 11:55:42 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/13 00:00:03 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void	init_player(t_player *player, t_vector pos, t_vector dir)
 {
@@ -74,6 +74,7 @@ int	init_game(t_game *game, t_parse parse)
 		return (mlx_terminate(game->mlx), -1);
 	init_fps(&game->fps);
 	init_anime(&game->anime);
+	init_anime(&game->door_anime);
 	game->screen_buffer = NULL;
 	return (0);
 }

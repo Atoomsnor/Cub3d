@@ -3,34 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 20:19:35 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/11 11:55:42 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/12 23:26:56 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 #include <math.h>
 
-void	init_minimap(t_game *game)
+void	init_minimap(t_game *game, t_minimap *minimap)
 {
 	int	pixels_per_map_x;
 	int	pixels_per_map_y;
 
-	fill_buffer_color(game->minimap.img, 0xFF404000);
-	game->minimap.map = game->world_map;
-	game->minimap.pos = game->player.pos;
-	game->minimap.min.x = game->minimap.pos.x - 5;
-	game->minimap.min.y = game->minimap.pos.y - 5;
-	pixels_per_map_x = game->minimap.img->width / 10;
-	pixels_per_map_y = game->minimap.img->height / 10;
-	game->minimap.step.x = 1.0 / pixels_per_map_x;
-	game->minimap.step.y = 1.0 / pixels_per_map_y;
-	game->minimap.map_pos = game->minimap.min;
+	fill_buffer_color(minimap->img, CYPRUS);
+	minimap->map = game->world_map;
+	minimap->pos = game->player.pos;
+	minimap->min.x = minimap->pos.x - 5;
+	minimap->min.y = minimap->pos.y - 5;
+	pixels_per_map_x = minimap->img->width / 10;
+	pixels_per_map_y = minimap->img->height / 10;
+	minimap->step.x = 1.0 / pixels_per_map_x;
+	minimap->step.y = 1.0 / pixels_per_map_y;
+	minimap->map_pos = minimap->min;
 }
 
-void put_player(mlx_image_t *img)
+void	put_player(mlx_image_t *img)
 {
 	unsigned int	y;
 	unsigned int	x;
@@ -45,7 +45,7 @@ void put_player(mlx_image_t *img)
 		x = img->width / 2 - point_width / 2;
 		while (x < img->width / 2 + point_width / 2 + 1)
 		{
-			put_pixel(img, x, y, 0xFF000000);
+			put_pixel(img, x, y, BLACK);
 			x++;
 		}
 		y++;
@@ -58,40 +58,58 @@ int	resize_minimap(t_game *game)
 
 	z = game->minimap.img->instances[0].z;
 	mlx_delete_image(game->mlx, game->minimap.img);
-	game->minimap.img = mlx_new_image(game->mlx, game->width / 6, game->height / 4);
+	game->minimap.img = mlx_new_image(game->mlx,
+			game->width / 6, game->height / 4);
 	if (!game->minimap.img)
 		return (-1);
-	if (mlx_image_to_window(game->mlx, game->minimap.img, game->width / 40, ceil((double)game->height / 26.666667f)) == -1)
+	if (mlx_image_to_window(game->mlx, game->minimap.img,
+			game->width / 40, ceil((double)game->height / 26.666667f))
+		== -1)
 		return (-1);
 	game->minimap.img->instances[0].z = z;
 	return (0);
 }
 
+static void	put_minimap(t_minimap *minimap, t_game *game,
+		unsigned int x, unsigned int y)
+{
+	if (minimap->map_pos.x > 0 && minimap->map_pos.x < game->map_width
+		&& minimap->map_pos.y >= 0
+		&& minimap->map_pos.y < game->map_height)
+	{
+		if (minimap->map[(int)floor(minimap->map_pos.y)]
+			[(int)floor(minimap->map_pos.x)] == 1)
+			put_pixel(minimap->img, x, y, game->img.ceiling_color);
+		else if (minimap->map[(int)floor(minimap->map_pos.y)]
+			[(int)floor(minimap->map_pos.x)] == 3)
+			put_pixel(minimap->img, x, y, LIGHT_SEA_GREEN);
+		else if (minimap->map[(int)floor(minimap->map_pos.y)]
+			[(int)floor(minimap->map_pos.x)] != 2)
+			put_pixel(minimap->img, x, y, game->img.floor_color);
+	}
+	minimap->map_pos.x += minimap->step.x;
+}
+
 void	minimap(t_game *game)
 {
+	t_minimap		*minimap;
 	unsigned int	y;
 	unsigned int	x;
 
-	init_minimap(game);
+	minimap = &game->minimap;
+	init_minimap(game, minimap);
 	y = 0;
-	while (y < game->minimap.img->height)
+	while (y < minimap->img->height)
 	{
 		x = 0;
-		game->minimap.map_pos.x = game->minimap.min.x;
-		while (x < game->minimap.img->width)
+		minimap->map_pos.x = minimap->min.x;
+		while (x < minimap->img->width)
 		{
-			if (game->minimap.map_pos.x > 0 && game->minimap.map_pos.x < game->map_width && game->minimap.map_pos.y >= 0 && game->minimap.map_pos.y < game->map_height)
-			{
-				if (game->minimap.map[(int)floor(game->minimap.map_pos.y)][(int)floor(game->minimap.map_pos.x)] && game->minimap.map[(int)floor(game->minimap.map_pos.y)][(int)floor(game->minimap.map_pos.x)] == 1)
-					put_pixel(game->minimap.img, x, y, game->img.ceiling_color);
-				else if (game->minimap.map[(int)floor(game->minimap.map_pos.y)][(int)floor(game->minimap.map_pos.x)] != 2)
-					put_pixel(game->minimap.img, x, y, game->img.floor_color);
-			}
-			game->minimap.map_pos.x += game->minimap.step.x;
+			put_minimap(minimap, game, x, y);
 			x++;
 		}
-		game->minimap.map_pos.y += game->minimap.step.y;
+		minimap->map_pos.y += minimap->step.y;
 		y++;
 	}
-	put_player(game->minimap.img);
+	put_player(minimap->img);
 }

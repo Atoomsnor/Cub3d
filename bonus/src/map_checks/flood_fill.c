@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:11:45 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/11 11:57:38 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/13 00:22:18 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static int	flood(char ***map, int count, int i, int j)
 {
@@ -20,16 +20,16 @@ static int	flood(char ***map, int count, int i, int j)
 	if ((*map)[i + 1][j] == 'X' || (*map)[i - 1][j] == 'X'
 		|| (*map)[i][j + 1] == 'X' || (*map)[i][j - 1] == 'X')
 		return (-1);
-	if ((*map)[i + 1][j] == '0')
+	if ((*map)[i + 1][j] == '0' || (*map)[i + 1][j] == 'D')
 		if (flood(map, count + 1, i + 1, j) == -1)
 			return (-1);
-	if ((*map)[i][j + 1] == '0')
+	if ((*map)[i][j + 1] == '0' || (*map)[i][j + 1] == 'D')
 		if (flood(map, count + 1, i, j + 1) == -1)
 			return (-1);
-	if ((*map)[i - 1][j] == '0')
+	if ((*map)[i - 1][j] == '0' || (*map)[i - 1][j] == 'D')
 		if (flood(map, count + 1, i - 1, j) == -1)
 			return (-1);
-	if ((*map)[i][j - 1] == '0')
+	if ((*map)[i][j - 1] == '0' || (*map)[i][j - 1] == 'D')
 		if (flood(map, count + 1, i, j - 1) == -1)
 			return (-1);
 	return (0);
@@ -96,7 +96,7 @@ int	flood_and_walls(char **map, t_parse *parse)
 	}
 	flood_map = fill_whitespace(flood_map, width + 1);
 	if (flood(&flood_map, 0, (int)parse->pos.y, (int)parse->pos.x + 1) == -1)
-		return (free_matrix(flood_map), -1);
+		return (free_flood(flood_map), -1);
 	free_flood(flood_map);
 	return (0);
 }

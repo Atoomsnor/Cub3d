@@ -6,7 +6,7 @@
 #    By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/18 15:46:40 by roversch          #+#    #+#              #
-#    Updated: 2025/11/11 14:02:38 by nhendrik         ###   ########.fr        #
+#    Updated: 2025/11/12 23:11:27 by nhendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRC			=	main.c \
 				file_checks.c flood_fill.c map_checks.c \
 				check_input.c map_reading.c map_to_int.c parser.c \
 				ray_to_image.c raycasting.c \
-				cursor.c gun.c move.c turn.c \
+				move.c turn.c \
 				get_color.c time.c \
 				image.c pixels.c resize.c \
 
@@ -91,7 +91,7 @@ $(OBJ_DIR)%.o: %.c Makefile | $(OBJ_DIR)
 	$(CC) -c $(CFLAGS) $(DEPFLAGS) $(INCLUDES) $< -o $@
 
 #Bonus target
-bonus: fclean libft libmlx
+bonus: libft libmlx
 	$(MAKE) -B VPATH="$(B_SRC_DIRS)" $(NAME_B)
 
 #Bonus objects (with _bonus suffix)
@@ -120,7 +120,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re libft libmlx
+.PHONY: all bonus clean fclean re
 .PRECIOUS : $(OBJ_DIR)
 
 -include $(OBJ:.o=.d)

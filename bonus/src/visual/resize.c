@@ -6,11 +6,11 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 02:19:41 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/10 18:08:19 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/12 22:30:36 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static int	resize_image(t_game *game, mlx_image_t **img,
 		char *path, bool enabled)

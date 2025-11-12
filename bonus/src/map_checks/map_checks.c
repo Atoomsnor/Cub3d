@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   map_checks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 12:46:52 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/11 11:58:46 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/12 23:15:20 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 #include <stdio.h>
 
 static int	is_map_character(char c)
 {
 	if (c == 'N' || c == 'E' || c == 'W'
-		|| c == 'S' || c == '0')
+		|| c == 'S' || c == '0' || c == 'D')
 		return (1);
 	return (0);
 }

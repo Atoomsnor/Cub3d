@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 02:15:13 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/11 14:13:17 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/12 22:40:09 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	turn_left(t_game *game, double speed)
 	double		old_dir_x;
 	double		old_plane_x;
 
-	// game->img.faces[0]->enabled = true;
 	player = &game->player;
 	old_dir_x = player->dir.x;
 	old_plane_x = player->plane.x;
@@ -36,7 +35,6 @@ void	turn_right(t_game *game, double speed)
 	double		old_dir_x;
 	double		old_plane_x;
 
-	// game->img.faces[1]->enabled = true;
 	player = &game->player;
 	old_dir_x = player->dir.x;
 	old_plane_x = player->plane.x;
@@ -51,16 +49,6 @@ void	turn_hook(t_game *game, double speed)
 {
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 		turn_left(game, speed);
-	// else
-		// game->img.faces[0]->enabled = false;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
 		turn_right(game, speed);
-	// else
-		// game->img.faces[1]->enabled = false;
-	// if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT)
-	// 	&& mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
-	// {
-	// 	game->img.faces[0]->enabled = false;
-	// 	game->img.faces[1]->enabled = false;
-	// }
 }

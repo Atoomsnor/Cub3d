@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_to_int.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:24:22 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/11 11:55:43 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/12 23:20:03 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static int	ctoi_pos(char c)
 {
@@ -19,6 +19,8 @@ static int	ctoi_pos(char c)
 	else if (c == 'N' || c == 'E'
 		|| c == 'S' || c == 'W')
 		return (0);
+	else if (c == 'D')
+		return (3);
 	return (2);
 }
 

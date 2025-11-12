@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parser_cleanup.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 18:02:59 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/11 11:55:42 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/12 22:31:21 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void	free_texture_paths(t_parse *parse)
 {
