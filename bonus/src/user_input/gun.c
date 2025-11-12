@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 11:24:51 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/13 00:07:27 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/13 00:34:17 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	shoot(t_game *game)
 	else if (game->anime.in_anime && time - game->anime.anime_start_time < 300)
 	{
 		enable_and_disable_gun(game->img.gun[2], game->img.gun[3]);
-		doors(game, true);	
-	} 
+		doors(game, true);
+	}
 	else if (game->anime.in_anime && time - game->anime.anime_start_time < 400)
 		enable_and_disable_gun(game->img.gun[3], game->img.gun[4]);
 	else if (game->anime.in_anime)

@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 15:04:45 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/13 00:18:02 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/13 00:34:51 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //void door_anime(t_game *game, t_ray ray, bool start_anim)
 //{
 //	size_t	time;
-	
+
 //	time = get_time() - game->fps.start_time;
 //	if (!game->door_anime.in_anime && start_anim && ray.hit_dist > 0 && ray.hit_dist < 2
 //		&& game->world_map[(int)ray.map.y][(int)ray.map.x] == 3)
@@ -84,7 +84,6 @@ void	doors(t_game *game, bool start_anim)
 	if (!start_anim || ray.hit_dist <= 0 || ray.hit_dist > 2
 		|| game->world_map[(int)ray.map.y][(int)ray.map.x] != 3)
 		return ;
-	
 	//door_anime(game, ray, start_anim);
 	game->world_map[(int)ray.map.y][(int)ray.map.x] = 0;
 }
