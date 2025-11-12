@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:20:47 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/11 12:00:00 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/13 00:32:56 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	parsing(char *map_name, t_parse *parse)
 		while (parse->map[i][j])
 		{
 			if (check_dupes(parse, i, j) == -1)
-				return (perror("Error\nDuplicate elements\n"), -1);
+				return (print_error("Error\nDuplicate elements\n"));
 			compare_info(parse, i, j);
 			j++;
 			if (parse->no_texture && parse->so_texture
@@ -89,6 +89,6 @@ int	parsing(char *map_name, t_parse *parse)
 		}
 		i++;
 	}
-	perror("Error\nNot enough elements\n");
+	print_error("Error\nNot enough elements\n");
 	return (-1);
 }

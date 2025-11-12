@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 16:25:44 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/12 22:30:44 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/13 00:32:28 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int32_t	str_to_color(char *str)
 	ptr = ft_split(str, ',');
 	if (!ptr || !ptr[0] || !ptr[1] || !ptr[2]
 		|| ptr[3] || !input_numeral(ptr, 3))
-		return (perror("Error\nInvalid RGB input\n"), -1);
+		return (print_error("Error\nInvalid RGB input\n"));
 	r = ft_atoi(ptr[2]);
 	g = ft_atoi(ptr[1]);
 	b = ft_atoi(ptr[0]);
 	free_matrix(ptr);
 	if (r > 255 || g > 255 || b > 255 || r < 0 || g < 0 || b < 0)
-		return (perror("Error\nInvalid RGB input\n"), -1);
+		return (print_error("Error\nInvalid RGB input\n"));
 	return ((255 << 24 | (r << 16) | (g << 8) | (b)));
 }

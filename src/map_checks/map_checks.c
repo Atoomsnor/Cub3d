@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_checks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 12:46:52 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/11 11:58:46 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/13 00:32:42 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ static int	check_characters(char **map, t_parse *parse)
 int	check_map(t_parse *parse, char **map)
 {
 	if (check_characters(map, parse) == -1)
-		return (perror("Error\nMap has invalid characters\n"), -1);
+		return (print_error("Error\nMap has invalid characters\n"));
 	if (flood_and_walls(map, parse) == -1)
-		return (perror("Error\nMap is not surrounded by walls\n"), -1);
+		return (print_error("Error\nMap is not surrounded by walls\n"), -1);
 	return (0);
 }

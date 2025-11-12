@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 00:25:32 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/11 12:20:34 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/13 00:29:52 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t	get_time(void)
 	struct timeval	time;
 
 	if (gettimeofday(&time, NULL) == -1)
-		return (perror("Error\ngettimeofday failure\n"), 0);
+		return (print_error("Error\ngettimeofday failure\n"), 0);
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 

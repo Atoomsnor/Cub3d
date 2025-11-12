@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 18:03:36 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/06 13:22:45 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/13 00:27:25 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,10 @@ void	free_flood(void *ptr)
 	}
 	free_and_null(str[i]);
 	free_and_null(str);
+}
+
+int	print_error(char *str)
+{
+	ft_putstr_fd(str, 2);
+	return (-1);
 }

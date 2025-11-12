@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 12:32:44 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/12 22:30:33 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/13 00:28:03 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ mlx_image_t	*png_to_image(const char *path, mlx_t *mlx)
 
 	texture = mlx_load_png(path);
 	if (!texture)
-		return (printf("Error\nFailed to load image\n"), NULL);
+		return (print_error("Error\nFailed to load image\n"), NULL);
 	ret = mlx_texture_to_image(mlx, texture);
 	mlx_delete_texture(texture);
 	if (!ret)
-		return (printf("Error\nFailed to create image\n"), NULL);
+		return (print_error("Error\nFailed to create image\n"), NULL);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/12 22:38:18 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/13 00:27:49 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int			free_and_null(void *ptr);
 void		free_matrix(void *ptr);
 void		free_flood(void *ptr);
 int			empty_parse(t_parse *parse, bool out);
+int			print_error(char *str);
 
 // *initialize* //
 
