@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:11:45 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/11 11:57:38 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/13 15:48:56 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 static int	flood(char ***map, int count, int i, int j)
 {
 	if (count > 1000)
-		return (-1);
+		return (print_error("Error\nMap is too big\n"));
 	(*map)[i][j] = 'F';
 	if ((*map)[i + 1][j] == 'X' || (*map)[i - 1][j] == 'X'
 		|| (*map)[i][j + 1] == 'X' || (*map)[i][j - 1] == 'X')
-		return (-1);
+		return (print_error("Error\nMap is not surrounded by walls\n"));
 	if ((*map)[i + 1][j] == '0')
 		if (flood(map, count + 1, i + 1, j) == -1)
 			return (-1);

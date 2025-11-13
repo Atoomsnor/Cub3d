@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_checks.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:21:56 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/11 11:57:49 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:10:40 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	look_for_lines(int map_pos, char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (!ft_iswhitespace(map[i][j]) && map[i][j] != '\n')
+			if (map[i][j] != ' ' && map[i][j] != '\n')
 				return (map_pos + i);
 			j++;
 		}

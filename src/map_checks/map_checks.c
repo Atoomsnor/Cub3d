@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 12:46:52 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/13 00:32:42 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:14:05 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	check_characters(char **map, t_parse *parse)
 		while (map[y][++x])
 		{
 			if (!is_map_character(map[y][x])
-				&& !ft_iswhitespace(map[y][x]) && map[y][x] != '1')
+				&& map[y][x] != ' ' && map[y][x] != '\n' && map[y][x] != '1')
 				return (-1);
 			if (map[y][x] == 'N' || map[y][x] == 'E'
 					|| map[y][x] == 'W' || map[y][x] == 'S')
@@ -69,6 +69,6 @@ int	check_map(t_parse *parse, char **map)
 	if (check_characters(map, parse) == -1)
 		return (print_error("Error\nMap has invalid characters\n"));
 	if (flood_and_walls(map, parse) == -1)
-		return (print_error("Error\nMap is not surrounded by walls\n"), -1);
+		return (-1);
 	return (0);
 }

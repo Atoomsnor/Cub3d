@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:29:00 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/13 14:33:02 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/13 15:34:31 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	raycast(t_game *game)
 	if (game->screen_buffer)
 		mlx_delete_image(game->mlx, game->screen_buffer);
 	game->screen_buffer = mlx_new_image(game->mlx, game->width, game->height);
-	if (game->screen_buffer == -1)
+	if (!game->screen_buffer)
 		return (print_error("Error\nFailure creating image\n"));
 	ft_memset(game->screen_buffer->pixels, 0,
 		game->width * game->height * sizeof(int32_t));
@@ -117,7 +117,7 @@ int	raycast(t_game *game)
 		ray.hit = false;
 		cast_ray(ray, player, game, true);
 	}
-	if (mlx_image_to_window(game->mlx, game->screen_buffer, 0, 0 == -1))
+	if (mlx_image_to_window(game->mlx, game->screen_buffer, 0, 0) == -1)
 		return (print_error("Error\nImage to window failure\n"));
 	game->screen_buffer->instances[0].z = 0;
 	return (0);

@@ -3,15 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   set_images.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:54:25 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/13 14:39:43 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/13 16:27:40 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
+
+static int	resize_walls(t_img *img)
+{
+	if (!mlx_resize_image(img->no, SCALE, SCALE))
+		return (print_error("Error\nFailed resizing image\n"));
+	if (!mlx_resize_image(img->ea, SCALE, SCALE))
+		return (print_error("Error\nFailed resizing image\n"));
+	if (!mlx_resize_image(img->so, SCALE, SCALE))
+		return (print_error("Error\nFailed resizing image\n"));
+	if (!mlx_resize_image(img->we, SCALE, SCALE))
+		return (print_error("Error\nFailed resizing image\n"));
+	return (0);
+}
 
 static int	png_to_environment(t_img *img, mlx_t *mlx, t_parse parse)
 {
@@ -29,6 +42,8 @@ static int	png_to_environment(t_img *img, mlx_t *mlx, t_parse parse)
 		return (-1);
 	img->we = png_to_image(parse.we_texture, mlx);
 	if (!img->we)
+		return (-1);
+	if (resize_walls(img) == -1)
 		return (-1);
 	img->floor_color = str_to_color(parse.floor_color);
 	if (img->floor_color == -1)

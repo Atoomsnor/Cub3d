@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:20:47 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/13 00:32:18 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:13:43 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*fill_info(char *input)
 	int		len;
 
 	i = 0;
-	while (ft_iswhitespace(input[i]))
+	while (input[i] == ' ')
 		i++;
 	len = i + 1;
 	while (input[len] && input[len] != '\n')

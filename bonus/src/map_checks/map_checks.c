@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 12:46:52 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/13 00:31:33 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:13:17 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ static int	check_characters(char **map, t_parse *parse)
 		while (map[y][++x])
 		{
 			if (!is_map_character(map[y][x])
-				&& !ft_iswhitespace(map[y][x]) && map[y][x] != '1')
+				&& map[y][x] != ' ' && map[y][x] != '\n'
+					&& map[y][x] != '1')
 				return (-1);
 			if (map[y][x] == 'N' || map[y][x] == 'E'
 					|| map[y][x] == 'W' || map[y][x] == 'S')

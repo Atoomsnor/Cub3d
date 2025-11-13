@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_to_int.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:24:22 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/11 11:55:43 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:02:54 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	**ctoi_map(char **map)
 	i = 0;
 	while (map[i])
 		i++;
+	if (i > 100 || width > 100)
+		return (print_error("Error\nMap is too big\n"), NULL);
 	out = ft_calloc(i + 1, sizeof(int *));
 	if (!out)
 		return (NULL);

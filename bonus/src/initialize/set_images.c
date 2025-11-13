@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_images.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:54:25 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/13 14:49:55 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/13 15:30:01 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,11 @@ int	init_images(t_game *game, t_parse parse)
 {
 	game->minimap.img = mlx_new_image(game->mlx,
 			SCREEN_WIDTH / 6, SCREEN_HEIGHT / 4);
-	mlx_image_to_window(game->mlx, game->minimap.img,
-		SCREEN_WIDTH / 40, (double)SCREEN_HEIGHT / 26.666667f);
+	if (!game->minimap.img)
+		return (-1);
+	if (mlx_image_to_window(game->mlx, game->minimap.img,
+		SCREEN_WIDTH / 40, (double)SCREEN_HEIGHT / 26.666667f) == -1)
+			return (-1);
 	game->minimap.img->instances[0].z = 10;
 	if (png_to_environment(&game->img, game->mlx, parse) == -1)
 		return (-1);
