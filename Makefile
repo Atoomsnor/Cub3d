@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+         #
+#    By: roversch <roversch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/18 15:46:40 by roversch          #+#    #+#              #
-#    Updated: 2025/11/12 23:11:27 by nhendrik         ###   ########.fr        #
+#    Updated: 2025/11/13 14:18:12 by roversch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,8 +79,8 @@ MLX_LIBS	=	$(MLX42_LIB) -ldl -lglfw -lm
 all: $(NAME)
 
 VPATH = $(SRC_DIRS)
-$(NAME): $(OBJ) libft libmlx Makefile
-	$(CC) $(OBJ) -L. $(LIBFT_LIB) $(MLX_LIBS) $(CFLAGS) -o $(NAME)
+$(NAME): $(OBJ) $(LIBFT_LIB) $(MLX42_LIB) Makefile
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT_LIB) $(MLX_LIBS) -o $(NAME)
 
 #Directories
 %/:
@@ -91,24 +91,23 @@ $(OBJ_DIR)%.o: %.c Makefile | $(OBJ_DIR)
 	$(CC) -c $(CFLAGS) $(DEPFLAGS) $(INCLUDES) $< -o $@
 
 #Bonus target
-bonus: libft libmlx
-	$(MAKE) -B VPATH="$(B_SRC_DIRS)" $(NAME_B)
+bonus: $(LIBFT_LIB) $(MLX42_LIB)
+	$(MAKE) VPATH="$(B_SRC_DIRS)" $(NAME_B)
 
 #Bonus objects (with _bonus suffix)
 $(OBJ_DIR)%_bonus.o: %.c Makefile | $(OBJ_DIR)
 	$(CC) -c $(CFLAGS) $(DEPFLAGS) $(INCLUDES) -I ./bonus/inc -I ./inc $< -o $@
 
 #Libft objects
-
-libft:
+$(LIBFT_LIB):
 	$(MAKE) -C $(LIBFT_DIR)
 
 #MLX42 objects
-libmlx:
+$(MLX42_LIB):
 	@cd $(MLX42_DIR) && cmake -B build && cmake --build build -j4
 
-$(NAME_B): $(OBJ_B) libft libmlx Makefile
-	$(CC) $(OBJ_B) -L. $(LIBFT_LIB) $(MLX_LIBS) $(CFLAGS) -o $(NAME_B)
+$(NAME_B): $(OBJ_B) libft $(MLX42_LIB) Makefile
+	$(CC) $(CFLAGS) $(OBJ_B) $(LIBFT_LIB) $(MLX_LIBS) -o $(NAME_B)
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean

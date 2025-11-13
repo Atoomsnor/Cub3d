@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:29:00 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/12 22:30:56 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/13 14:36:54 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,28 +94,31 @@ t_ray	cast_ray(t_ray ray, t_player player, t_game *game, bool to_image)
 	return (ray);
 }
 
-void	raycast(t_game *game)
+int	raycast(t_game *game)
 {
 	t_player	player;
 	t_vector	camera;
 	t_ray		ray;
 
 	player = game->player;
-	ray.x = 0;
+	ray.x = -1;
 	if (game->screen_buffer)
 		mlx_delete_image(game->mlx, game->screen_buffer);
 	game->screen_buffer = mlx_new_image(game->mlx, game->width, game->height);
+	if (game->screen_buffer == -1)
+		return (print_error("Error\nFailure creating image\n"));
 	ft_memset(game->screen_buffer->pixels, 0,
 		game->width * game->height * sizeof(int32_t));
-	while (ray.x < game->width)
+	while (++ray.x < game->width)
 	{
 		camera.x = 2 * ray.x / (double)game->width - 1;
 		ray.dir.x = player.dir.x + player.plane.x * camera.x;
 		ray.dir.y = player.dir.y + player.plane.y * camera.x;
 		ray.hit = false;
 		cast_ray(ray, player, game, true);
-		ray.x++;
 	}
-	mlx_image_to_window(game->mlx, game->screen_buffer, 0, 0);
+	if (mlx_image_to_window(game->mlx, game->screen_buffer, 0, 0 == -1))
+		return (print_error("Error\nImage to window failure\n"));
 	game->screen_buffer->instances[0].z = 0;
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 00:29:41 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/13 00:00:03 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/13 14:36:32 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	init_game(t_game *game, t_parse parse)
 	get_map_height_width(game, game->world_map);
 	game->mlx = mlx_init(game->width, game->height, "CUB3D", true);
 	if (!game->mlx)
-		return (-1);
+		return (print_error("Error\nMLX initialization failure\n"));
 	if (init_images(game, parse) == -1)
 		return (mlx_terminate(game->mlx), -1);
 	init_fps(&game->fps);

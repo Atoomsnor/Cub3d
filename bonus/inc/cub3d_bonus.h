@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/13 00:27:37 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/13 15:13:17 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ typedef struct s_game
 }	t_game;
 
 void		minimap(t_game *game);
-void		doors(t_game *game, bool start_anim);
+void		doors(t_game *game);
 
 // *cleanup* //
 
@@ -141,7 +141,7 @@ int			print_error(char *str);
 
 int			init_game(t_game *game, t_parse parse);
 int			init_images(t_game *game, t_parse parse);
-void		set_base_visuals(t_game *game);
+int			set_base_visuals(t_game *game);
 // *map_checks* //
 
 int			look_for_lines(int map_pos, char **map);
@@ -161,7 +161,7 @@ int			parsing(char *map_name, t_parse *parse);
 
 void		ray_to_image(t_ray ray, t_game *game);
 t_ray		cast_ray(t_ray ray, t_player player, t_game *game, bool to_image);
-void		raycast(t_game *game);
+int			raycast(t_game *game);
 
 // *user_input* //
 

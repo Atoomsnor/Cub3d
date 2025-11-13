@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_images.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:54:25 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/13 00:21:49 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/13 14:49:55 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,31 +68,6 @@ static int	png_to_elements(t_img *img, mlx_t *mlx)
 	return (0);
 }
 
-//static void door_png(t_img *img, mlx_t *mlx)
-//{
-//	img->doors[0] = png_to_image("./img/door1.png", mlx);
-//	img->doors[1] = png_to_image("./img/door2.png", mlx);
-//	img->doors[2] = png_to_image("./img/door3.png", mlx);
-//	img->doors[3] = png_to_image("./img/door4.png", mlx);
-//	img->doors[4] = png_to_image("./img/door5.png", mlx);
-//	img->doors[5] = png_to_image("./img/door6.png", mlx);
-//	img->doors[6] = png_to_image("./img/door7.png", mlx);
-//	img->doors[7] = png_to_image("./img/door8.png", mlx);
-//	img->doors[8] = png_to_image("./img/door9.png", mlx);
-//	img->doors[9] = png_to_image("./img/door10.png", mlx);
-//	img->doors[10] = png_to_image("./img/door11.png", mlx);
-//	img->doors[11] = png_to_image("./img/door12.png", mlx);
-//	img->doors[12] = png_to_image("./img/door13.png", mlx);
-//	img->doors[13] = png_to_image("./img/door14.png", mlx);
-//	img->doors[14] = png_to_image("./img/door15.png", mlx);
-//	img->doors[15] = png_to_image("./img/door16.png", mlx);
-//	img->doors[16] = png_to_image("./img/door17.png", mlx);
-//	img->doors[17] = png_to_image("./img/door18.png", mlx);
-//	img->doors[18] = png_to_image("./img/door19.png", mlx);
-//	img->doors[19] = png_to_image("./img/door20.png", mlx);
-//	img->door = img->doors[0];
-//}
-
 static void	disable_instances(t_img *img)
 {
 	img->faces[0]->enabled = false;
@@ -110,7 +85,6 @@ int	init_images(t_game *game, t_parse parse)
 	mlx_image_to_window(game->mlx, game->minimap.img,
 		SCREEN_WIDTH / 40, (double)SCREEN_HEIGHT / 26.666667f);
 	game->minimap.img->instances[0].z = 10;
-	door_png(&game->img, game->mlx);
 	if (png_to_environment(&game->img, game->mlx, parse) == -1)
 		return (-1);
 	if (png_to_elements(&game->img, game->mlx) == -1)
@@ -119,21 +93,26 @@ int	init_images(t_game *game, t_parse parse)
 	return (0);
 }
 
-void	set_base_visuals(t_game *game)
+int	set_base_visuals(t_game *game)
 {
 	int	i;
 
-	mlx_image_to_window(game->mlx, game->img.hud, 0, 0);
+	if (mlx_image_to_window(game->mlx, game->img.hud, 0, 0) == -1)
+		return (print_error("Error\nImage to window failure\n"));
 	game->img.hud->instances[0].z = 5;
-	mlx_image_to_window(game->mlx, game->img.faces[0], 0, 0);
-	mlx_image_to_window(game->mlx, game->img.faces[1], 0, 0);
+	if (mlx_image_to_window(game->mlx, game->img.faces[0], 0, 0) == -1)
+		return (print_error("Error\nImage to window failure\n"));
+	if (mlx_image_to_window(game->mlx, game->img.faces[1], 0, 0) == -1)
+		return (print_error("Error\nImage to window failure\n"));
 	game->img.faces[0]->instances[0].z = 7;
 	game->img.faces[1]->instances[0].z = 7;
 	i = 0;
 	while (i < 5)
 	{
-		mlx_image_to_window(game->mlx, game->img.gun[i], 0, 0);
+		if (mlx_image_to_window(game->mlx, game->img.gun[i], 0, 0) == -1)
+			return (print_error("Error\nImage to window failure\n"));
 		game->img.gun[i]->instances[0].z = 1;
 		i++;
 	}
+	return (0);
 }

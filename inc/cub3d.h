@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/13 00:27:49 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/13 14:33:46 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int			parsing(char *map_name, t_parse *parse);
 
 void		ray_to_image(t_ray ray, t_game *game);
 t_ray		cast_ray(t_ray ray, t_player player, t_game *game, bool to_image);
-void		raycast(t_game *game);
+int			raycast(t_game *game);
 
 // *user_input* //
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/12 22:39:58 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/13 14:48:38 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,6 @@ void	key_hook(void *param)
 	if (speed < 1 && mlx_is_key_down(game->mlx, MLX_KEY_D))
 		move_right(game, speed, sideways_mod);
 	turn_hook(game, speed / 2.0f);
-	raycast(game);
+	if (raycast(game) == -1)
+		return ;
 }

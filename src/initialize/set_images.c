@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_images.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:54:25 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/12 23:11:06 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/13 14:39:43 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ int	init_images(t_game *game, t_parse parse)
 int	set_base_visuals(t_game *game)
 {
 	if (mlx_image_to_window(game->mlx, game->img.hud, 0, 0) == -1)
-		return (-1);
+		return (print_error("Error\nImage to window failure\n"));
 	game->img.hud->instances[0].z = 5;
 	if (mlx_image_to_window(game->mlx, game->img.gun, 0, 0) == -1)
-		return (-1);
+		return (print_error("Error\nImage to window failure\n"));
 	game->img.gun->instances[0].z = 1;
 	return (0);
 }
