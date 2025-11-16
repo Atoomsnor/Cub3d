@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 12:53:25 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/13 17:04:09 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/16 23:52:50 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,13 @@ static int	count_lines(char *file_name)
 
 	fd = open(file_name, O_RDONLY);
 	if (fd < 0)
-		return (print_error("Error\nInvalid file\n"), 0);
+		return (print_error("Error\nInvalid file\n"));
 	line = get_next_line(fd);
 	if (!line)
-		return (close(fd), 0);
+	{
+		close(fd);
+		return (print_error ("Error\nFile is empty\n"));
+	}
 	i = 0;
 	while (line)
 	{
@@ -54,7 +57,7 @@ char	**get_map(char *input)
 	char	**ret;
 
 	line_count = count_lines(input);
-	if (!line_count)
+	if (line_count == -1)
 		return (NULL);
 	fd = open(input, O_RDONLY);
 	if (fd < 0)

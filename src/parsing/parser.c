@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:20:47 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/13 17:50:26 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/16 23:27:41 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,6 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
-
-// static char	*fill_info(char *input)
-// {
-// 	char	*out;
-// 	int		i;
-// 	int		len;
-
-// 	i = 0;
-// 	while (input[i] == ' ')
-// 		i++;
-// 	len = i + 1;
-// 	while (input[len] && input[len] != '\n')
-// 		len++;
-// 	out = ft_substr(input, i, len - (i));
-// 	if (!out)
-// 		return (NULL);
-// 	return (out);
-// }
 
 static int	fill_info_check(char *input, char **str, int *pos, int strlen)
 {
@@ -55,6 +37,8 @@ static int	fill_info_check(char *input, char **str, int *pos, int strlen)
 	*pos = len;
 	if (!*str)
 		return (-1);
+	if (*str[0] == '\n')
+		return (print_error("Error\nInvalid input\n"));
 	return (0);
 }
 
@@ -113,9 +97,8 @@ int	parsing(char *map_name, t_parse *parse)
 			if (compare_info(parse, i, &j) == -1)
 				return (-1);
 			j++;
-			if (parse->no_texture && parse->so_texture
-				&& parse->ea_texture && parse->we_texture
-				&& parse->floor_color && parse->ceiling_color)
+			if (parse->no_texture && parse->so_texture && parse->ea_texture
+				&& parse->we_texture && parse->floor_color && parse->ceiling_color)
 				return (i + 1);
 		}
 		i++;

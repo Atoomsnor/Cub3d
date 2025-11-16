@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 18:14:42 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/13 17:03:45 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/16 23:52:37 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static void	set_parse_vars_null(t_parse *parse)
 	parse->dir.y = 0;
 }
 
-int check_textures(t_parse *parse)
+int	check_textures(t_parse *parse)
 {
-	mlx_texture_t *text;
+	mlx_texture_t	*text;
 
 	text = mlx_load_png(parse->no_texture);
 	if (!text)
