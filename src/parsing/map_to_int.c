@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:24:22 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/16 23:35:10 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/17 16:35:27 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,20 @@ static void	ctoi_str(char *map, const int width, int *out)
 	}
 }
 
+static int	check_empty_line(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ' && str[i] != '\n')
+			return (0);
+		i++;
+	}
+	return (-1);
+}
+
 int	**ctoi_map(char **map)
 {
 	const int	width = find_widest_point(map);
@@ -47,7 +61,11 @@ int	**ctoi_map(char **map)
 
 	i = 0;
 	while (map[i])
+	{
+		if (check_empty_line(map[i]) == -1)
+			return (print_error("Error\nEmpty lines in map\n"), NULL);
 		i++;
+	}
 	if (i > 100 || width > 100)
 		return (print_error("Error\nMap is too big\n"), NULL);
 	out = ft_calloc(i + 1, sizeof(int *));

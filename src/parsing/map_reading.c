@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 12:53:25 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/16 23:52:50 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/17 17:02:16 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,7 @@ char	**get_map(char *input)
 		ret[i] = get_next_line(fd);
 	}
 	close(fd);
+	if (ret[i - 1][ft_strlen(ret[i - 1]) - 1] == '\n')
+		return (free_matrix(ret), NULL);
 	return (ret);
 }
