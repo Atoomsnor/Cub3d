@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: roversch <roversch@student.42.fr>          +#+  +:+       +#+         #
+#    By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/18 15:46:40 by roversch          #+#    #+#              #
-#    Updated: 2025/11/13 14:18:12 by roversch         ###   ########.fr        #
+#    Updated: 2025/11/17 11:32:40 by nhendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ B_SRC_DIRS	=	bonus/src/ \
 
 B_SRC		=	main.c \
 				cleanup_utils.c parser_cleanup.c \
-				init.c set_images.c \
+				init.c set_bonus_images.c set_images.c \
 				file_checks.c flood_fill.c map_checks.c \
 				check_input.c map_reading.c map_to_int.c parser.c \
 				ray_to_image.c raycasting.c \

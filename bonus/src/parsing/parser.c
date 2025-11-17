@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:20:47 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/13 17:13:43 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/17 11:35:19 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,36 +15,50 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-static char	*fill_info(char *input)
+static int	fill_info_check(char *input, char **str, int *pos, int strlen)
 {
-	char	*out;
 	int		i;
 	int		len;
 
 	i = 0;
+	while (i < *pos && input[i])
+	{
+		if (input[i] != ' ')
+			return (print_error("Error\nInvalid input\n"));
+		i++;
+	}
+	i += strlen;
 	while (input[i] == ' ')
 		i++;
 	len = i + 1;
 	while (input[len] && input[len] != '\n')
 		len++;
-	out = ft_substr(input, i, len - (i));
-	return (out);
+	*str = ft_substr(input, i, len - (i));
+	*pos = len;
+	if (!*str)
+		return (-1);
+	if (*str[0] == '\n')
+		return (print_error("Error\nInvalid input\n"));
+	return (0);
 }
 
-static void	compare_info(t_parse *parse, int i, int j)
+static int	compare_info(t_parse *parse, int i, int *j)
 {
-	if (!ft_strncmp(&parse->map[i][j], "NO ", 3))
-		parse->no_texture = fill_info(&parse->map[i][j + 3]);
-	else if (!ft_strncmp(&parse->map[i][j], "SO ", 3))
-		parse->so_texture = fill_info(&parse->map[i][j + 3]);
-	else if (!ft_strncmp(&parse->map[i][j], "EA ", 3))
-		parse->ea_texture = fill_info(&parse->map[i][j + 3]);
-	else if (!ft_strncmp(&parse->map[i][j], "WE ", 3))
-		parse->we_texture = fill_info(&parse->map[i][j + 3]);
-	else if (!ft_strncmp(&parse->map[i][j], "F ", 2))
-		parse->floor_color = fill_info(&parse->map[i][j + 2]);
-	else if (!ft_strncmp(&parse->map[i][j], "C ", 2))
-		parse->ceiling_color = fill_info(&parse->map[i][j + 2]);
+	if (!ft_strncmp(&parse->map[i][*j], "NO ", 3))
+		return (fill_info_check(parse->map[i], &parse->no_texture, j, 3));
+	if (!ft_strncmp(&parse->map[i][*j], "SO ", 3))
+		return (fill_info_check(parse->map[i], &parse->so_texture, j, 3));
+	if (!ft_strncmp(&parse->map[i][*j], "EA ", 3))
+		return (fill_info_check(parse->map[i], &parse->ea_texture, j, 3));
+	if (!ft_strncmp(&parse->map[i][*j], "WE ", 3))
+		return (fill_info_check(parse->map[i], &parse->we_texture, j, 3));
+	if (!ft_strncmp(&parse->map[i][*j], "F ", 2))
+		return (fill_info_check(parse->map[i], &parse->floor_color, j, 2));
+	if (!ft_strncmp(&parse->map[i][*j], "C ", 2))
+		return (fill_info_check(parse->map[i], &parse->ceiling_color, j, 2));
+	if (parse->map[i][*j] != ' ' && parse->map[i][*j] != '\n')
+		return (print_error("Error\nInvalid Input\n"));
+	return (0);
 }
 
 static int	check_dupes(t_parse *parse, int i, int j)
@@ -80,7 +94,8 @@ int	parsing(char *map_name, t_parse *parse)
 		{
 			if (check_dupes(parse, i, j) == -1)
 				return (print_error("Error\nDuplicate elements\n"));
-			compare_info(parse, i, j);
+			if (compare_info(parse, i, &j) == -1)
+				return (-1);
 			j++;
 			if (parse->no_texture && parse->so_texture
 				&& parse->ea_texture && parse->we_texture

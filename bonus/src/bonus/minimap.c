@@ -6,14 +6,32 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 20:19:35 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/12 23:26:56 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/17 11:29:24 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 #include <math.h>
 
-void	init_minimap(t_game *game, t_minimap *minimap)
+int	resize_minimap(t_game *game)
+{
+	int	z;
+
+	z = game->minimap.img->instances[0].z;
+	mlx_delete_image(game->mlx, game->minimap.img);
+	game->minimap.img = mlx_new_image(game->mlx,
+			game->width / 6, game->height / 4);
+	if (!game->minimap.img)
+		return (-1);
+	if (mlx_image_to_window(game->mlx, game->minimap.img,
+			game->width / 40, ceil((double)game->height / 26.666667f))
+		== -1)
+		return (-1);
+	game->minimap.img->instances[0].z = z;
+	return (0);
+}
+
+static void	init_minimap(t_game *game, t_minimap *minimap)
 {
 	int	pixels_per_map_x;
 	int	pixels_per_map_y;
@@ -30,7 +48,7 @@ void	init_minimap(t_game *game, t_minimap *minimap)
 	minimap->map_pos = minimap->min;
 }
 
-void	put_player(mlx_image_t *img)
+static void	put_player(mlx_image_t *img)
 {
 	unsigned int	y;
 	unsigned int	x;
@@ -50,24 +68,6 @@ void	put_player(mlx_image_t *img)
 		}
 		y++;
 	}
-}
-
-int	resize_minimap(t_game *game)
-{
-	int	z;
-
-	z = game->minimap.img->instances[0].z;
-	mlx_delete_image(game->mlx, game->minimap.img);
-	game->minimap.img = mlx_new_image(game->mlx,
-			game->width / 6, game->height / 4);
-	if (!game->minimap.img)
-		return (-1);
-	if (mlx_image_to_window(game->mlx, game->minimap.img,
-			game->width / 40, ceil((double)game->height / 26.666667f))
-		== -1)
-		return (-1);
-	game->minimap.img->instances[0].z = z;
-	return (0);
 }
 
 static void	put_minimap(t_minimap *minimap, t_game *game,

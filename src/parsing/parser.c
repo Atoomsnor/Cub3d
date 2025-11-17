@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:20:47 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/16 23:27:41 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/17 11:37:42 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,12 @@ int	parsing(char *map_name, t_parse *parse)
 			if (compare_info(parse, i, &j) == -1)
 				return (-1);
 			j++;
-			if (parse->no_texture && parse->so_texture && parse->ea_texture
-				&& parse->we_texture && parse->floor_color && parse->ceiling_color)
+			if (parse->no_texture && parse->so_texture
+				&& parse->ea_texture && parse->we_texture
+				&& parse->floor_color && parse->ceiling_color)
 				return (i + 1);
 		}
 		i++;
 	}
-	print_error("Error\nNot enough elements\n");
-	return (-1);
+	return (print_error("Error\nNot enough elements\n"));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/13 15:13:17 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/17 11:29:43 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define SCREEN_HEIGHT 640
 # define SCREEN_WIDTH 960
 # define SCALE 64
+
 // colors
 # define BLACK 0xFF000000
 # define CYPRUS 0xFF404000
@@ -126,22 +127,28 @@ typedef struct s_game
 	int				height;
 }	t_game;
 
-void		minimap(t_game *game);
+// *bonus* //
+
 void		doors(t_game *game);
+void		minimap(t_game *game);
+int			resize_minimap(t_game *game);
 
 // *cleanup* //
 
 int			free_and_null(void *ptr);
 void		free_matrix(void *ptr);
 void		free_flood(void *ptr);
-int			empty_parse(t_parse *parse, bool out);
 int			print_error(char *str);
+int			empty_parse(t_parse *parse, bool out);
 
 // *initialize* //
 
 int			init_game(t_game *game, t_parse parse);
 int			init_images(t_game *game, t_parse parse);
 int			set_base_visuals(t_game *game);
+int			png_to_elements(t_img *img, mlx_t *mlx);
+void		disable_instances(t_img *img);
+
 // *map_checks* //
 
 int			look_for_lines(int map_pos, char **map);

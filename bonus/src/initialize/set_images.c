@@ -6,20 +6,30 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:54:25 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/13 15:30:01 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/17 11:17:25 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 #include <stdio.h>
 
+static int	resize_walls(t_img *img)
+{
+	if (!mlx_resize_image(img->no, SCALE, SCALE))
+		return (print_error("Error\nFailed resizing image\n"));
+	if (!mlx_resize_image(img->ea, SCALE, SCALE))
+		return (print_error("Error\nFailed resizing image\n"));
+	if (!mlx_resize_image(img->so, SCALE, SCALE))
+		return (print_error("Error\nFailed resizing image\n"));
+	if (!mlx_resize_image(img->we, SCALE, SCALE))
+		return (print_error("Error\nFailed resizing image\n"));
+	return (0);
+}
+
 static int	png_to_environment(t_img *img, mlx_t *mlx, t_parse parse)
 {
 	img->hud = png_to_image("./img/hud_bonus.png", mlx);
 	if (!img->hud)
-		return (-1);
-	img->door = png_to_image("./img/door.png", mlx);
-	if (!img->door)
 		return (-1);
 	img->no = png_to_image(parse.no_texture, mlx);
 	if (!img->no)
@@ -33,6 +43,8 @@ static int	png_to_environment(t_img *img, mlx_t *mlx, t_parse parse)
 	img->we = png_to_image(parse.we_texture, mlx);
 	if (!img->we)
 		return (-1);
+	if (resize_walls(img) == -1)
+		return (-1);
 	img->floor_color = str_to_color(parse.floor_color);
 	if (img->floor_color == -1)
 		return (-1);
@@ -42,42 +54,6 @@ static int	png_to_environment(t_img *img, mlx_t *mlx, t_parse parse)
 	return (0);
 }
 
-static int	png_to_elements(t_img *img, mlx_t *mlx)
-{
-	img->faces[0] = png_to_image("./img/face_left.png", mlx);
-	if (!img->faces[0])
-		return (-1);
-	img->faces[1] = png_to_image("./img/face_right.png", mlx);
-	if (!img->faces[1])
-		return (-1);
-	img->gun[0] = png_to_image("./img/gun1.png", mlx);
-	if (!img->gun[0])
-		return (-1);
-	img->gun[1] = png_to_image("./img/gun2.png", mlx);
-	if (!img->gun[1])
-		return (-1);
-	img->gun[2] = png_to_image("./img/gun3.png", mlx);
-	if (!img->gun[2])
-		return (-1);
-	img->gun[3] = png_to_image("./img/gun4.png", mlx);
-	if (!img->gun[3])
-		return (-1);
-	img->gun[4] = png_to_image("./img/gun5.png", mlx);
-	if (!img->gun[4])
-		return (-1);
-	return (0);
-}
-
-static void	disable_instances(t_img *img)
-{
-	img->faces[0]->enabled = false;
-	img->faces[1]->enabled = false;
-	img->gun[1]->enabled = false;
-	img->gun[2]->enabled = false;
-	img->gun[3]->enabled = false;
-	img->gun[4]->enabled = false;
-}
-
 int	init_images(t_game *game, t_parse parse)
 {
 	game->minimap.img = mlx_new_image(game->mlx,
@@ -85,8 +61,8 @@ int	init_images(t_game *game, t_parse parse)
 	if (!game->minimap.img)
 		return (-1);
 	if (mlx_image_to_window(game->mlx, game->minimap.img,
-		SCREEN_WIDTH / 40, (double)SCREEN_HEIGHT / 26.666667f) == -1)
-			return (-1);
+			SCREEN_WIDTH / 40, (double)SCREEN_HEIGHT / 26.666667f) == -1)
+		return (-1);
 	game->minimap.img->instances[0].z = 10;
 	if (png_to_environment(&game->img, game->mlx, parse) == -1)
 		return (-1);
