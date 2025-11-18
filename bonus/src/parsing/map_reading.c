@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 12:53:25 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/13 00:32:03 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/17 17:39:17 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,15 @@ static int	count_lines(char *file_name)
 	return (i);
 }
 
+static void	*free_error_ret(char **str, char *err)
+{
+	if (str)
+		free_matrix(str);
+	if (err)
+		print_error(err);
+	return (NULL);
+}
+
 char	**get_map(char *input)
 {
 	int		fd;
@@ -58,7 +67,7 @@ char	**get_map(char *input)
 		return (NULL);
 	fd = open(input, O_RDONLY);
 	if (fd < 0)
-		return (print_error("Error\nInvalid file\n"), NULL);
+		return (free_error_ret(NULL, "Error\nInvalid file\n"));
 	i = 0;
 	ret = (char **)ft_calloc(line_count + 1, sizeof(char *));
 	if (!ret)
@@ -70,5 +79,7 @@ char	**get_map(char *input)
 		ret[i] = get_next_line(fd);
 	}
 	close(fd);
+	if (ret[i - 1][ft_strlen(ret[i - 1]) - 1] == '\n')
+		return (free_error_ret(ret, "Error\nEmpty line(s) in map\n"));
 	return (ret);
 }

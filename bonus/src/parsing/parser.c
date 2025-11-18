@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:20:47 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/17 11:35:19 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/18 11:21:09 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	compare_info(t_parse *parse, int i, int *j)
 	if (!ft_strncmp(&parse->map[i][*j], "C ", 2))
 		return (fill_info_check(parse->map[i], &parse->ceiling_color, j, 2));
 	if (parse->map[i][*j] != ' ' && parse->map[i][*j] != '\n')
-		return (print_error("Error\nInvalid Input\n"));
+		return (print_error("Error\nInvalid input\n"));
 	return (0);
 }
 

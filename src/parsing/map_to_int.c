@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:24:22 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/17 16:35:27 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/17 17:39:51 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	**ctoi_map(char **map)
 	while (map[i])
 	{
 		if (check_empty_line(map[i]) == -1)
-			return (print_error("Error\nEmpty lines in map\n"), NULL);
+			return (print_error("Error\nEmpty line(s) in map\n"), NULL);
 		i++;
 	}
 	if (i > 100 || width > 100)
