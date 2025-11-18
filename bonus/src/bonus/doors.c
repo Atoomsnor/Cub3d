@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 15:04:45 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/18 14:10:17 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/18 15:54:54 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,8 @@ void	doors(t_game *game)
 	ray = cast_ray(ray, game->player, game, false);
 	if (ray.hit_dist <= 0 || ray.hit_dist > 2)
 		return ;
-	ft_printf("pew\n");
 	if (get_time() - timer < 1000)
 		return ;
-	ft_printf("paw\n");
 	if (game->world_map[(int)ray.map.y][(int)ray.map.x] == 3)
 	{
 		game->world_map[(int)ray.map.y][(int)ray.map.x] = -1;
