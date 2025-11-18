@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 16:25:44 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/13 00:31:09 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/18 13:33:00 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static bool	input_numeral(char **argv, int argc)
 	int	i;
 	int	j;
 
-	i = 1;
+	i = 0;
 	while (i < argc && argv[i])
 	{
 		j = 0;

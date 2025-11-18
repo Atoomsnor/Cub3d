@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 00:29:41 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/13 14:36:32 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/18 13:53:32 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int	init_game(t_game *game, t_parse parse)
 		return (mlx_terminate(game->mlx), -1);
 	init_fps(&game->fps);
 	init_anime(&game->anime);
-	init_anime(&game->door_anime);
 	game->screen_buffer = NULL;
 	return (0);
 }

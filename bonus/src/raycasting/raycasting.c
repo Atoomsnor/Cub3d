@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:29:00 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/13 15:34:53 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/18 14:03:15 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ t_ray	cast_ray(t_ray ray, t_player player, t_game *game, bool to_image)
 	ray.delta_dist.x = fabs(1 / ray.dir.x);
 	ray.delta_dist.y = fabs(1 / ray.dir.y);
 	dir_and_side_dist(&ray, &dir, player);
-	dda_loop(&ray, game, dir);
+	if (to_image)
+		dda_loop(&ray, game, dir);
+	else
+		dda_door(&ray, game, dir);
 	side_based_calculations(&ray, player.pos);
 	if (ray.hit_dist > 0 && to_image)
 		ray_to_image(ray, game);

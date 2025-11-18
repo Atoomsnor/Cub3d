@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 20:19:35 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/17 11:29:24 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/18 14:10:36 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,9 @@ static void	put_minimap(t_minimap *minimap, t_game *game,
 			[(int)floor(minimap->map_pos.x)] == 1)
 			put_pixel(minimap->img, x, y, game->img.ceiling_color);
 		else if (minimap->map[(int)floor(minimap->map_pos.y)]
-			[(int)floor(minimap->map_pos.x)] == 3)
+			[(int)floor(minimap->map_pos.x)] == 3
+			|| minimap->map[(int)floor(minimap->map_pos.y)]
+			[(int)floor(minimap->map_pos.x)] == -1)
 			put_pixel(minimap->img, x, y, LIGHT_SEA_GREEN);
 		else if (minimap->map[(int)floor(minimap->map_pos.y)]
 			[(int)floor(minimap->map_pos.x)] != 2)

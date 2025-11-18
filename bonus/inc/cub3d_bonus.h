@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/17 11:29:43 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/18 14:03:51 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ typedef struct s_game
 	t_img			img;
 	mlx_image_t		*screen_buffer;
 	t_sprite_anime	anime;
-	t_sprite_anime	door_anime;
 	t_fps			fps;
 	t_vector		mouse;
 	t_minimap		minimap;
@@ -132,6 +131,7 @@ typedef struct s_game
 void		doors(t_game *game);
 void		minimap(t_game *game);
 int			resize_minimap(t_game *game);
+void		dda_door(t_ray *ray, t_game *game, t_vector dir);
 
 // *cleanup* //
 
