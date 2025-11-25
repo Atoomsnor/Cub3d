@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/25 15:56:36 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/26 00:09:19 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,34 +89,28 @@ static void	move_right(t_game *game, double speed, const float sideways_mod)
 		&& game->world_map[(int)(next_y)][(int)(pos->x)] <= 0)
 		pos->y += dir.y * speed;
 }
-
-void	key_hook(void *param)
+	
+void move(t_game *game, double speed)
 {
 	const float	mod = 0.5f;
 	const float	sideways_mod = 0.15f;
-	t_game		*game;
-	double		speed;
+	double total_speed;
 
-	if (!param)
-		return ;
-	game = param;
-	get_fps(game);
-	minimap(game);
-	speed = 0.005f * game->fps.delta_time;
-	if (speed > 1)
-		speed = 0.5;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(game->mlx);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
-		move_forward(game, speed, mod);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
-		move_backward(game, speed, mod);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
-		move_left(game, speed, sideways_mod);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
-		move_right(game, speed, sideways_mod);
-	turn_hook(game, speed / 2.0f);
-	shoot(game);
-	if (raycast(game) == -1)
-		return ;
+	total_speed = speed;
+	if (speed > 0.2f)
+		speed = 0.2f;
+	while (total_speed > 0)
+	{
+		if (mlx_is_key_down(game->mlx, MLX_KEY_W))
+			move_forward(game, speed, mod);
+		if (mlx_is_key_down(game->mlx, MLX_KEY_S))
+			move_backward(game, speed, mod);
+		if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+			move_left(game, speed, sideways_mod);
+		if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+			move_right(game, speed, sideways_mod);
+		total_speed -= speed;
+		if (total_speed < 0.2f)
+			speed = total_speed;
+	}
 }

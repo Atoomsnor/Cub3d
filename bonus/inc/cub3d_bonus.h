@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 12:37:30 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/18 15:54:37 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/26 00:10:15 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,13 +171,13 @@ int			raycast(t_game *game);
 
 // *user_input* //
 
-void		mouse_hook(t_game *game);
+void		init_mouse(t_game *game);
 void		cursor_hook(double x, double y, void *ptr);
 void		shoot(t_game *game);
-void		key_hook(void *param);
+void		move(t_game *game, double speed);
 void		turn_left(t_game *game, double speed);
 void		turn_right(t_game *game, double speed);
-void		turn_hook(t_game *game, double speed);
+void		turn(t_game *game, double speed);
 
 // *utils* //
 

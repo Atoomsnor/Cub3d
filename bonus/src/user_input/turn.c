@@ -6,7 +6,7 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 02:15:13 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/12 22:30:46 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/26 00:29:41 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	turn_right(t_game *game, double speed)
 	player->plane.y = old_plane_x * sin(speed) + player->plane.y * cos(speed);
 }
 
-void	turn_hook(t_game *game, double speed)
+void	turn(t_game *game, double speed)
 {
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 		turn_left(game, speed);

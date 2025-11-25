@@ -6,13 +6,13 @@
 /*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 17:26:03 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/11/12 22:30:53 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/26 00:25:28 by nhendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-void	mouse_hook(t_game *game)
+void	init_mouse(t_game *game)
 {
 	int	x;
 	int	y;
