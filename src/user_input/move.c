@@ -6,7 +6,7 @@
 /*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:13:12 by roversch          #+#    #+#             */
-/*   Updated: 2025/11/13 14:48:38 by roversch         ###   ########.fr       */
+/*   Updated: 2025/11/25 15:56:30 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,15 +102,17 @@ void	key_hook(void *param)
 	game = param;
 	get_fps(game);
 	speed = 0.005f * game->fps.delta_time;
-	if (speed < 1 && mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
+	if (speed > 1)
+		speed = 0.5;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(game->mlx);
-	if (speed < 1 && mlx_is_key_down(game->mlx, MLX_KEY_W))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
 		move_forward(game, speed, mod);
-	if (speed < 1 && mlx_is_key_down(game->mlx, MLX_KEY_S))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
 		move_backward(game, speed, mod);
-	if (speed < 1 && mlx_is_key_down(game->mlx, MLX_KEY_A))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
 		move_left(game, speed, sideways_mod);
-	if (speed < 1 && mlx_is_key_down(game->mlx, MLX_KEY_D))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 		move_right(game, speed, sideways_mod);
 	turn_hook(game, speed / 2.0f);
 	if (raycast(game) == -1)

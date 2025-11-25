@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_to_image.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nhendrik <nhendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roversch <roversch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 02:12:07 by nhendrik          #+#    #+#             */
-/*   Updated: 2025/10/29 19:54:35 by nhendrik         ###   ########.fr       */
+/*   Updated: 2025/11/25 15:56:52 by roversch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ static void	draw_wall(const int height, int y_end, t_game *game, t_ray ray)
 		tex_y = (int)tex_pos & (SCALE - 1);
 		tex_pos += step;
 		if (!ray.side && ray.dir.x > 0)
-			img = game->img.ea;
-		else if (!ray.side)
 			img = game->img.we;
+		else if (!ray.side)
+			img = game->img.ea;
 		else if (ray.dir.y > 0)
-			img = game->img.so;
-		else
 			img = game->img.no;
+		else
+			img = game->img.so;
 		put_pixel(game->screen_buffer, ray.x, ray.y,
 			get_color(img, ray.tex.x, tex_y));
 		ray.y++;
